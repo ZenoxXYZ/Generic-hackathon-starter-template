@@ -12,6 +12,7 @@
 
 - [?] Problem definition pending: no authoritative hackathon problem has been supplied.
 - [x] Generic starter foundation created and verified.
+- [x] Public template onboarding and workflow guides created and verified.
 - [ ] Product-specific planning pending approved `problem.md`.
 - [ ] Product implementation pending approved `plan.md`.
 
