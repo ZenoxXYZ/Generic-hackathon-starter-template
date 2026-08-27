@@ -1,6 +1,7 @@
 Builder Agent Engineering Workstream Workflow
 1. Purpose
-This workflow enables a fresh Builder Agent chat to reconstruct project state from repository evidence and safely continue the next engineering workstream without depending on previous chat context. It defines the procedure for planning, implementing, debugging, verifying, documenting, and handing off work. Stable repository rules remain in AGENTS.md.
+This workflow enables a fresh Builder Agent chat to reconstruct project state from repository evidence and safely continue the next engineering workstream without depending on previous chat context. It defines the procedure for planning, implementing, debugging, verifying, documenting, reconstructing, and handing off work. Stable repository rules remain in AGENTS.md.
+
 2. Repository State Reconstruction
 Every fresh Builder workstream begins by reading or inspecting the following when present and relevant:
 - AGENTS.md
@@ -18,76 +19,127 @@ Every fresh Builder workstream begins by reading or inspecting the following whe
 - Tests
 - Migrations
 - Dependency and configuration files
+
 Apply the two-axis model in AGENTS.md: use the authoritative problem statement, approved problem.md, and approved plan.md for requirements and design authority; use code, tests, migrations, Git history/status, and safe runtime verification for implemented-state evidence. execute.md, review.md, phase documentation, and review documentation are summaries, not overriding evidence.
+
 Do not trust execute.md or other documentation blindly. Cross-check important completion claims against code, tests, migrations, Git history, and review evidence.
+
 If repository evidence conflicts with project-state files, do not silently choose either side. Verify the repository evidence, report the inconsistency, and correct stale documentation only after the actual state is understood. Stop before starting a new workstream when the inconsistency affects its prerequisites or scope.
+
 3. Determine the Next Engineering Workstream
 Use the repository sources for their distinct purposes:
-- The authoritative problem statement, problem.md, and approved plan.md — requirements and approved design direction
-- execute.md, review.md, and phase/review documentation — implementation-state summaries
-- Git, code, tests, migrations, and safe verification — implementation-state evidence
+- The authoritative problem statement, problem.md, and approved plan.md - requirements and approved design direction
+- execute.md, review.md, and phase/review documentation - implementation-state summaries
+- Git, code, tests, migrations, and safe verification - implementation-state evidence
+
 Determine the next incomplete, meaningful workstream and verify its prerequisites. Do not blindly implement whatever text appears next in a stale checklist.
+
 4. Workstream Size
 A workstream represents one meaningful engineering objective, not one tiny checkbox. Generic workstream types may include:
 - Core domain or state
 - Secondary domain capability
 - Core business or decision logic
-- Allocation, scheduling, or optimization logic
 - Dynamic state handling
 - Frontend integration
+- Deployment
 - Operational hardening
 - Integration or debugging
-Group tightly related subtasks when they belong to one coherent engineering objective. Do not make every file edit its own workstream.
-5. Planning Phase
+
+Group tightly related subtasks when they belong to one coherent engineering objective. Multiple small tasks may form one workstream and should normally receive one reconstruction. Do not make every file edit its own workstream.
+
+5. Standard Builder Lifecycle
+A meaningful Builder workstream normally follows:
+
+```text
+repository reconstruction
+-> Plan Mode
+-> human approval
+-> implementation
+-> implementation-time debugging
+-> focused verification
+-> broader closeout verification
+-> phase/state documentation
+-> independent review where appropriate
+-> post-implementation workstream reconstruction
+-> human understanding checkpoint
+-> Builder chat closure
+```
+
+Do not force independent review after every tiny workstream. Do not force a long teaching session after every small edit. Use proportionality.
+
+6. Planning Phase
 Meaningful workstreams begin in Plan Mode. Plan Mode is read-only.
+
 Before proposing a plan:
 - Inspect the current architecture.
 - Verify existing behavior.
 - Inspect related tests and migrations.
 - Derive requirements from problem.md.
 - Identify relevant design decisions.
+
 The plan must contain the following sections:
 Verified Current State
 What actually exists and works?
+
 Requirements Addressed
 Which [PROBLEM REQUIREMENT] does this workstream solve?
+
 Design Decisions
 Which choices are ours?
+
 Scope
 What this workstream will implement.
+
 Explicit Deferrals
 What it will not implement.
+
 Entity/Data Changes
 Models, fields, and relationships affected.
+
 API Changes
 Endpoints, contracts, and status behavior.
+
 Service/Business/Decision Logic
 Computation or workflow introduced.
+
 Persistence/Migration Changes
 Database impact.
+
 Validation
 Required, optional, nullable, omitted, and boundary behavior.
+
 Request/Data Flow
 How the feature flows through the system.
+
 Failure Behavior
 Important invalid, missing, and error cases.
+
 Implementation Sequence
 Meaningful engineering subtasks.
+
 Testing Strategy
 How correctness will be proven.
+
 Verification Strategy
 Commands and checks needed.
+
 Files Likely To Change
 Expected repository scope.
+
 Commit Boundaries
 Logical change groups, if commits are later requested.
+
 Risks / Open Decisions
 Questions, dependencies, assumptions, and decision points.
+
 Do not implement before human approval.
-6. Human Plan Approval Gate
+
+7. Human Plan Approval Gate
 A produced plan is not automatically approved. Wait for explicit human approval before implementation.
+
 If the human adds clarifications, incorporate them as approved constraints. Only after approval should Plan Mode be exited.
-7. Implementation Phase
+
+8. Implementation Phase
 After approval:
 - Re-check Git status when Git metadata exists.
 - Verify the repository has not materially changed.
@@ -95,34 +147,38 @@ After approval:
 - Preserve verified existing behavior.
 - Make minimal, focused changes.
 - Follow the architecture responsibilities in AGENTS.md.
+
 Work through meaningful implementation subtasks efficiently. Prefer vertical slices where practical, for example:
-Persistence
-→ schema/validation
-→ service/logic
-→ route/API
-→ test
+
+```text
+persistence -> schema/validation -> service/logic -> route/API -> test
+```
+
 or:
-Input state
-→ filter/eligibility
-→ score/rank/decision
-→ explanation
-→ API response
-→ test
+
+```text
+input state -> filter/eligibility -> score/rank/decision -> explanation -> API response -> test
+```
+
 Do not add unrelated functionality.
-8. Execution Tracker
+
+9. Execution Tracker
 Maintain execute.md using:
 - [ ] Pending
 - [~] In progress
 - [x] Completed and verified
 - [!] Blocked
 - [?] Requires decision
+
 Rules:
 - Never mark generated-but-unverified work [x].
 - Use meaningful checkpoint updates, not constant edits after every line.
 - Final workstream closeout must update execution state accurately.
 - Treat execute.md as a summary and reconcile it to verified repository evidence before updating it.
-9. Implementation-Time Debugging
+
+10. Implementation-Time Debugging
 The Builder Agent owns implementation-time bugs discovered while building its approved workstream when they can be fixed without materially changing the approved design.
+
 For every failure:
 1. Reproduce or verify it.
 2. Record expected versus actual behavior.
@@ -133,8 +189,10 @@ For every failure:
 7. Add or update a regression test.
 8. Run focused verification.
 9. Run broader relevant regression verification.
+
 Record meaningful verified Builder bugs in review.md during workstream closeout using stable BUG-IDs. Do not invent bugs or treat missing deferred functionality as a bug.
-10. Design-Change Escalation
+
+11. Design-Change Escalation
 Stop before implementing a material unapproved change to:
 - Architecture
 - Persisted data model
@@ -144,6 +202,7 @@ Stop before implementing a material unapproved change to:
 - Workstream scope
 - Major dependency or infrastructure
 - Phase ordering
+
 Report:
 1. What was discovered
 2. Why the approved plan is affected
@@ -151,8 +210,10 @@ Report:
 4. Tradeoffs
 5. Recommendation
 6. Decision required
+
 Return to planning and obtain human approval before proceeding. Small implementation corrections that preserve the approved design do not require re-planning.
-11. Verification Ladder
+
+12. Verification Ladder
 After implementation, run relevant checks such as:
 1. Targeted tests
 2. Full automated test suite
@@ -161,25 +222,32 @@ After implementation, run relevant checks such as:
 5. API smoke tests
 6. Compile or static sanity checks
 7. Dependency consistency check
-8. Frontend/backend integration test, where applicable
-9. git diff --check
-10. git status
+8. Local frontend/backend integration test, where applicable
+9. Deployed end-to-end verification, when deployment is in scope
+10. git diff --check
+11. git status
+
 Only run checks relevant to the repository. Do not claim unperformed verification. Clearly classify results as:
 - VERIFIED
 - FAILED
 - NOT VERIFIED
 - DEFERRED
-12. Full-Stack Verification
+
+13. Full-Stack Verification
 When a frontend exists, verify the primary user journey:
+
+```text
 User
-→ frontend interaction
-→ HTTP request
-→ route
-→ schema validation
-→ service/business logic
-→ persistence/decision logic
-→ response
-→ frontend rendering
+-> frontend interaction
+-> HTTP request
+-> route
+-> schema validation
+-> service/business logic
+-> persistence/decision logic
+-> response
+-> frontend rendering
+```
+
 Test at minimum:
 - Golden successful flow
 - Important invalid input
@@ -187,17 +255,71 @@ Test at minimum:
 - Important boundary condition
 - Major state-changing operation
 - Backend/frontend schema compatibility
-13. Phase Documentation
+
+14. Deployment Workstream
+When the intended MVP requires a remotely accessible demonstration, deployment is a first-class Builder workstream. Local integration is not final verification.
+
+The deployment lifecycle is:
+
+```text
+local verified system
+-> deployment plan
+-> backend hosting
+-> hosted database
+-> environment variables
+-> migrations
+-> frontend hosting
+-> production API URL
+-> CORS
+-> deployed end-to-end verification
+```
+
+Deployment workstream inputs:
+- Locally verified backend
+- Locally verified frontend, if present
+- Migrations
+- Dependencies
+- Environment requirements
+- Approved deployment design
+
+Deployment workstream outputs:
+- Public backend URL
+- Public frontend URL, if applicable
+- Hosted database
+- Applied migrations
+- Verified golden path
+
+Completion criteria:
+- Backend starts in production-like mode.
+- Health endpoint works publicly.
+- Frontend loads publicly, if present.
+- Frontend calls the deployed backend, not localhost.
+- DATABASE_URL is configured in the host environment.
+- Migrations are applied.
+- CORS works for real deployed origins.
+- Critical request/response contracts work.
+- State persists in the hosted database.
+- Golden demo flow passes end to end.
+
+Do not add Docker, containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it. Deploy the smallest architecture that reliably demonstrates the critical path.
+
+15. Phase Documentation
 After successful verification of a meaningful workstream, document it under:
 docs/phases/<workstream-slug>/
+
 In normal or learning mode, create:
 - README.md
 - Numbered .md documents for meaningful implementation subtasks when useful
+
 Do not create separate documents for trivial edits.
+
 Strict Hackathon / Time-Constrained Mode
 By default, create only docs/phases/<workstream-slug>/README.md with a concise record of the objective, requirements addressed, important design decisions, key files and architecture, API or data flow, core logic or algorithm, verification, important bugs, deferred work, and a concise study or demo explanation.
+
 Create numbered subtask documents only when a non-obvious engineering decision, complex algorithm, meaningful bug/debugging story, migration or integration issue needs preservation, or the human explicitly requests detailed learning documentation. Do not require empty or irrelevant sections; omit them or mark them not applicable.
+
 The detailed README and subtask guidance below applies in normal or learning mode, or when the workstream's risk or complexity justifies it.
+
 Phase README Must Explain
 - Objective
 - Starting state
@@ -221,6 +343,7 @@ Phase README Must Explain
 - Concepts the learner should understand
 - VS Code code-reading order
 - Concise hackathon or judge explanation
+
 Subtask Docs
 For meaningful subtasks, explain:
 - Problem solved
@@ -236,12 +359,67 @@ For meaningful subtasks, explain:
 - Concepts
 - VS Code study guide
 - Judge explanation
+
 Clearly distinguish:
 - [PROBLEM REQUIREMENT]
 - [DESIGN DECISION]
 - [IMPLEMENTATION]
+
 Phase documentation must describe actual verified implementation, not merely repeat the plan.
-14. review.md Closeout
+
+16. Post-Implementation Workstream Reconstruction
+Purpose: convert verified implementation into human engineering understanding. AI can produce working code faster than a human can internalize it; reconstruction bridges that gap after verification, using the real implementation rather than a hypothetical design.
+
+For a meaningful workstream, reconstruct:
+1. Requirement - what approved requirement does this solve?
+2. Design - what design was selected, why, and what important alternative was rejected?
+3. Files / Layers - which repository files implement the workstream, and what responsibility does each layer have?
+4. Runtime Flow - what happens when the feature is executed?
+5. Data Flow - what enters, what changes, what persists, and what returns?
+6. Dependencies - which earlier modules or workstreams does this depend on?
+7. Downstream Impact - which later modules or workstreams depend on this?
+8. Verification - which tests and checks prove it, and which meaningful bugs were found and fixed?
+9. Judge Explanation - how could the human explain this workstream in 30-60 seconds?
+
+When relevant, trace a vertical slice through the real repository:
+
+```text
+frontend / caller
+-> API route
+-> Pydantic schema
+-> service
+-> business/decision logic
+-> SQLAlchemy
+-> database
+-> response
+-> frontend/result
+```
+
+Do not turn reconstruction into a generic lecture unrelated to the current repository.
+
+Strict hackathon timing guidance:
+- Tiny or simple workstream: 2-3 minutes, or merge explanation into the next checkpoint.
+- Meaningful workstream: about 5-8 minutes.
+- Core business or decision workstream: up to about 8-10 minutes if justified.
+- Whole-project reconstruction before demo: about 10-15 minutes.
+- Do not teach after every microscopic file edit.
+
+These are guidance, not rigid timers.
+
+17. Human Understanding Checkpoint
+Before a Builder chat is closed, the human should be able to explain at least:
+- What was built
+- Why it exists
+- Where it lives
+- How it executes
+- What state it touches
+- What it depends on
+- What depends on it
+- How it was verified
+
+Do not require exhaustive memorization. The purpose is to make the human capable of supervising, debugging, modifying, and explaining the system.
+
+18. review.md Closeout
 Keep review.md concise. Record:
 - Workstream status
 - Implemented behavior
@@ -251,38 +429,51 @@ Keep review.md concise. Record:
 - Deferred work
 - Not-verified items
 - Important limitations
+
 Do not duplicate entire phase documentation into review.md.
+
 Builder closeout records Builder-owned, verified implementation-time bugs. Reviewer findings remain in the review report until human review; accepted or verified review findings are recorded by the Reviewer only after the applicable human approval.
-15. plan.md Closeout
+
+19. plan.md Closeout
 Update plan.md only if:
 - Workstream completion status needs reflecting.
 - The high-level roadmap changed.
 - An approved design change materially affects future phases.
+
 Do not rewrite the plan after every implementation detail.
-16. Human Review Gate
-After implementation, debugging, verification, phase documentation, and project-state updates, stop for human review. Do not automatically commit or push.
+
+20. Human Review Gate
+After implementation, debugging, verification, phase documentation, project-state updates, post-implementation reconstruction, and the human understanding checkpoint, stop for human review. Do not automatically commit or push.
+
 Report:
 - IMPLEMENTATION
 - VERIFICATION
 - BUGS
 - DOCUMENTATION
 - PROJECT STATE
+- RECONSTRUCTION / UNDERSTANDING
 - GIT STATUS
 - REMAINING / DEFERRED
-17. Commit and Push
+
+21. Commit and Push
 Commits happen only when explicitly requested. Prefer logical boundaries such as:
 - Implementation and tests
 - Documentation and project state
 - Review or corrective fixes
+
 Before committing:
 - Inspect the staged diff.
 - Confirm intended scope.
 - Confirm tests and verification.
+
 Push only when explicitly requested.
-18. Independent Repository Review Handoff
-After a meaningful executable or cross-domain workstream is implemented, debugged, verified, documented, human-reviewed, and normally committed and pushed, an independent Reviewer Agent may run the quality gate in docs/REPO_REVIEW_WORKFLOW.md when practical before dependent major development continues. A human may explicitly authorize review of a clean, identified uncommitted checkpoint under that workflow.
+
+22. Independent Repository Review Handoff
+After a meaningful executable, deployment, or cross-domain workstream is implemented, debugged, verified, documented, human-reviewed, and normally committed and pushed, an independent Reviewer Agent may run the quality gate in docs/REPO_REVIEW_WORKFLOW.md when practical before dependent major development continues. A human may explicitly authorize review of a clean, identified uncommitted checkpoint under that workflow.
+
 Tiny documentation-only changes do not automatically require a full independent review.
-19. Builder vs Reviewer Ownership
+
+23. Builder vs Reviewer Ownership
 Builder Agent:
 - Plans
 - Implements
@@ -290,39 +481,81 @@ Builder Agent:
 - Verifies
 - Documents
 - Updates project state
+- Performs workstream reconstruction
 - Prepares commits
+
 Reviewer Agent:
 - Independently audits stable committed work
 - Starts read-only
 - Classifies findings
 - May fix approved local, design-preserving bugs
 - Does not silently redesign architecture
+
 Major review-discovered corrective design changes become a separate corrective Builder workstream.
-20. Review Result Handling
+
+24. Review Result Handling
 If independent review returns:
+
 PASS
 Proceed to the next workstream.
+
 PASS WITH NON-BLOCKING FINDINGS
 Record or defer findings appropriately and proceed if no dependency risk exists.
+
 BLOCKED
 Do not begin dependent major development. P0 must be resolved. P1 should normally be resolved before dependent development when it creates material correctness or integration risk.
-21. Next-Chat Handoff
-After the Builder and Reviewer cycle is complete, and any requested commits or pushes are completed, the next fresh Builder chat must reconstruct state from repository evidence. The user should not need to manually restate the previous workstream.
-The repository is the persistent memory.
-22. Hackathon Time Compression
+
+25. Next-Chat Handoff
+A fresh Builder chat/session is normally responsible for one meaningful workstream. It normally closes after:
+- Plan approved
+- Implementation complete
+- Verification complete
+- Docs/state reconciled
+- Relevant review findings handled
+- Post-implementation reconstruction performed
+- Human understanding checkpoint reached
+
+The next meaningful workstream should normally begin in a fresh Builder context. The repository carries engineering memory across chats.
+
+26. Whole-Project Engineering Reconstruction
+Before the final demo, reconstruct the full project so the human can explain:
+
+```text
+problem
+-> requirements
+-> architecture
+-> data model
+-> API
+-> services
+-> business/decision logic
+-> persistence
+-> frontend
+-> dynamic updates
+-> deployment
+-> verification
+-> limitations / tradeoffs
+```
+
+The goal is not memorizing every line. The goal is to understand what happens, why, where, what depends on what, and what evidence proves it.
+
+27. Hackathon Time Compression
 Under strict time limits, prioritize:
 1. Problem understanding
 2. Primary user journey
 3. Core domain or state
 4. Core decision or business logic
 5. Frontend/backend integration
-6. Verification and debugging
-7. Demo readiness
-Compress workstreams when useful. Do not allow process documentation to consume time needed for a working MVP.
-Prioritize working MVP, correctness, integration, verification, and demo readiness before documentation depth. Use the strict documentation mode in Section 13 when appropriate.
+6. Deployment readiness when the demo is remote
+7. Verification and debugging
+8. Demo readiness
+
+Compress workstreams when useful. Do not allow process documentation or long lectures to consume time needed for a working MVP. Prioritize working MVP, correctness, integration, verification, and demo readiness before documentation depth. Use the strict documentation and reconstruction modes above when appropriate.
+
 Near demo freeze:
 - Stop speculative feature development.
-- Fix only issues threatening startup, primary flow, correctness, persistence, integration, or critical validation.
-23. Final Principle
+- Fix only issues threatening startup, primary flow, correctness, persistence, integration, deployed access, or critical validation.
+
+28. Final Principle
 The Builder Agent's job is not to maximize code volume.
-It is to convert approved requirements and design decisions into the smallest correct, verified, understandable MVP while leaving enough repository evidence for another fresh agent to continue safely.
+
+It is to convert approved requirements and design decisions into the smallest correct, verified, understandable, demonstrable MVP while leaving enough repository evidence for another fresh agent to continue safely.

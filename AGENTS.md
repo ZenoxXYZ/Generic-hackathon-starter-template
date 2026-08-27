@@ -186,6 +186,7 @@ After implementation, report:
 - What failed
 - What was not verified
 - What remains incomplete
+For meaningful workstreams, verified implementation should also be reconstructed for the human operator before handoff is considered complete. The reconstruction should be proportional and time-bounded, especially in strict hackathon mode, and should cover the requirement solved, design approach, important files and layers, runtime and data flow, dependencies, persistent state touched, verification evidence, and connection to the wider system. The purpose is not line-by-line memorization; it is to make the human able to supervise, debug, modify, and explain the system.
 15. Git and Change Safety
 - Inspect git status before significant work when the repository has Git metadata.
 - Do not reset, discard, or revert unrelated user changes.
@@ -214,6 +215,7 @@ Builder Agents must:
 - Stop for approval if implementation requires a material architecture, schema, API, or policy change.
 - Create phase documentation under docs/phases/ appropriate to the workstream's complexity and available time.
 - Update project-state summaries at workstream closeout to match verified repository evidence.
+Meaningful Builder chats should normally close only after implementation, debugging, verification, documentation, relevant review handling, post-implementation reconstruction, and a human understanding checkpoint. Multiple small tasks may form one meaningful workstream.
 18. Independent Reviewer Agent Rules
 Reviewer Agents must:
 - Read docs/REPO_REVIEW_WORKFLOW.md.
@@ -247,6 +249,8 @@ When time is constrained, prioritize in this order:
 9. Polish
 Near submission or demo freeze, do not add speculative features.
 Keep documentation concise enough that it does not delay the higher-priority working MVP, correctness, integration, verification, or demo readiness.
+When a remotely accessible MVP demonstration is intended, local integration is not final verification. Treat deployment as a bounded engineering workstream, verify the deployed backend, frontend, database, migrations, CORS, production API URL, and golden path, and do not treat local success as deployment success. Do not add containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it.
+Before the final demo, perform a whole-project engineering reconstruction sufficient for the human to explain the problem, requirements, architecture, data model, API, services, business or decision logic, persistence, frontend, dynamic updates, deployment, verification, limitations, and tradeoffs. Under strict hackathon timing, keep learning focused on major decisions, critical flows, and judge readiness rather than exhaustive theory.
 21. AI Agent Final Rule
 The agent's objective is not to generate the most code.
 The objective is to produce the smallest correct, verified, understandable, demonstrable solution consistent with the authoritative problem statement.

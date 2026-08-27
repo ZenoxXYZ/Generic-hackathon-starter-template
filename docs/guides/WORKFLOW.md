@@ -27,9 +27,72 @@ The Builder owns implementation and its local bugs. The Reviewer challenges comp
 
 Generated code becomes a completed checkpoint only after relevant tests, imports, safe runtime/API checks, and any required migration checks pass. A failure should be reproduced, compared with expected behavior, traced to its responsible layer, fixed narrowly, and protected by regression verification.
 
+## Why Post-Implementation Reconstruction Exists
+
+AI can produce working code faster than a human can internalize it.
+
+```text
+verified code != human understanding
+```
+
+Post-implementation reconstruction bridges that gap. It translates verified repository evidence into enough human understanding to supervise, debug, modify, and explain the system.
+
+The learning stage comes after verification because the best teaching source is the actual implementation, not a hypothetical design that may have changed during debugging.
+
+## Three Levels of Understanding
+
+After a meaningful workstream, the human should understand:
+
+1. Why the workstream exists.
+2. How it is implemented.
+3. How it connects to the rest of the repository.
+
+This does not mean memorizing every line. It means knowing the requirement, design, important files, runtime flow, data flow, dependencies, verification evidence, and judge-level explanation.
+
+## Workstreams and Builder Chats
+
+One fresh Builder chat normally maps to one meaningful workstream. The repository persists context; the chat is temporary.
+
+A meaningful Builder chat normally closes after:
+
+```text
+approved plan
+-> implementation
+-> debugging
+-> verification
+-> documentation/state reconciliation
+-> relevant review handling
+-> workstream reconstruction
+-> human understanding checkpoint
+```
+
+Multiple small tasks may form one workstream and should usually receive one combined reconstruction. Do not require a long teaching session after every microscopic edit.
+
 ## Phase and Review Evidence
 
 `docs/phases/` records what a Builder actually implemented and verified. `docs/reviews/` records an independent review scope, evidence, findings, risks, and status. In strict hackathon mode, keep both concise and focused on the demo-critical path.
+
+## Stable Methodology vs Project State
+
+The stable reusable methodology lives in:
+- AGENTS.md
+- docs/AGENT_WORKFLOW.md
+- docs/REPO_REVIEW_WORKFLOW.md
+- docs/guides/
+
+These files evolve when the generic engineering method improves.
+
+Project-specific state lives in:
+- problem.md
+- plan.md
+- execute.md
+- review.md
+- README.md inside an adapted hackathon solution repository
+- docs/phases/
+- docs/reviews/
+- code, tests, migrations, frontend, and configuration justified by the approved problem
+
+Do not contaminate reusable methodology with product-specific rules. Do not treat project-state summaries as stronger evidence than the real implementation.
 
 ## Full-Stack Work
 
@@ -40,5 +103,85 @@ User -> UI -> API -> validation -> service / logic -> persistence -> response ->
 ```
 
 Verify the happy path as well as important loading, validation, error, and empty states. Before demo freeze, stop speculative work and focus on startup, the main journey, correctness, integration, and critical failures.
+
+## Deployment Lifecycle
+
+When the MVP is intended to be demoed remotely, deployment is its own engineering workstream:
+
+```text
+local integration
+-> deployment
+-> deployed integration verification
+-> final review
+-> whole-project engineering reconstruction
+-> Demo Freeze
+```
+
+Local success is not deployment success. A deployed app has different URLs, environment variables, origins, database connectivity, migrations, build commands, startup behavior, and failure modes.
+
+Conceptually:
+
+```text
+LOCAL:
+frontend localhost
+-> backend localhost
+-> local/test DB
+
+DEPLOYED:
+hosted frontend
+-> HTTPS
+-> hosted backend
+-> hosted PostgreSQL
+```
+
+Deploy the smallest architecture that reliably demonstrates the critical path. Do not add infrastructure merely to look production-grade.
+
+## Whole-Project Engineering Reconstruction
+
+After major workstreams and before the final demo, reconstruct the whole application:
+- Architecture
+- Domain relationships
+- Database
+- API
+- Service and business logic
+- Decision engine, when present
+- Frontend
+- Dynamic updates, when present
+- Deployment
+- Verification
+- Limitations
+- Engineering tradeoffs
+
+The final reconstruction should leave the human able to explain the project as:
+
+```text
+Problem
+-> Requirements
+-> Architecture
+-> Data model
+-> API
+-> Services
+-> Business/Decision Logic
+-> Persistence
+-> Frontend
+-> Dynamic Updates
+-> Deployment
+-> Verification
+-> Limitations / Tradeoffs
+```
+
+## Time-Constrained Learning
+
+During a six-hour hackathon, the goal is not line-by-line code memorization, complete theory mastery, or long lectures after each edit.
+
+The goal is to understand major engineering decisions, meaningful workstream execution, file and layer connections, important state/data flow, verification, and how the whole application can be explained to judges.
+
+Suggested timing:
+- Small workstream reconstruction: 2-3 minutes.
+- Meaningful workstream: 5-8 minutes.
+- Core business or decision workstream: up to about 8-10 minutes.
+- Whole-project reconstruction before demo: about 10-15 minutes.
+
+These are guidance, not rigid timers.
 
 For exact Builder and Reviewer procedures, read [AGENT_WORKFLOW.md](../AGENT_WORKFLOW.md) and [REPO_REVIEW_WORKFLOW.md](../REPO_REVIEW_WORKFLOW.md).

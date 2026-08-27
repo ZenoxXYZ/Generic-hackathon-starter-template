@@ -14,7 +14,7 @@ This repository is a problem-agnostic engineering foundation for hackathons, tak
 
 Fast projects often lose context between people, chats, and implementation checkpoints. That can produce invented requirements, unverified code, unnecessary infrastructure, and mismatched frontend and backend behavior.
 
-This template provides a repeatable engineering workflow: understand the problem, approve a small design, implement bounded slices, verify them with evidence, review meaningful checkpoints independently, and stabilize the demo-critical path.
+This template provides a repeatable engineering workflow: understand the problem, approve a small design, implement bounded slices, verify them with evidence, review meaningful checkpoints independently, reconstruct enough understanding for humans to supervise and explain the system, deploy when a remote demo is needed, and stabilize the demo-critical path.
 
 ## Why Start From a Backend Template?
 
@@ -80,7 +80,7 @@ An engineering workstream is a bounded implementation slice with a defined objec
 Bounded workstreams reduce context size and make implementation, debugging, documentation, review, and rollback easier to reason about.
 
 ```text
-Plan -> Human Approval -> Implement -> Debug -> Verify -> Document -> Review
+Plan -> Human Approval -> Implement -> Debug -> Verify -> Document -> Review -> Understand
 ```
 
 ## Complete Workflow
@@ -100,13 +100,19 @@ problem.md -> plan.md -> execute.md
 Builder workstream -> verification -> docs/phases/
         |
         v
-Human checkpoint -> independent review -> next workstream
+Human checkpoint -> independent review -> understand workstream
         |
         v
-Frontend / full-stack integration when applicable
+Next workstream -> frontend / full-stack integration when applicable
         |
         v
-Final review -> Demo Freeze
+Deployment when remote demo is intended
+        |
+        v
+Deployed verification -> final review
+        |
+        v
+Whole-project understanding -> Demo Freeze
 ```
 
 ## Repository Structure
@@ -144,7 +150,7 @@ Frontend -> HTTP request -> FastAPI route -> Pydantic validation
 -> response schema -> frontend state and rendering
 ```
 
-Frontend and integration can become separate workstreams. The frontend should use approved backend contracts rather than duplicate backend business or decision logic. See the [full-stack guide](docs/guides/FULL_STACK_GUIDE.md).
+Frontend, local integration, deployment, and deployed end-to-end verification can become separate workstreams. The frontend should use approved backend contracts rather than duplicate backend business or decision logic. See the [full-stack guide](docs/guides/FULL_STACK_GUIDE.md).
 
 ## Quick Start
 
@@ -157,8 +163,10 @@ Frontend and integration can become separate workstreams. The frontend should us
 7. Initialize execution state.
 8. Plan, approve, implement, and verify Builder workstreams.
 9. Use independent reviews for meaningful checkpoints.
-10. Build frontend and integration work only when the approved problem requires it.
-11. Run final review and enter Demo Freeze.
+10. Reconstruct meaningful workstreams so humans understand what was built and verified.
+11. Build frontend and local integration work only when the approved problem requires it.
+12. Add deployment and deployed end-to-end verification when a remote demo is intended.
+13. Run final review, whole-project engineering reconstruction, and Demo Freeze.
 
 ```powershell
 python -m venv .venv
@@ -198,6 +206,8 @@ Those choices must come from the authoritative problem statement and approved de
 - [Full-stack guide](docs/guides/FULL_STACK_GUIDE.md)
 - [Builder workflow](docs/AGENT_WORKFLOW.md)
 - [Reviewer workflow](docs/REPO_REVIEW_WORKFLOW.md)
+
+Reusable methodology lives in `AGENTS.md`, `docs/AGENT_WORKFLOW.md`, `docs/REPO_REVIEW_WORKFLOW.md`, and `docs/guides/`. Project-specific state lives in `problem.md`, `plan.md`, `execute.md`, `review.md`, phase/review records, and the implementation that an approved problem justifies.
 
 ## Git Workflow
 
