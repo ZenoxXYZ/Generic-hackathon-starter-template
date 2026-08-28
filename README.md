@@ -1,6 +1,6 @@
 # Generic Hackathon Starter
 
-A reusable, backend-first foundation for building small, demonstrable projects with AI coding agents, when official rules permit that workflow, while keeping requirements, design decisions, implementation evidence, and review history clear.
+A reusable, backend-first, full-stack-capable foundation for building small, demonstrable projects with AI coding agents, when official rules permit that workflow, while keeping requirements, design decisions, implementation evidence, and review history clear.
 
 Bring official event rules, organizer clarifications, and an authoritative problem statement. This template supplies repeatable engineering infrastructure; it does not decide the product or override competition policy.
 
@@ -14,7 +14,7 @@ This repository is a problem-agnostic engineering foundation for hackathons, tak
 
 Fast projects often lose context between people, chats, and implementation checkpoints. That can produce invented requirements, unverified code, unnecessary infrastructure, and mismatched frontend and backend behavior.
 
-This template provides a repeatable engineering workflow: understand the problem, approve a small design, implement bounded slices, verify them with evidence, review meaningful checkpoints independently, reconstruct enough understanding for humans to supervise and explain the system, deploy when a remote demo is needed, and stabilize the demo-critical path.
+This template provides a repeatable engineering workflow: understand the problem, identify the MVP Golden Path, approve a small design with important contracts, implement bounded capability-oriented workstreams, verify them with evidence, review meaningful checkpoints independently, reconstruct enough understanding for humans to supervise and explain the system, deploy when a remote demo is needed, and stabilize the demo-critical path.
 
 ## Why Start From a Backend Template?
 
@@ -76,11 +76,13 @@ State files summarize the repository; they do not override contradictory impleme
 
 Separating these roles reduces the risk that an implementation agent merely confirms its own assumptions. Independent review improves scrutiny; it does not guarantee correctness. Humans approve material transitions, design changes, and Git history changes.
 
-## Workstreams
+## Golden Path and Workstreams
 
-An engineering workstream is a bounded implementation slice with a defined objective, scope, explicit deferrals, affected layers, failure behavior, verification strategy, and completion evidence. A workstream might be a core capability, a persistence slice, a frontend slice, an integration checkpoint, or a targeted correction—depending entirely on the approved problem and plan.
+Golden Path means the most important successful user journey that demonstrates the core value of the MVP. It is identified before implementation during problem intake and Master System Design, then used to drive MVP scope, workstream priority, architecture decisions, data/API contracts, frontend views, integration order, E2E verification, and demo preparation.
 
-Bounded workstreams reduce context size and make implementation, debugging, documentation, review, and rollback easier to reason about.
+An engineering workstream is a bounded engineering objective that creates or strengthens meaningful system behavior. A workstream may be backend-only, backend-heavy, frontend-only, frontend-heavy, a full-stack vertical slice, business/decision-logic oriented, integration/hardening oriented, specialized verification, or release/deployment oriented, depending entirely on the approved problem and plan.
+
+Backend-first does not mean backend-complete-first. It means establishing authoritative domain foundations, persistence, major invariants, critical backend capabilities, and sufficiently stable API/data contracts. Frontend work may begin once a relevant contract/capability is stable enough for its approved scope. Bounded workstreams reduce context size and make implementation, debugging, documentation, review, and rollback easier to reason about.
 
 ```text
 Plan -> Human Approval -> Implement -> Debug -> Verify -> Document -> Review -> Understand
@@ -89,33 +91,43 @@ Plan -> Human Approval -> Implement -> Debug -> Verify -> Document -> Review -> 
 ## Complete Workflow
 
 ```text
-Authoritative Problem Statement
+Official Event / Challenge Intake
         |
         v
-Problem Statement Intake / Source Analysis
+Problem Normalization
         |
         v
-problem.md -> plan.md -> execute.md
-        |         |
-        |         v
-        |   Approved design and workstreams
-        v
-Builder workstream -> verification -> docs/phases/
+MVP + Golden Path -> Master System Design
         |
         v
-Human checkpoint -> independent review -> understand workstream
+Architecture + data model + API/data contracts
         |
         v
-Next workstream -> frontend / full-stack integration when applicable
+plan.md workstream map -> execute.md tracker
         |
         v
-Deployment decision when required or valuable
+Backend/persistence foundation -> relevant contracts stabilize
         |
         v
-Local or deployed E2E verification -> final review
+Frontend begins where relevant -> capability workstreams
         |
         v
-Whole-project understanding -> internal Demo Freeze -> official event freeze/submission
+Incremental vertical integration -> Golden Path complete
+        |
+        v
+Systematic full-stack integration / hardening
+        |
+        v
+Local Golden-Path E2E -> Feature Freeze -> release decision
+        |
+        v
+Local final E2E or deployment + deployed E2E
+        |
+        v
+P0/P1 fixes -> final review -> whole-project understanding
+        |
+        v
+internal Demo Freeze -> official event freeze/submission
 ```
 
 ## Repository Structure
@@ -153,7 +165,7 @@ Frontend -> HTTP request -> FastAPI route -> Pydantic validation
 -> response schema -> frontend state and rendering
 ```
 
-Frontend, local integration, deployment decisions, deployment, and local or deployed end-to-end verification can become separate workstreams. Public deployment is not universally mandatory; use the release path that official rules, demo needs, reliability, and remaining time justify. The frontend should use approved backend contracts rather than duplicate backend business or decision logic. See the [full-stack guide](docs/guides/FULL_STACK_GUIDE.md).
+Integration should grow in stages: contract agreement, feature/slice integration, systematic full-stack hardening, and Golden-Path E2E verification. Later full-stack integration is a hardening/reconciliation pass, not the first time frontend and backend meet. Public deployment is not universally mandatory; use the release path that official rules, demo needs, reliability, and remaining time justify. The frontend should use approved backend contracts rather than duplicate backend business or decision logic. See the [full-stack guide](docs/guides/FULL_STACK_GUIDE.md).
 
 ## Quick Start
 
@@ -162,12 +174,12 @@ Frontend, local integration, deployment decisions, deployment, and local or depl
 3. Install dependencies and verify the starter.
 4. Provide official event rules, organizer clarifications, and the authoritative problem statement when available.
 5. Run Problem Statement Intake, then Problem Definition; review and approve `problem.md`.
-6. Run Master System Design; review and approve `plan.md`.
+6. Run Master System Design; identify the Golden Path, important contracts, and workstream map; review and approve `plan.md`.
 7. Initialize execution state.
-8. Plan, approve, implement, and verify Builder workstreams.
+8. Plan, approve, implement, and verify capability-oriented Builder workstreams.
 9. Use independent reviews for meaningful checkpoints.
 10. Reconstruct meaningful workstreams so humans understand what was built and verified.
-11. Build frontend and local integration work only when the approved problem requires it.
+11. Build frontend and local integration work only when the approved problem requires it and relevant contracts are stable enough.
 12. Choose local or deployed release path according to official rules, demo needs, reliability, and remaining time.
 13. Run final review, whole-project engineering reconstruction, internal Demo Freeze, and official event freeze/submission.
 

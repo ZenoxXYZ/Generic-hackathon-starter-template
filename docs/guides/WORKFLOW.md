@@ -56,6 +56,10 @@ This does not mean memorizing every line. It means knowing the requirement, desi
 
 One fresh Builder chat normally maps to one meaningful workstream. The repository persists context; the chat is temporary.
 
+A workstream is a bounded engineering objective that creates or strengthens meaningful system behavior. It may be backend-only, backend-heavy, frontend-only, frontend-heavy, a full-stack vertical slice, business/decision-logic oriented, integration/hardening oriented, specialized verification, or release/deployment oriented. The boundary follows the capability, not a technology folder.
+
+Golden Path means the most important successful user journey that demonstrates the core value of the MVP. It is identified before implementation during problem intake and Master System Design, then used to drive MVP scope, workstream priority, architecture, data/API contracts, frontend views, integration order, E2E verification, and demo preparation.
+
 A meaningful Builder chat normally closes after:
 
 ```text
@@ -99,6 +103,10 @@ Do not contaminate reusable methodology with product-specific rules. Do not trea
 
 ## Full-Stack Work
 
+Backend-first does not mean backend-complete-first. Backend-first establishes authoritative domain foundations, persistence, major invariants, critical backend capabilities, and sufficiently stable API/data contracts. Frontend work may begin once the relevant contract/capability is stable enough for the approved scope.
+
+Master System Design should identify the important API/data contracts needed by the MVP and Golden Path. Workstreams may refine the relevant details, but material contract changes must be propagated to all affected layers.
+
 Frontend work follows backend contracts instead of copying business rules into the browser:
 
 ```text
@@ -107,6 +115,15 @@ User -> UI -> API -> validation -> service / logic -> persistence -> response ->
 
 Verify the happy path as well as important loading, validation, error, and empty states. Before demo freeze, stop speculative work and focus on startup, the main journey, correctness, integration, and critical failures.
 
+Integration evidence grows in stages:
+
+1. Level 1 - Contract integration: frontend expectations and backend design agree.
+2. Level 2 - Feature / slice integration: a real frontend capability communicates with the real corresponding backend capability.
+3. Level 3 - Systematic full-stack integration: the assembled Golden Path is checked and hardened across boundaries.
+4. Level 4 - E2E verification: a real user journey proves the system works through required layers and produces the intended outcome.
+
+Systematic full-stack integration is a later hardening/reconciliation pass, not the first time frontend and backend meet.
+
 ## Deployment Lifecycle
 
 The workflow supports two release paths.
@@ -114,8 +131,10 @@ The workflow supports two release paths.
 Local release path:
 
 ```text
-local integration
--> local E2E verification
+local Golden-Path E2E
+-> Feature Freeze
+-> release decision
+-> local final E2E
 -> final review
 -> whole-project engineering reconstruction
 -> internal Demo Freeze
@@ -125,7 +144,8 @@ local integration
 Deployed release path:
 
 ```text
-local integration
+local Golden-Path E2E
+-> Feature Freeze
 -> deployment decision
 -> deployment
 -> deployed E2E verification

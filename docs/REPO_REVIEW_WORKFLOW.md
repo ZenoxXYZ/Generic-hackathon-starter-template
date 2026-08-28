@@ -237,6 +237,16 @@ Review:
 - Duplicated business logic in the frontend
 - Golden demo flow
 
+Classify integration evidence by stage:
+1. Contract integration - frontend expectations and backend design agree.
+2. Feature / slice integration - a real frontend capability communicates with the real corresponding backend capability.
+3. Systematic full-stack integration - the assembled Golden Path is checked and hardened across boundaries.
+4. E2E verification - a real user journey proves the system works through required layers and produces the intended outcome.
+
+Do not assume the later full-stack integration workstream is the first time frontend and backend meet. It should normally be a hardening/reconciliation pass over endpoint paths, HTTP methods, request fields, response fields, status/error handling, API base URL, CORS, environment configuration, loading/empty/error/success states, mutation/refetch behavior, stale frontend state, backend validation, persistent state, refresh/reload correctness, cross-page continuity, and Golden-Path continuity.
+
+No frontend modification is not automatically a finding when frontend was legitimately N/A for the approved scope. No backend modification is not automatically a finding when backend was legitimately N/A for the approved scope.
+
 16. Deployment Review
 When deployment is in scope because official rules require it, the demo needs it, or the team selected it as reliable and valuable within remaining time, distinguish local verification from deployed verification. Review:
 - Public backend startup
@@ -307,7 +317,14 @@ Intentionally postponed functionality.
 [IMPROVEMENT]
 Non-blocking enhancement.
 
-Do not classify deferred work, style preferences, hypothetical scale issues, optional polish, or incomplete learning narration as bugs.
+Also distinguish:
+- Contract drift: implementation no longer matches an approved contract or its consuming layer.
+- Integration failure: independently correct layers do not cooperate across a required boundary.
+- Unfinished planned capability: an approved workstream remains incomplete.
+- Intentional N/A layer: a layer was outside the approved workstream scope.
+- Deferred future feature: planned or desirable work was intentionally postponed.
+
+Do not classify deferred work, intentional N/A layers, style preferences, hypothetical scale issues, optional polish, or incomplete learning narration as bugs.
 
 21. Bug Evidence Standard
 Before assigning a BUG-ID, establish where feasible:

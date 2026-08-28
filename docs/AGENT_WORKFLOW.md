@@ -38,17 +38,20 @@ Use the repository sources for their distinct purposes:
 Determine the next incomplete, meaningful workstream and verify its prerequisites. Do not blindly implement whatever text appears next in a stale checklist.
 
 4. Workstream Size
-A workstream represents one meaningful engineering objective, not one tiny checkbox. Generic workstream types may include:
-- Core domain or state
-- Secondary domain capability
-- Core business or decision logic
-- Dynamic state handling
-- Frontend integration
-- Deployment
-- Operational hardening
-- Integration or debugging
+A workstream represents one bounded engineering objective that creates or strengthens meaningful system behavior, not one tiny checkbox and not one technology folder. Generic workstream types may include:
+- Backend-only foundation or API capability
+- Backend-heavy decision or persistence work
+- Frontend-only interface or UX capability
+- Frontend-heavy capability against stable contracts
+- Full-stack vertical slice
+- Business or decision-logic capability
+- Integration or hardening pass
+- Specialized verification when justified
+- Release or deployment work
 
 Group tightly related subtasks when they belong to one coherent engineering objective. Multiple small tasks may form one workstream and should normally receive one reconstruction. Do not make every file edit its own workstream.
+
+A vertical slice is a meaningful capability implemented and verified through every layer required for that capability. Not every slice requires every layer. A decision engine workstream may have frontend N/A. A frontend UX workstream may have backend N/A.
 
 5. Standard Builder Lifecycle
 A meaningful Builder workstream normally follows:
@@ -80,6 +83,8 @@ Before proposing a plan:
 - Inspect related tests and migrations.
 - Derive requirements from problem.md.
 - Identify relevant design decisions.
+- Identify the Golden Path relationship. Golden Path means the most important successful user journey that demonstrates the core value of the MVP.
+- Identify involved layers, dependencies, and API/data contracts affected by the capability.
 
 The plan must contain the following sections:
 Verified Current State
@@ -94,6 +99,9 @@ Which choices are ours?
 Scope
 What this workstream will implement.
 
+Golden-Path Relationship
+Whether this workstream creates, strengthens, verifies, or does not affect the MVP Golden Path.
+
 Explicit Deferrals
 What it will not implement.
 
@@ -102,6 +110,9 @@ Models, fields, and relationships affected.
 
 API Changes
 Endpoints, contracts, and status behavior.
+
+Contract Impact
+Relevant API/data contracts from plan.md, whether they are implementation-ready, and whether any material change requires propagation to backend/frontend consumers.
 
 Service/Business/Decision Logic
 Computation or workflow introduced.
@@ -161,7 +172,23 @@ After approval:
 Work through meaningful implementation subtasks efficiently. Prefer vertical slices where practical, for example:
 
 ```text
-persistence -> schema/validation -> service/logic -> route/API -> test
+requirement
+-> user interaction
+-> frontend component
+-> event handler
+-> frontend API client
+-> HTTP/API contract
+-> backend router
+-> request schema
+-> service
+-> business/decision logic
+-> ORM/persistence
+-> database
+-> response
+-> frontend state/refetch
+-> rerender
+-> visible result
+-> focused verification
 ```
 
 or:
@@ -170,10 +197,14 @@ or:
 input state -> filter/eligibility -> score/rank/decision -> explanation -> API response -> test
 ```
 
+Backend-only, frontend-only, persistence-only, deployment, or verification workstreams may mark irrelevant layers N/A. Do not force every workstream through every layer.
+
 Do not add unrelated functionality.
 
 9. Execution Tracker
-Maintain execute.md using:
+Maintain execute.md as a live capability/workstream tracker derived from approved plan.md. It should answer what capability exists, which workstream is active, what blocks the Golden Path, which layer tasks remain, whether integration occurred, what evidence proves completion, what happens next, and what was deferred.
+
+Use:
 - [ ] Pending
 - [~] In progress
 - [x] Completed and verified
@@ -182,6 +213,9 @@ Maintain execute.md using:
 
 Rules:
 - Never mark generated-but-unverified work [x].
+- Keep low-level tasks under their capability/workstream.
+- Support arbitrary workstreams from plan.md; do not hardcode a fixed count or folder sequence.
+- Use N/A explicitly for layers outside the approved scope.
 - Use meaningful checkpoint updates, not constant edits after every line.
 - Final workstream closeout must update execution state accurately.
 - Treat execute.md as a summary and reconcile it to verified repository evidence before updating it.
@@ -238,6 +272,14 @@ After implementation, run relevant checks such as:
 11. git diff --check
 12. git status
 
+For integration, distinguish:
+1. Contract integration - frontend expectations and backend design agree.
+2. Feature / slice integration - a real frontend capability communicates with the real corresponding backend capability.
+3. Systematic full-stack integration - the assembled Golden Path is checked and hardened across boundaries.
+4. E2E verification - a real user journey proves the system works through required layers and produces the intended outcome.
+
+Focused slice verification proves one capability. Systematic integration proves assembled boundaries cooperate. Golden-Path E2E proves the complete critical journey.
+
 Only run checks relevant to the repository. Do not claim unperformed verification. Clearly classify results as:
 - VERIFIED
 - FAILED
@@ -267,22 +309,30 @@ Test at minimum:
 - Major state-changing operation
 - Backend/frontend schema compatibility
 
+Systematic full-stack integration is a later hardening/reconciliation pass, not the first time frontend and backend meet. It should inspect endpoint/path mismatch, HTTP method mismatch, request-field mismatch, response-field mismatch, status/error handling, frontend API base URL, CORS, environment configuration, loading state, empty state, error state, success state, mutation/refetch behavior, stale frontend state, backend validation, persistent state, refresh/reload correctness, cross-page continuity, and Golden-Path continuity.
+
 14. Deployment Workstream
 Deployment is a first-class Builder workstream when official rules require it, the demo needs it, or it is reliable and valuable within remaining time. Public deployment is not universally mandatory. Local integration is not deployed verification.
 
-The deployment lifecycle is:
+The release lifecycle is:
 
 ```text
-local verified system
--> deployment plan
--> backend hosting
--> hosted database
--> environment variables
--> migrations
--> frontend hosting
--> production API URL
--> CORS
--> deployed end-to-end verification
+local Golden-Path E2E
+-> Feature Freeze
+-> release / deployment decision
+-> local final E2E
+```
+
+or:
+
+```text
+local Golden-Path E2E
+-> Feature Freeze
+-> release / deployment decision
+-> deployment configuration
+-> production database and migrations when approved
+-> production CORS and environment
+-> deployed E2E
 ```
 
 Deployment workstream inputs:
@@ -317,8 +367,10 @@ Do not add Docker, containers, queues, cloud infrastructure, or deployment compl
 If deployment is not required or not a good tradeoff, use the local release path:
 
 ```text
-local integration
--> local E2E verification
+local Golden-Path E2E
+-> Feature Freeze
+-> release / deployment decision
+-> local final E2E
 -> final review
 -> whole-project reconstruction
 -> internal Demo Freeze
@@ -403,10 +455,12 @@ For a meaningful workstream, reconstruct:
 8. Verification - which tests and checks prove it, and which meaningful bugs were found and fixed?
 9. Judge Explanation - how could the human explain this workstream in 30-60 seconds?
 
-When relevant, trace a vertical slice through the real repository:
+When relevant full-stack slices exist, trace the actual vertical slice through the real repository:
 
 ```text
-frontend / caller
+requirement
+-> user action
+-> frontend
 -> API route
 -> Pydantic schema
 -> service
@@ -414,8 +468,12 @@ frontend / caller
 -> SQLAlchemy
 -> database
 -> response
--> frontend/result
+-> frontend update
+-> visible outcome
+-> verification
 ```
+
+For backend-only or frontend-only workstreams, explain only the relevant layers and state why other layers were N/A.
 
 Do not turn reconstruction into a generic lecture unrelated to the current repository.
 
@@ -564,14 +622,14 @@ The goal is not memorizing every line. The goal is to understand what happens, w
 
 27. Hackathon Time Compression
 Under strict time limits, prioritize:
-1. Problem understanding
-2. Primary user journey
-3. Core domain or state
-4. Core decision or business logic
-5. Frontend/backend integration
-6. Selected release-path readiness
-7. Verification and debugging
-8. Demo readiness
+1. Problem understanding and event-rule constraints
+2. MVP and Golden Path
+3. Master design and important contracts
+4. Backend foundation and first stable capability
+5. Frontend begins where relevant
+6. Incremental vertical integration
+7. Golden Path completion
+8. Systematic integration, selected release-path readiness, verification, and demo readiness
 
 Compress workstreams when useful. Do not allow process documentation or long lectures to consume time needed for a working MVP. Prioritize working MVP, correctness, integration, verification, and demo readiness before documentation depth. Use the strict documentation and reconstruction modes above when appropriate.
 

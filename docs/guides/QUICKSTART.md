@@ -47,7 +47,7 @@ This asks the team to protect the MVP, correctness, integration, deployment read
 2. Use Problem Statement Intake in the [Prompt Playbook](PROMPT_PLAYBOOK.md).
 3. Use Problem Definition and review the proposed `problem.md`.
 4. Approve `problem.md`.
-5. Run Master System Design and approve `plan.md`.
+5. Run Master System Design, identify the Golden Path, important API/data contracts, and capability/workstream map, then approve `plan.md`.
 6. Initialize or reconcile `execute.md` and `review.md` with repository evidence.
 
 Only then begin product implementation.
@@ -66,14 +66,22 @@ create repo from template
 -> authoritative problem statement
 -> Problem Intake
 -> problem.md
--> plan.md
+-> MVP + Golden Path
+-> Master System Design
+-> plan.md contracts and workstream map
 -> execution state
--> Builder workstreams
+-> backend/persistence foundation
+-> first stable capability and relevant contracts
+-> frontend begins where relevant
+-> capability-oriented Builder workstreams
+-> incremental vertical integration
 -> workstream reconstruction
--> frontend, when needed
--> local integration
+-> Golden Path complete
+-> systematic full-stack integration / hardening
+-> local Golden-Path E2E
+-> Feature Freeze
 -> choose local or deployed release path
--> local E2E verification or deployment plus deployed verification
+-> local final E2E or deployment plus deployed verification
 -> final review
 -> whole-project reconstruction
 -> internal Demo Freeze
@@ -88,19 +96,22 @@ For each meaningful Builder workstream:
 5. Reconstruct the verified workstream so the human understands what was built, where it lives, how it runs, what state it touches, and how it was verified.
 6. Close the Builder chat only after the human understanding checkpoint is sufficient.
 
-Frontend work should follow approved backend contracts. Local full-stack integration verifies the app on local services. If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, add a deployment workstream and verify the deployed golden path before internal Demo Freeze. If deployment is not required or not a good tradeoff, reliable local E2E/final verification remains a valid release path.
+Golden Path means the most important successful user journey that demonstrates the core value of the MVP. Identify it before implementation and use it to prioritize scope, contracts, workstreams, integration, E2E, and demo preparation.
+
+Backend-first does not mean backend-complete-first. Establish the domain foundations, persistence, invariants, critical backend capabilities, and sufficiently stable API/data contracts first; then frontend work may begin where relevant once the needed contract/capability is stable enough. Local full-stack integration verifies the app on local services. Systematic full-stack integration is a hardening pass after incremental slice integration has already happened. If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, add a deployment workstream and verify the deployed golden path before internal Demo Freeze. If deployment is not required or not a good tradeoff, reliable local E2E/final verification remains a valid release path.
 
 ## 6. Compressed Six-Hour Guidance
 
 | Time | Focus |
 | --- | --- |
 | 0:00-0:30 | Read brief, define scope, approve `problem.md`. |
-| 0:30-1:00 | Master design, MVP slice, approve `plan.md`. |
-| 1:00-3:00 | Build and verify the primary backend path. |
-| 3:00-4:15 | Connect the smallest useful interface to stable contracts. |
-| 4:15-5:00 | Exercise the golden path, failures, local integration, and critical fixes. |
-| 5:00-5:30 | Choose local or deployed release path; deploy only when required, necessary, or valuable within time. |
-| 5:30-6:00 | Final review, whole-project reconstruction, fallback demo path, internal Demo Freeze, and official freeze/submission readiness. |
+| 0:30-1:00 | Master design, Golden Path, important contracts, and workstream map; approve `plan.md`. |
+| 1:00-2:15 | Build backend foundation and the first stable capability/contract. |
+| 2:15-3:45 | Continue backend/frontend work incrementally; frontend begins where relevant once contracts are stable enough. |
+| 3:45-4:45 | Complete the Golden Path, verify focused slices, and harden systematic full-stack integration. |
+| 4:45-5:15 | Run local Golden-Path E2E, critical failure checks, and P0/P1 fixes. |
+| 5:15-5:35 | Feature Freeze and choose local or deployed release path; deploy only when required, necessary, or valuable within time. |
+| 5:35-6:00 | Local final E2E or deployed E2E, final review, whole-project reconstruction, fallback demo path, internal Demo Freeze, and official freeze/submission readiness. |
 
 Learning should be proportional:
 - Small reconstruction: 2-3 minutes.

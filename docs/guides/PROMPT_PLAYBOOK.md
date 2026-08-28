@@ -16,15 +16,15 @@ Use the smallest sequence that protects the critical path:
 8. Approve and Implement
 9. Independent Review for meaningful checkpoints
 10. Post-Implementation Workstream Reconstruction
-11. Frontend Workstream if needed
-12. Full-Stack Integration
+11. Frontend Workstream if needed and relevant contracts are stable enough
+12. Systematic Full-Stack Integration / Hardening
 13. Release Path Decision
 14. Local E2E or Deployment Workstream
 15. Local/Deployed Verification / Final E2E Review
 16. Whole-Project Engineering Reconstruction
 17. Internal Demo Freeze and Official Event Freeze/Submission
 
-Not every tiny task requires a fresh Reviewer or long reconstruction. Public deployment is conditional, and local E2E remains a valid final path when official rules and demo needs allow it. Do not compress away verification of the critical path.
+Not every tiny task requires a fresh Reviewer or long reconstruction. Golden Path means the most important successful user journey that demonstrates the core value of the MVP. Identify it before implementation, use it to drive workstream priority and contracts, and refine it only when legitimate evidence or approved design changes require that. Public deployment is conditional, and local E2E remains a valid final path when official rules and demo needs allow it. Do not compress away verification of the critical path.
 
 ## 1. Starter Check
 
@@ -131,7 +131,9 @@ Plan Mode.
 ```text
 Read AGENTS.md, docs/AGENT_WORKFLOW.md, approved problem.md, plan.md, execute.md, review.md, relevant phase/review records, code, tests, migrations, dependencies, configuration, and Git evidence. Reconstruct the current repository state before designing.
 
-Produce the smallest coherent MVP plan that covers only approved requirements and complies with official event rules/clarifications. Address, where applicable: system boundary; actors; architecture; major components; domain model; database schema and relationships; API endpoints and request/response contracts; validation; service boundaries; business or decision logic; state transitions; error behavior; frontend requirements; frontend/backend contracts; migration strategy; local integration strategy; release path options; deployment strategy only if officially required, necessary for the demo, or reliable and valuable within remaining time; testing and verification strategy; workstream sequencing; dependency decisions; external-service justification and fallback; problem-justified security requirements; official Code Freeze/submission constraints; explicit deferrals; demo-critical golden path; risks; and unresolved decisions.
+Produce the smallest coherent MVP plan that covers only approved requirements and complies with official event rules/clarifications. Identify the Golden Path before implementation and use it to drive scope, architecture, contracts, workstream order, integration, E2E, and demo preparation.
+
+Address, where applicable: system boundary; actors; architecture; major components; domain model; database schema and relationships; important API/data contracts needed by the MVP and Golden Path; endpoint methods, paths, request shapes, response shapes, meaningful status/error behavior, and consuming frontend views/components where known; validation; service boundaries; business or decision logic; state transitions; error behavior; frontend requirements; frontend/backend contracts; migration strategy; integration strategy with contract integration, feature/slice integration, systematic hardening, and Golden-Path E2E as distinct stages; release path options; deployment strategy only if officially required, necessary for the demo, or reliable and valuable within remaining time; testing and verification strategy; capability-oriented workstream map with involved layers, dependencies, major contracts, verification expectations, and exit criteria; dependency decisions; external-service justification and fallback; problem-justified security requirements; official Code Freeze/submission constraints; explicit deferrals; risks; and unresolved decisions.
 
 Label each non-obvious choice [DESIGN DECISION], never as a problem requirement. Do not implement or edit files. Stop for human approval.
 ```
@@ -155,7 +157,7 @@ Plan Mode / read-only.
 ```text
 Read AGENTS.md, docs/AGENT_WORKFLOW.md, approved problem.md, the proposed plan, current repository evidence, and relevant guidance. Review the proposed plan without editing files.
 
-Check official-rule compliance, requirement coverage, invented requirements, unnecessary complexity, missing entities or relationships, API and schema consistency, frontend/backend contract completeness, failure behavior, migration implications, conditional deployment implications, local release path viability, external-service risks/fallbacks, testability, feasibility for the available time, workstream ordering, critical path, official Code Freeze/submission constraints, explicit deferrals, overengineering, under-design, and unresolved design decisions.
+Check official-rule compliance, requirement coverage, invented requirements, unnecessary complexity, Golden Path clarity, missing entities or relationships, API and schema consistency, planned contract completeness, frontend/backend contract completeness, failure behavior, migration implications, conditional deployment implications, local release path viability, external-service risks/fallbacks, testability, feasibility for the available time, capability-oriented workstream ordering, critical path, official Code Freeze/submission constraints, explicit deferrals, overengineering, under-design, and unresolved design decisions.
 
 Report strengths, contradictions, missing decisions, overengineering, under-design, and recommended corrections. Produce a revised plan only if requested. Stop for human approval.
 ```
@@ -177,7 +179,7 @@ Implementation.
 ### Prompt
 
 ```text
-Read AGENTS.md, docs/AGENT_WORKFLOW.md, official event rules/clarifications when supplied, approved problem.md and plan.md, current state files, and repository evidence. Initialize or reconcile execute.md and review.md only where verified evidence supports it. Record the next workstream, selected or pending release path, integration and deployment checkpoints when applicable, official freeze/submission constraints, and explicit deferrals. Do not implement product behavior, change architecture, commit, or push.
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, official event rules/clarifications when supplied, approved problem.md and plan.md, current state files, and repository evidence. Initialize or reconcile execute.md and review.md only where verified evidence supports it. In execute.md, derive the compact workstream status summary from plan.md and track each workstream by capability, Golden-Path relationship, dependencies, relevant contracts, involved layers, verification expectation, evidence, blockers, next step, and deferrals. Use N/A for layers outside the approved scope. Do not implement product behavior, change architecture, commit, or push.
 ```
 
 ## 8. New Builder Workstream
@@ -199,7 +201,7 @@ Plan Mode.
 ```text
 In a fresh session, read AGENTS.md and docs/AGENT_WORKFLOW.md. Reconstruct authoritative requirements, approved design, the execution checkpoint, relevant code, tests, migrations, configuration, dependencies, phase/review records, and Git evidence. Do not rely on prior chat memory.
 
-Propose a bounded plan for [WORKSTREAM NAME] with: objective; official event constraints; requirements addressed; verified current state; design decisions; scope; explicit deferrals; files and layers likely affected; data/schema changes; API changes; service or logic changes; frontend impact; deployment impact if any; external-service dependencies and fallback if any; validation and error behavior; migration implications; tests; verification commands; reconstruction topics; risks; and completion criteria. Stop before implementation for human approval.
+Propose a bounded capability-oriented plan for [WORKSTREAM NAME] with: objective/capability; Golden-Path relationship; official event constraints; requirements addressed; verified current state; design decisions; scope; explicit deferrals; files and layers likely affected; data/schema changes; API/data contracts affected and whether they are implementation-ready; service or logic changes; frontend impact or N/A; backend impact or N/A; persistence impact or N/A; integration impact or N/A; infrastructure/deployment impact if any; external-service dependencies and fallback if any; validation and error behavior; migration implications; implementation tasks; focused slice verification; API/frontend/backend/persistence verification where applicable; reconstruction topics; risks; and completion criteria. Stop before implementation for human approval.
 ```
 
 ## 9. Approve and Implement Workstream
@@ -219,7 +221,7 @@ Implementation.
 ### Prompt
 
 ```text
-Exit Plan Mode and implement exactly the approved [WORKSTREAM NAME] scope. Follow AGENTS.md and docs/AGENT_WORKFLOW.md. Preserve layer boundaries and existing compatible behavior unless the approved plan says otherwise. Create migrations for approved persistence changes; do not run migrations automatically at startup or mutate real databases.
+Exit Plan Mode and implement exactly the approved [WORKSTREAM NAME] scope. Follow AGENTS.md and docs/AGENT_WORKFLOW.md. Preserve layer boundaries and existing compatible behavior unless the approved plan says otherwise. Implement against the relevant approved contract; if material contract changes are required, stop for approval and propagate the approved change to every affected layer. Create migrations for approved persistence changes; do not run migrations automatically at startup or mutate real databases.
 
 Reproduce and fix implementation-time bugs with evidence, add regression coverage, run focused checks during implementation and broader relevant verification at closeout. Create proportional docs/phases documentation, reconcile execute.md/review.md only with verified evidence, and prepare for post-implementation workstream reconstruction. Under strict hackathon mode, keep documentation and learning concise.
 
@@ -336,7 +338,7 @@ Frontend Builder.
 
 ### When to Use
 
-After UI requirements and backend contracts are approved.
+After UI requirements and the relevant backend/API contracts are approved and stable enough for the frontend scope. Frontend does not need to wait for every backend workstream to finish.
 
 ### Mode
 
@@ -345,12 +347,12 @@ Plan Mode.
 ### Prompt
 
 ```text
-Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/FULL_STACK_GUIDE.md, approved problem.md and plan.md, current backend contracts, tests, and repository evidence. Plan the smallest frontend slice for the actual user workflow: required pages/views/components, frontend state model, API calls, loading, empty, success, validation, failure, recovery, demo-critical path, and minimal visual polish.
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/FULL_STACK_GUIDE.md, approved problem.md and plan.md, current backend contracts, tests, and repository evidence. Plan the smallest frontend capability or slice for the actual user workflow: required pages/views/components, frontend state model, API calls, loading, empty, success, validation, failure, recovery, Golden-Path relationship, and minimal visual polish.
 
 Keep business and decision logic in the backend. Identify any missing or incompatible contract before implementation. State scope, deferrals, affected files, tests, verification, environment configuration for API base URL, deployment implications, and risks. Stop for human approval.
 ```
 
-## 16. Full-Stack Integration Workstream
+## 16. Systematic Full-Stack Integration / Hardening Workstream
 
 ### Role
 
@@ -358,7 +360,7 @@ Integration Builder.
 
 ### When to Use
 
-When the approved frontend and backend slices exist.
+After relevant frontend/backend slices have already had incremental feature/slice integration and the assembled Golden Path needs systematic hardening.
 
 ### Mode
 
@@ -367,11 +369,11 @@ Plan Mode.
 ### Prompt
 
 ```text
-Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/FULL_STACK_GUIDE.md, approved problem.md and plan.md, frontend and backend code, contracts, tests, migrations, configuration, and Git evidence. Plan verification of the actual user journey:
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/FULL_STACK_GUIDE.md, approved problem.md and plan.md, frontend and backend code, contracts, tests, migrations, configuration, and Git evidence. Plan systematic hardening of the assembled Golden Path. This is not the first time frontend and backend meet.
 
 User action -> frontend state -> HTTP request -> FastAPI route -> validation -> service -> business logic -> persistence -> response -> frontend rendering.
 
-Identify each contract boundary, error propagation path, loading/empty/success/failure state, mismatch risk, test approach, affected files, scope, deferrals, verification commands, deployment implications, and completion criteria. Stop before implementation for human approval.
+Inspect endpoint/path mismatch, HTTP method mismatch, request-field mismatch, response-field mismatch, status/error handling, frontend API base URL, CORS, environment configuration, loading state, empty state, error state, success state, mutation/refetch behavior, stale frontend state, backend validation, persistent state, refresh/reload correctness, cross-page continuity, and Golden-Path continuity. Identify each contract boundary, error propagation path, mismatch risk, test approach, affected files, scope, deferrals, verification commands, deployment implications, and completion criteria. Stop before implementation for human approval.
 ```
 
 ## 17. Integration Debugging
@@ -411,7 +413,7 @@ Plan Mode.
 ### Prompt
 
 ```text
-Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/FULL_STACK_GUIDE.md, official event rules/clarifications when supplied, approved problem.md, approved plan.md, execute.md, review.md, relevant phase/review docs, frontend code, backend code, configuration, migrations, dependencies, tests, and Git evidence. Reconstruct the locally verified state before proposing deployment.
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/FULL_STACK_GUIDE.md, official event rules/clarifications when supplied, approved problem.md, approved plan.md, execute.md, review.md, relevant phase/review docs, frontend code, backend code, configuration, migrations, dependencies, tests, and Git evidence. Reconstruct the locally verified state, including local Golden-Path E2E and Feature Freeze status, before proposing deployment.
 
 First verify that deployment is allowed and justified by official rules, demo needs, reliability, and remaining time. If local E2E is the better release path, recommend that and stop for human approval. If deployment should proceed, propose the smallest deployment architecture for [DEPLOYMENT TARGET OR OPTIONS]. Identify provider-specific requirements only after provider choice. Cover backend hosting, hosted database, environment variables, production start command, database and migration steps, frontend hosting if present, frontend production API URL, CORS requirements, external-service access and failure modes, secret handling, verification plan, fallback demo path, affected files, risks, and explicit deferrals.
 
@@ -463,9 +465,9 @@ Do not modify code, configuration, dependencies, migrations, tests, project-stat
 
 Read AGENTS.md, docs/AGENT_WORKFLOW.md, approved problem.md, approved plan.md, execute.md, review.md, relevant phase/review documentation, code, tests, migrations, configuration, and Git evidence. Teach and reconstruct the completed [WORKSTREAM NAME] from the actual repository, not from memory or a generic lecture.
 
-Cover: 1. requirement solved; 2. design chosen and why; 3. important files; 4. layer responsibilities; 5. runtime flow; 6. data flow; 7. DB/API impact; 8. dependencies; 9. downstream consumers; 10. verification/tests; 11. meaningful bugs/fixes; 12. assumptions/deferrals; 13. a 30-60 second judge explanation.
+Cover: 1. requirement solved; 2. capability/objective; 3. Golden-Path relationship; 4. design chosen and why; 5. important files; 6. layer responsibilities and N/A layers; 7. runtime flow; 8. data flow; 9. DB/API impact; 10. dependencies; 11. downstream consumers; 12. verification/tests; 13. meaningful bugs/fixes; 14. assumptions/deferrals; 15. a 30-60 second judge explanation.
 
-Link theory directly to the actual implementation. Trace the vertical slice through caller/frontend, API route, schema, service, business or decision logic, SQLAlchemy/database, response, and frontend/result where relevant. Use concise hackathon mode unless the human asks for deeper teaching. Ask/check whether the human can explain the workstream, then stop once understanding is sufficient.
+Link theory directly to the actual implementation. For relevant full-stack slices, trace requirement -> user action -> frontend -> API route -> schema -> service -> business or decision logic -> SQLAlchemy/database -> response -> frontend update -> visible outcome -> verification. For backend-only or frontend-only workstreams, explain only relevant layers and why other layers were N/A. Use concise hackathon mode unless the human asks for deeper teaching. Ask/check whether the human can explain the workstream, then stop once understanding is sufficient.
 ```
 
 ## 21. Whole-Project Engineering Reconstruction / Judge Readiness
@@ -489,7 +491,7 @@ Do not modify code, configuration, dependencies, migrations, tests, project-stat
 
 Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/REPO_REVIEW_WORKFLOW.md, approved problem.md, approved plan.md, execute.md, review.md, phase/review docs, code, tests, migrations, frontend, deployment configuration, public URLs if available, and Git evidence. Reconstruct the whole project from repository evidence for judge readiness.
 
-Cover: project objective; actors; architecture; major workstreams; entity/domain relationships; database; API; request flows; service boundaries; business/decision logic; dynamic updates or re-evaluation when present; frontend; frontend/backend contracts; deployment; tests; known limitations; major engineering decisions; why modular monolith; why FastAPI/Pydantic/SQLAlchemy/Alembic if those remain the chosen stack; and what would change for production.
+Cover: project objective; actors; MVP and Golden Path; architecture; capability-oriented workstreams; entity/domain relationships; database; API/data contracts; request flows; service boundaries; business/decision logic; dynamic updates or re-evaluation when present; frontend; frontend/backend contracts; integration stages; selected release path; deployment if selected; tests; known limitations; major engineering decisions; why modular monolith; why FastAPI/Pydantic/SQLAlchemy/Alembic if those remain the chosen stack; and what would change for production.
 
 Produce a whole-repo map, a 2-minute technical explanation, a 30-second architecture explanation, likely judge questions, concise answers, critical files to know, and the golden demo flow. Keep it concise enough for hackathon use and stop for human review.
 ```

@@ -4,6 +4,10 @@ The template does not choose a frontend framework. Choose the smallest UI stack 
 
 ## Contract-First Integration
 
+Master System Design should identify the important API/data contracts needed by the MVP and Golden Path before implementation starts. Workstreams may stabilize or refine the relevant contract details, but material contract changes must be propagated to both backend and frontend consumers.
+
+Backend-first does not mean backend-complete-first. Establish domain foundations, persistence, major invariants, critical backend capabilities, and sufficiently stable API/data contracts; then frontend work may begin where relevant once the needed contract/capability is stable enough.
+
 Define the API request and response contracts before connecting the interface. Backend routes, Pydantic contracts, services, and logic remain the source of backend behavior; the frontend should not duplicate core business or decision logic.
 
 ```text
@@ -22,6 +26,17 @@ User
 
 Configure backend URLs through environment-aware frontend configuration when appropriate. Do not hardcode deployment-specific URLs or credentials into a public client.
 
+## Integration Levels
+
+Use progressively stronger evidence:
+
+1. Level 1 - Contract integration: frontend expectations and backend design agree.
+2. Level 2 - Feature / slice integration: a real frontend capability communicates with the real corresponding backend capability.
+3. Level 3 - Systematic full-stack integration: the assembled Golden Path is checked and hardened across boundaries.
+4. Level 4 - E2E verification: a real user journey proves the system works through required layers and produces the intended outcome.
+
+Focused slice verification proves one capability. Systematic integration proves assembled boundaries cooperate. Golden-Path E2E proves the complete critical user journey. Heavyweight browser automation is not mandatory by default; manual E2E can be acceptable under time constraints when evidence is clear.
+
 ## Minimum UI States
 
 For each real interaction, design and verify:
@@ -38,7 +53,8 @@ Local integration proves the system works across local services:
 
 ```text
 LOCAL:
-frontend dev server
+browser
+-> frontend dev server
 -> local backend
 -> local/test DB
 ```
@@ -47,7 +63,8 @@ Deployed integration proves the public demo path works across hosted services:
 
 ```text
 DEPLOYED:
-hosted frontend
+browser
+-> hosted frontend
 -> production API base URL
 -> hosted FastAPI
 -> hosted PostgreSQL
@@ -71,6 +88,8 @@ If external, cloud, or third-party services are part of the full-stack path, jus
 ## Integration Checklist
 
 - [ ] Release path is explicit: local E2E or deployed E2E.
+- [ ] Golden Path is identified before implementation and still matches approved scope.
+- [ ] Important MVP contracts are recorded in `plan.md`.
 - [ ] Frontend API base URL is the production URL when deployed.
 - [ ] Endpoint path matches.
 - [ ] HTTP method matches.
@@ -86,9 +105,11 @@ If external, cloud, or third-party services are part of the full-stack path, jus
 
 ## Workstreams and Review
 
-A frontend Builder workstream should first inspect the approved problem, plan, API contracts, and current backend behavior. It plans UI scope and states, receives human approval, then implements and verifies the interface. A full-stack workstream verifies the actual path from user input through backend behavior and back to rendering.
+A frontend Builder workstream should first inspect the approved problem, plan, API contracts, and current backend behavior. It plans UI scope and states, receives human approval, then implements and verifies the interface. It does not need to wait for every backend workstream to finish when the relevant contract is stable enough.
 
-If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, a deployment workstream follows local integration. It should configure hosted services, environment variables, migrations, production API URL, CORS, and deployed end-to-end verification.
+A full-stack vertical slice verifies the actual path from user input through backend behavior and back to rendering for that capability. A later systematic full-stack integration workstream is a hardening/reconciliation pass across the assembled Golden Path; it should inspect endpoint/path mismatch, HTTP method mismatch, request-field mismatch, response-field mismatch, status/error handling, frontend API base URL, CORS, environment configuration, loading state, empty state, error state, success state, mutation/refetch behavior, stale frontend state, backend validation, persistent state, refresh/reload correctness, cross-page continuity, and Golden-Path continuity.
+
+If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, the deployment decision follows local Golden-Path E2E and Feature Freeze. The release path is then either local final verification or deployment plus deployed E2E, covering hosted services, environment variables, migrations, production API URL, and CORS when deployment is selected.
 
 An independent Reviewer checks contract compatibility, loading/error/empty behavior, stale state risks, accidental duplication of backend decision logic, and deployed integration evidence when deployment is in scope. It does not invent a framework or redesign the product without approval.
 

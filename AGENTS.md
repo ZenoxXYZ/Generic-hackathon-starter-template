@@ -54,6 +54,10 @@ Prefer a modular monolith unless requirements justify another architecture. Comm
 - migrations/ — database schema evolution
 - frontend/ — user interface when the problem requires one
 Do not create unnecessary layers merely because they are theoretically clean.
+Workstreams should be capability-oriented. A workstream is a bounded engineering objective that creates or strengthens meaningful system behavior; it is not automatically a backend module, frontend folder, or fixed set of layers. Workstreams may be backend-only, backend-heavy, frontend-only, frontend-heavy, full-stack vertical slices, business/decision-logic oriented, integration/hardening oriented, specialized verification, or release/deployment oriented.
+Golden Path means the most important successful user journey that demonstrates the core value of the MVP. It must be identified before implementation during problem intake and Master System Design, then used to drive MVP scope, workstream priority, architecture decisions, API/data contracts, frontend views, integration order, E2E verification, and demo preparation.
+Backend-first does not mean backend-complete-first. Backend-first means establishing authoritative domain foundations, persistence, major invariants, critical backend capabilities, and sufficiently stable API/data contracts. Frontend work may begin once the relevant contract or capability is stable enough for its approved scope.
+Master System Design should identify the important API/data contracts needed by the MVP and Golden Path. Individual workstreams may refine relevant contract details during implementation, but material contract changes must be propagated to every affected layer and recorded as approved design changes.
 5. Coding Principles
 - Inspect the real repository before making assumptions.
 - Read before editing.
@@ -191,6 +195,12 @@ After implementation, report:
 - What was not verified
 - What remains incomplete
 For meaningful workstreams, verified implementation should also be reconstructed for the human operator before handoff is considered complete. The reconstruction should be proportional and time-bounded, especially in strict hackathon mode, and should cover the requirement solved, design approach, important files and layers, runtime and data flow, dependencies, persistent state touched, verification evidence, and connection to the wider system. The purpose is not line-by-line memorization; it is to make the human able to supervise, debug, modify, and explain the system.
+Use progressively stronger integration evidence:
+1. Contract integration - frontend expectations and backend design agree.
+2. Feature / slice integration - a real frontend capability communicates with the real corresponding backend capability.
+3. Systematic full-stack integration - the assembled Golden Path is checked and hardened across boundaries.
+4. E2E verification - a real user journey proves the system works through required layers and produces the intended outcome.
+Focused slice verification, systematic integration, and Golden-Path E2E are distinct. Do not mark a workstream complete merely because files exist.
 15. Git and Change Safety
 - Inspect git status before significant work when the repository has Git metadata.
 - Do not reset, discard, or revert unrelated user changes.
@@ -215,6 +225,7 @@ Builder Agents must:
 - Reconstruct project state from repository evidence, not previous-chat memory.
 - Read problem.md, plan.md, execute.md, review.md, relevant phase and review documents, Git history, tests, migrations, and code.
 - Begin meaningful new workstreams with planning.
+- Plan workstreams around the approved capability/objective, Golden-Path relationship, involved layers, API/data contracts affected, dependencies, verification, and exit criteria.
 - Require human approval before implementing major plans.
 - Stop for approval if implementation requires a material architecture, schema, API, or policy change.
 - Create phase documentation under docs/phases/ appropriate to the workstream's complexity and available time.
@@ -226,6 +237,8 @@ Reviewer Agents must:
 - Use a fresh, independent repository-evidence review.
 - Perform the initial review read-only.
 - Distinguish bugs, design issues, missing verification, documentation drift, deferred features, and improvements.
+- Distinguish implementation bugs, contract drift, integration failures, missing verification, unfinished planned capabilities, intentional backend-only/frontend-only workstreams, and deferred future features.
+- Avoid treating a missing layer as a finding when that layer was legitimately N/A for the approved workstream scope.
 - Not automatically fix review findings before human approval.
 - Allow approved local, design-preserving fixes in the review chat.
 - Escalate major architecture, schema, API, or policy corrections to a dedicated corrective workstream.
@@ -254,7 +267,8 @@ When time is constrained, prioritize in this order:
 Near submission or demo freeze, do not add speculative features.
 Keep documentation concise enough that it does not delay the higher-priority working MVP, correctness, integration, verification, or demo readiness.
 Demo Freeze is an internal stability gate chosen by the team. Official Code Freeze or submission deadlines are external event boundaries and take precedence over template preferences.
-When deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, treat deployment as a bounded engineering workstream, verify the deployed backend, frontend, database, migrations, CORS, production API URL, and golden path, and do not treat local success as deployment success. When deployment is not required or not a good tradeoff, reliable local demonstration with local E2E/final verification remains a valid release path. Do not add containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it.
+The intended lifecycle is: official event/challenge intake -> problem normalization -> MVP and Golden Path identification -> Master System Design -> architecture, data model, and API/data contracts -> capability/workstream map in plan.md -> backend/persistence foundation -> relevant contract becomes implementation-ready -> frontend begins where relevant -> capability-oriented workstreams -> incremental vertical integration -> Golden Path implementation complete -> systematic full-stack integration/hardening -> local Golden-Path E2E -> Feature Freeze -> release/deployment decision -> local final E2E or deployment plus deployed E2E -> P0/P1 fixes -> independent final review -> whole-project reconstruction -> internal Demo Freeze -> official event freeze/submission boundary.
+When deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, treat deployment as a bounded engineering workstream, verify the deployed backend, frontend, database, migrations, CORS, production API URL, and golden path, and do not treat local success as deployment success. When deployment is not required or not a good tradeoff, reliable local demonstration with local E2E/final verification remains a valid release path. Local runtime is browser -> frontend development server -> local backend -> local database. Deployed runtime is browser -> hosted frontend -> hosted backend -> hosted database. Do not add containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it.
 Before the final demo, perform a whole-project engineering reconstruction sufficient for the human to explain the problem, requirements, architecture, data model, API, services, business or decision logic, persistence, frontend, dynamic updates, deployment, verification, limitations, and tradeoffs. Under strict hackathon timing, keep learning focused on major decisions, critical flows, and judge readiness rather than exhaustive theory.
 21. AI Agent Final Rule
 The agent's objective is not to generate the most code.
