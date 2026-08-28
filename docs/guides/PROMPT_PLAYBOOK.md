@@ -7,7 +7,7 @@ Use these prompts as copy/paste lifecycle handoffs. Replace bracketed placeholde
 Use the smallest sequence that protects the critical path:
 
 1. Starter Check
-2. Problem Statement Intake
+2. Official Rules and Problem Statement Intake
 3. Problem Definition
 4. Master System Design
 5. Plan Pre-Implementation Review
@@ -18,12 +18,13 @@ Use the smallest sequence that protects the critical path:
 10. Post-Implementation Workstream Reconstruction
 11. Frontend Workstream if needed
 12. Full-Stack Integration
-13. Deployment Workstream when a remote demo is intended
-14. Deployed Verification / Final E2E Review
-15. Whole-Project Engineering Reconstruction
-16. Demo Freeze
+13. Release Path Decision
+14. Local E2E or Deployment Workstream
+15. Local/Deployed Verification / Final E2E Review
+16. Whole-Project Engineering Reconstruction
+17. Internal Demo Freeze and Official Event Freeze/Submission
 
-Not every tiny task requires a fresh Reviewer or long reconstruction. Do not compress away verification of the critical path.
+Not every tiny task requires a fresh Reviewer or long reconstruction. Public deployment is conditional, and local E2E remains a valid final path when official rules and demo needs allow it. Do not compress away verification of the critical path.
 
 ## 1. Starter Check
 
@@ -42,7 +43,7 @@ Plan Mode / read-only.
 ### Prompt
 
 ```text
-Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/REPO_REVIEW_WORKFLOW.md, problem.md, plan.md, execute.md, review.md, relevant phase/review records, code, tests, migrations, configuration, and Git evidence. Verify that this starter is problem-agnostic and report its actual readiness, drift, existing worktree changes, and decisions required. Do not modify files, install dependencies, commit, or push.
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/REPO_REVIEW_WORKFLOW.md, official event rules or organizer clarifications if supplied, problem.md, plan.md, execute.md, review.md, relevant phase/review records, code, tests, migrations, configuration, and Git evidence. Verify that this starter is problem-agnostic and report its actual readiness, drift, existing worktree changes, event-rule constraints on starter use or AI assistance, and decisions required. Do not modify files, install dependencies, commit, or push.
 ```
 
 ## 2. Problem Statement Intake / Source Analysis
@@ -53,7 +54,7 @@ Requirements analyst.
 
 ### When to Use
 
-When the authoritative brief arrives as a PDF, document, image, pasted text, webpage, presentation, or multiple supplied artifacts.
+When official event rules, organizer clarifications, the challenge/problem statement, or other source artifacts arrive.
 
 ### Mode
 
@@ -62,9 +63,9 @@ Plan Mode / read-only.
 ### Prompt
 
 ```text
-Read AGENTS.md and inspect the supplied source material: [AUTHORITATIVE PROBLEM STATEMENT OR ARTIFACTS]. Identify which supplied sources are authoritative. Produce an intake analysis for human review that extracts only explicit evidence: objectives, actors, inputs, outputs, constraints, mandatory capabilities, evaluation criteria, stated technology constraints, ambiguities, contradictions, and missing information.
+Read AGENTS.md and inspect the supplied source material: [OFFICIAL EVENT RULES, ORGANIZER CLARIFICATIONS, AUTHORITATIVE PROBLEM STATEMENT, OR ARTIFACTS]. Identify which supplied sources are authoritative. Produce an intake analysis for human review that extracts only explicit evidence: competition constraints, starter/prebuilt-code policy, AI-assistance policy, submission/code-freeze policy, deployment/demo requirements, objectives, actors, inputs, outputs, constraints, mandatory capabilities, evaluation criteria, stated technology constraints, ambiguities, contradictions, and missing information.
 
-For every material conclusion, cite its source and distinguish [PROBLEM REQUIREMENT] from [UNSPECIFIED]. Do not design architecture, choose entities, APIs, schema, algorithms, deployment, or frontend technology. Do not edit repository files. Stop for human review.
+For every material conclusion, cite its source and distinguish [OFFICIAL EVENT RULE], [PROBLEM REQUIREMENT], and [UNSPECIFIED]. Do not design architecture, choose entities, APIs, schema, algorithms, deployment, or frontend technology. Do not edit repository files. Stop for human review.
 ```
 
 ## 3. Problem Definition
@@ -84,9 +85,9 @@ Plan Mode.
 ### Prompt
 
 ```text
-Read AGENTS.md, docs/AGENT_WORKFLOW.md, the authoritative source or approved intake analysis, and current repository state. Produce a proposed problem.md only; do not edit it.
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, the official event rules/clarifications, authoritative challenge/problem source or approved intake analysis, and current repository state. Produce a proposed problem.md only; do not edit it.
 
-Use sections appropriate to the brief, including as applicable: problem objective; actors/users; required capabilities; entities or concepts explicitly implied by the brief; inputs; outputs; constraints; stated validation or business requirements; stated external systems; evaluation or success criteria; deployment or remote-demo requirement if explicitly stated; ambiguities; unspecified decisions; and explicit deferrals only where the brief supports them.
+Use sections appropriate to the brief, including as applicable: official event constraints that affect requirements; problem objective; actors/users; required capabilities; entities or concepts explicitly implied by the brief; inputs; outputs; constraints; stated validation or business requirements; stated external systems; evaluation or success criteria; deployment or remote-demo requirement if explicitly stated; ambiguities; unspecified decisions; and explicit deferrals only where the brief supports them.
 
 Mark every important conclusion as [PROBLEM REQUIREMENT], [UNSPECIFIED], or [DESIGN DECISION]. Avoid [DESIGN DECISION] at this stage unless it is clearly identified as unapproved. Do not design architecture, APIs, persistence, algorithms, deployment, or frontend behavior. Stop for human review and approval.
 ```
@@ -130,7 +131,7 @@ Plan Mode.
 ```text
 Read AGENTS.md, docs/AGENT_WORKFLOW.md, approved problem.md, plan.md, execute.md, review.md, relevant phase/review records, code, tests, migrations, dependencies, configuration, and Git evidence. Reconstruct the current repository state before designing.
 
-Produce the smallest coherent MVP plan that covers only approved requirements. Address, where applicable: system boundary; actors; architecture; major components; domain model; database schema and relationships; API endpoints and request/response contracts; validation; service boundaries; business or decision logic; state transitions; error behavior; frontend requirements; frontend/backend contracts; migration strategy; local integration strategy; deployment strategy if remote demo is required; testing and verification strategy; workstream sequencing; dependency decisions; problem-justified security requirements; explicit deferrals; demo-critical golden path; risks; and unresolved decisions.
+Produce the smallest coherent MVP plan that covers only approved requirements and complies with official event rules/clarifications. Address, where applicable: system boundary; actors; architecture; major components; domain model; database schema and relationships; API endpoints and request/response contracts; validation; service boundaries; business or decision logic; state transitions; error behavior; frontend requirements; frontend/backend contracts; migration strategy; local integration strategy; release path options; deployment strategy only if officially required, necessary for the demo, or reliable and valuable within remaining time; testing and verification strategy; workstream sequencing; dependency decisions; external-service justification and fallback; problem-justified security requirements; official Code Freeze/submission constraints; explicit deferrals; demo-critical golden path; risks; and unresolved decisions.
 
 Label each non-obvious choice [DESIGN DECISION], never as a problem requirement. Do not implement or edit files. Stop for human approval.
 ```
@@ -154,7 +155,7 @@ Plan Mode / read-only.
 ```text
 Read AGENTS.md, docs/AGENT_WORKFLOW.md, approved problem.md, the proposed plan, current repository evidence, and relevant guidance. Review the proposed plan without editing files.
 
-Check requirement coverage, invented requirements, unnecessary complexity, missing entities or relationships, API and schema consistency, frontend/backend contract completeness, failure behavior, migration implications, deployment implications when a remote demo is required, testability, feasibility for the available time, workstream ordering, critical path, explicit deferrals, overengineering, under-design, and unresolved design decisions.
+Check official-rule compliance, requirement coverage, invented requirements, unnecessary complexity, missing entities or relationships, API and schema consistency, frontend/backend contract completeness, failure behavior, migration implications, conditional deployment implications, local release path viability, external-service risks/fallbacks, testability, feasibility for the available time, workstream ordering, critical path, official Code Freeze/submission constraints, explicit deferrals, overengineering, under-design, and unresolved design decisions.
 
 Report strengths, contradictions, missing decisions, overengineering, under-design, and recommended corrections. Produce a revised plan only if requested. Stop for human approval.
 ```
@@ -176,7 +177,7 @@ Implementation.
 ### Prompt
 
 ```text
-Read AGENTS.md, docs/AGENT_WORKFLOW.md, approved problem.md and plan.md, current state files, and repository evidence. Initialize or reconcile execute.md and review.md only where verified evidence supports it. Record the next workstream, integration and deployment checkpoints when applicable, and explicit deferrals. Do not implement product behavior, change architecture, commit, or push.
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, official event rules/clarifications when supplied, approved problem.md and plan.md, current state files, and repository evidence. Initialize or reconcile execute.md and review.md only where verified evidence supports it. Record the next workstream, selected or pending release path, integration and deployment checkpoints when applicable, official freeze/submission constraints, and explicit deferrals. Do not implement product behavior, change architecture, commit, or push.
 ```
 
 ## 8. New Builder Workstream
@@ -198,7 +199,7 @@ Plan Mode.
 ```text
 In a fresh session, read AGENTS.md and docs/AGENT_WORKFLOW.md. Reconstruct authoritative requirements, approved design, the execution checkpoint, relevant code, tests, migrations, configuration, dependencies, phase/review records, and Git evidence. Do not rely on prior chat memory.
 
-Propose a bounded plan for [WORKSTREAM NAME] with: objective; requirements addressed; verified current state; design decisions; scope; explicit deferrals; files and layers likely affected; data/schema changes; API changes; service or logic changes; frontend impact; deployment impact if any; validation and error behavior; migration implications; tests; verification commands; reconstruction topics; risks; and completion criteria. Stop before implementation for human approval.
+Propose a bounded plan for [WORKSTREAM NAME] with: objective; official event constraints; requirements addressed; verified current state; design decisions; scope; explicit deferrals; files and layers likely affected; data/schema changes; API changes; service or logic changes; frontend impact; deployment impact if any; external-service dependencies and fallback if any; validation and error behavior; migration implications; tests; verification commands; reconstruction topics; risks; and completion criteria. Stop before implementation for human approval.
 ```
 
 ## 9. Approve and Implement Workstream
@@ -401,7 +402,7 @@ Deployment Builder.
 
 ### When to Use
 
-After local backend and local frontend integration are verified, when the MVP must be remotely accessible.
+After local backend and local frontend integration are verified, when deployment is officially required, necessary for the demo, or reliable and valuable within remaining time.
 
 ### Mode
 
@@ -410,9 +411,9 @@ Plan Mode.
 ### Prompt
 
 ```text
-Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/FULL_STACK_GUIDE.md, approved problem.md, approved plan.md, execute.md, review.md, relevant phase/review docs, frontend code, backend code, configuration, migrations, dependencies, tests, and Git evidence. Reconstruct the locally verified state before proposing deployment.
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/FULL_STACK_GUIDE.md, official event rules/clarifications when supplied, approved problem.md, approved plan.md, execute.md, review.md, relevant phase/review docs, frontend code, backend code, configuration, migrations, dependencies, tests, and Git evidence. Reconstruct the locally verified state before proposing deployment.
 
-Propose the smallest deployment architecture for [DEPLOYMENT TARGET OR OPTIONS]. Identify provider-specific requirements only after provider choice. Cover backend hosting, hosted database, environment variables, production start command, database and migration steps, frontend hosting if present, frontend production API URL, CORS requirements, secret handling, verification plan, fallback demo path, affected files, risks, and explicit deferrals.
+First verify that deployment is allowed and justified by official rules, demo needs, reliability, and remaining time. If local E2E is the better release path, recommend that and stop for human approval. If deployment should proceed, propose the smallest deployment architecture for [DEPLOYMENT TARGET OR OPTIONS]. Identify provider-specific requirements only after provider choice. Cover backend hosting, hosted database, environment variables, production start command, database and migration steps, frontend hosting if present, frontend production API URL, CORS requirements, external-service access and failure modes, secret handling, verification plan, fallback demo path, affected files, risks, and explicit deferrals.
 
 Do not add Docker, containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it. Do not edit files, commit, push, or mutate a real hosted database. Stop for human approval before implementation.
 ```
@@ -434,7 +435,7 @@ Implementation.
 ### Prompt
 
 ```text
-Exit Plan Mode and implement only the approved deployment changes. Follow AGENTS.md and docs/AGENT_WORKFLOW.md. Configure environment appropriately, preserve secret hygiene, avoid committing real credentials, and keep the deployment architecture as small as approved.
+Exit Plan Mode and implement only the approved deployment changes. Follow AGENTS.md and docs/AGENT_WORKFLOW.md. Confirm deployment remains allowed by official rules and organizer clarifications. Configure environment appropriately, preserve secret hygiene, avoid committing real credentials, and keep the deployment architecture as small as approved.
 
 Apply or verify migrations only against the approved deployment database and only with explicit human approval for real hosted state. Verify the public backend health endpoint, public frontend if present, frontend calls to the deployed backend rather than localhost, CORS, hosted database connectivity, state persistence, and the deployed golden flow.
 
@@ -510,9 +511,9 @@ Read-only initial review.
 ### Prompt
 
 ```text
-Read AGENTS.md and docs/REPO_REVIEW_WORKFLOW.md. Reconstruct the current verified state and run the final repository review for [CHECKPOINT]. Prioritize startup, the approved golden user flow, core correctness, persistence/state, frontend/backend compatibility, critical validation and error behavior, test evidence, configuration relevant to the demo, and P0/P1 findings.
+Read AGENTS.md, docs/REPO_REVIEW_WORKFLOW.md, and official event rules/clarifications when supplied. Reconstruct the current verified state and run the final repository review for [CHECKPOINT]. Prioritize official-rule compliance, startup, the approved golden user flow, core correctness, persistence/state, frontend/backend compatibility, selected release-path evidence, critical validation and error behavior, test evidence, configuration relevant to the demo, and P0/P1 findings.
 
-When deployment is in scope, distinguish local verification from deployed verification. Verify or inspect evidence for public backend startup, public health endpoint, frontend production API URL, no hard-coded localhost dependency, CORS, hosted database connectivity, applied migrations, and the deployed golden user flow. Classify missing deployed evidence as [MISSING VERIFICATION] unless there is a verified defect.
+When using the local release path, verify or inspect evidence for local integration, local E2E/final verification, final review readiness, and fallback/demo reliability. When using the deployed release path, distinguish local verification from deployed verification and verify or inspect evidence for public backend startup, public health endpoint, frontend production API URL, no hard-coded localhost dependency, CORS, hosted database connectivity, applied migrations, and the deployed golden user flow. Classify missing selected-release-path evidence as [MISSING VERIFICATION] unless there is a verified defect.
 
 The initial review is read-only. Classify evidence and findings under the Reviewer workflow, report the required review status, and stop without fixing, committing, or pushing.
 ```
@@ -534,11 +535,11 @@ Implementation.
 ### Prompt
 
 ```text
-Enter STRICT HACKATHON / TIME-CONSTRAINED MODE. Read AGENTS.md, the governing workflows, approved requirements/design, current state files, code, tests, migrations, configuration, deployment records, public URLs if available, and Git evidence to reconstruct what is verified. Identify the golden demo path and freeze optional feature development.
+Enter STRICT HACKATHON / TIME-CONSTRAINED MODE. Read AGENTS.md, the governing workflows, official event rules/clarifications when supplied, approved requirements/design, current state files, code, tests, migrations, configuration, deployment records if applicable, public URLs if available, and Git evidence to reconstruct what is verified. Identify the golden demo path and freeze optional feature development.
 
-Identify P0/P1 blockers. Verify startup; required database and migrations; backend behavior; frontend behavior; local full-stack integration; deployed URLs if the demo is remote; hosted DB; applied migrations; environment configuration; production API URL; CORS; deployed golden path; fallback demo path; known limitations; and critical validation and error behavior.
+Identify P0/P1 blockers. Verify startup; required database and migrations; backend behavior; frontend behavior; selected release path; local full-stack integration; local E2E when using the local path; deployed URLs, hosted DB, applied migrations, environment configuration, production API URL, CORS, and deployed golden path when using the deployed path; fallback demo path; known limitations; official Code Freeze/submission readiness; and critical validation and error behavior.
 
-Do not perform speculative refactoring, add features, commit, or push. Stop for human approval of the checkpoint.
+Demo Freeze is an internal stability gate, not the official deadline. Official Code Freeze and submission deadlines are external event boundaries and take precedence. Do not perform speculative refactoring, add features, commit, or push. Stop for human approval of the checkpoint.
 ```
 
 ## 24. Optional Post-Hackathon Hardening

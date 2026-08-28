@@ -2,17 +2,20 @@ AGENTS.md
 Stable engineering rules for this repository.
 1. Repository Purpose
 This is a reusable hackathon engineering repository intended to be adapted to an authoritative problem statement.
-- The authoritative problem statement defines what must be solved.
+- Official event rules and organizer clarifications define competition constraints.
+- The official challenge or problem statement defines what must be solved.
 - problem.md captures the approved interpretation of that problem.
 - The repository must not inherit domain assumptions from previous projects.
 - Design choices must remain distinguishable from problem requirements.
+Reusable/prebuilt infrastructure, challenge-specific implementation, AI-assisted development, deployment, and submission/code-freeze behavior must comply with the official event rules and organizer clarifications.
 2. Requirements and Implemented-State Evidence
 Use two separate axes. Do not treat a project-state summary as requirements authority or as more authoritative than contradictory repository evidence.
 Requirements / Design Authority
-1. Authoritative external problem statement
-2. Approved problem.md interpretation
-3. Approved plan.md design decisions
-The authoritative problem statement is the ultimate source for what the project must solve. problem.md is the repository's approved interpretation of those requirements. plan.md records approved engineering and design choices for satisfying them. A design choice must not be presented as a problem requirement.
+1. Official event rules / official clarifications
+2. Official challenge / problem statement
+3. Approved problem.md interpretation
+4. Approved plan.md design decisions
+Official event rules and clarifications outrank the template workflow for competition constraints. The official challenge or problem statement defines what the project must solve. problem.md is the repository's approved interpretation of those requirements. plan.md records approved engineering and design choices for satisfying them. A design choice must not be presented as a problem requirement.
 Implemented-State Evidence
 Determine implemented state from repository evidence, including:
 - Actual code
@@ -36,7 +39,7 @@ The preferred default stack for fast hackathon MVP development is:
 - Alembic
 - Uvicorn
 - Isolated automated testing
-These are default design choices, not problem requirements. If the authoritative problem statement or approved plan justifies a different technology, the plan may override a default after documenting that decision. No frontend framework is mandatory.
+These are default design choices, not problem requirements. If official event rules, the official challenge/problem statement, or the approved plan justifies a different technology, the plan may override a default after documenting that decision. No frontend framework is mandatory.
 4. Default Architecture
 Prefer a modular monolith unless requirements justify another architecture. Common responsibilities are:
 - backend/main.py — application composition and app entry point
@@ -115,6 +118,7 @@ Do not add the following prematurely unless actual requirements or an approved d
 - ML systems
 - Background workers
 - WebSockets
+External/cloud/third-party services must be justified by approved requirements or design, have credentials/access verified before reliance, have failure modes understood, avoid unnecessary single points of failure, and preserve a local or degraded fallback where practical.
 11. Security and Configuration Rules
 - Never commit credentials, tokens, passwords, private keys, or .env files.
 - Provide safe .env.example placeholders.
@@ -249,8 +253,10 @@ When time is constrained, prioritize in this order:
 9. Polish
 Near submission or demo freeze, do not add speculative features.
 Keep documentation concise enough that it does not delay the higher-priority working MVP, correctness, integration, verification, or demo readiness.
-When a remotely accessible MVP demonstration is intended, local integration is not final verification. Treat deployment as a bounded engineering workstream, verify the deployed backend, frontend, database, migrations, CORS, production API URL, and golden path, and do not treat local success as deployment success. Do not add containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it.
+Demo Freeze is an internal stability gate chosen by the team. Official Code Freeze or submission deadlines are external event boundaries and take precedence over template preferences.
+When deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, treat deployment as a bounded engineering workstream, verify the deployed backend, frontend, database, migrations, CORS, production API URL, and golden path, and do not treat local success as deployment success. When deployment is not required or not a good tradeoff, reliable local demonstration with local E2E/final verification remains a valid release path. Do not add containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it.
 Before the final demo, perform a whole-project engineering reconstruction sufficient for the human to explain the problem, requirements, architecture, data model, API, services, business or decision logic, persistence, frontend, dynamic updates, deployment, verification, limitations, and tradeoffs. Under strict hackathon timing, keep learning focused on major decisions, critical flows, and judge readiness rather than exhaustive theory.
 21. AI Agent Final Rule
 The agent's objective is not to generate the most code.
-The objective is to produce the smallest correct, verified, understandable, demonstrable solution consistent with the authoritative problem statement.
+The objective is to produce the smallest correct, verified, understandable, demonstrable solution consistent with official event rules, the official challenge/problem statement, approved problem.md, and approved plan.md.
+This workflow supports AI-assisted engineering when official rules permit it. Actual AI allowance and restrictions come from the official event rules and organizer clarifications; the human remains responsible for understanding and explaining important architecture, code, database behavior, algorithms, decisions, and tradeoffs.

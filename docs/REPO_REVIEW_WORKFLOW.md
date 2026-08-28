@@ -23,6 +23,8 @@ Review should normally occur after the Builder workstream has been implemented, 
 
 3. Reviewer Bootstrap
 A fresh Reviewer must inspect, when relevant:
+- Official event rules and organizer clarifications
+- Official challenge or problem statement
 - AGENTS.md
 - docs/AGENT_WORKFLOW.md
 - docs/REPO_REVIEW_WORKFLOW.md
@@ -42,7 +44,7 @@ A fresh Reviewer must inspect, when relevant:
 - Frontend code and contracts, if present
 - Deployment configuration and public URLs, if deployment is in scope
 
-Apply the two-axis model in AGENTS.md: use the authoritative problem statement, approved problem.md, and approved plan.md for requirements and design authority; use code, tests, migrations, Git history/status, and safe runtime verification for implemented-state evidence. execute.md, review.md, phase documentation, and review documentation are summaries, not overriding evidence.
+Apply the two-axis model in AGENTS.md: use official event rules/clarifications, the official challenge/problem statement, approved problem.md, and approved plan.md for competition constraints, requirements, and design authority; use code, tests, migrations, Git history/status, and safe runtime verification for implemented-state evidence. execute.md, review.md, phase documentation, and review documentation are summaries, not overriding evidence.
 
 Reconstruct state from evidence. Do not assume project-state files are accurate.
 
@@ -86,6 +88,7 @@ For implemented behavior, trace:
 ```
 
 Check that:
+- Official event rules and clarifications were not contradicted.
 - Implementation actually addresses the requirement.
 - The design decision matches approved documentation.
 - No design choice is falsely presented as a problem requirement.
@@ -235,7 +238,7 @@ Review:
 - Golden demo flow
 
 16. Deployment Review
-When deployment is in scope, distinguish local verification from deployed verification. Review:
+When deployment is in scope because official rules require it, the demo needs it, or the team selected it as reliable and valuable within remaining time, distinguish local verification from deployed verification. Review:
 - Public backend startup
 - Public health endpoint
 - Frontend production API URL
@@ -250,7 +253,16 @@ When deployment is in scope, distinguish local verification from deployed verifi
 
 Classify missing deployed verification as [MISSING VERIFICATION] unless evidence shows a true implemented defect.
 
-17. Configuration / Security / Repository Hygiene Review
+When deployment is not required or selected, verify that the local release path has evidence for local integration, local E2E/final verification, final review, whole-project reconstruction, internal Demo Freeze, and official event freeze/submission readiness as applicable.
+
+17. Event Rule / Release Policy Review
+When official rules or clarifications are supplied, review whether reusable/prebuilt infrastructure, challenge-specific implementation boundaries, AI-assisted development, deployment, submission behavior, and official Code Freeze constraints comply with them.
+
+Distinguish internal Demo Freeze from Official Code Freeze or submission deadlines. Demo Freeze is a team stability gate; official freeze/submission deadlines are external event boundaries.
+
+Do not assume starter use, AI assistance, deployment, or any challenge-specific implementation timing is universally permitted or forbidden. The event rules determine those boundaries.
+
+18. Configuration / Security / Repository Hygiene Review
 Inspect:
 - Secrets
 - Environment variables
@@ -263,15 +275,18 @@ Inspect:
 - Accidental local files
 - Configuration inconsistencies
 - Dependency breakage
+- Unjustified external/cloud/third-party services
+- Unverified external-service credentials or access
+- Missing fallback for an avoidable external-service dependency
 
-18. Documentation / Project State Review
+19. Documentation / Project State Review
 Treat execute.md, review.md, phase documentation, and review documentation as summaries. Cross-check them against Git history, code, tests, migrations, and actual verification; do not let them override contradictory implemented-state evidence.
 
 If evidence conflicts, verify repository state, report the inconsistency, and correct stale documentation only after the actual state is understood. Detect stale checkpoint wording or false completion claims.
 
 Human understanding documentation and reconstruction may be checked for documentation drift or contradiction, but the Reviewer should not turn learning completeness into a product correctness bug.
 
-19. Finding Classification
+20. Finding Classification
 Every finding must be exactly one of the following:
 
 [BUG]
@@ -294,7 +309,7 @@ Non-blocking enhancement.
 
 Do not classify deferred work, style preferences, hypothetical scale issues, optional polish, or incomplete learning narration as bugs.
 
-20. Bug Evidence Standard
+21. Bug Evidence Standard
 Before assigning a BUG-ID, establish where feasible:
 - Expected behavior
 - Actual behavior
@@ -319,7 +334,7 @@ Use stable BUG-IDs. Record:
 
 Suspicion alone is not enough for a bug.
 
-21. Severity
+22. Severity
 Use:
 
 P0
@@ -333,7 +348,7 @@ Non-blocking issue, improvement, or missing verification that may be deferred.
 
 Do not inflate severity.
 
-22. Initial Review Report
+23. Initial Review Report
 Produce:
 A. Overall Repository Health
 B. Workstream Reviewed
@@ -349,21 +364,22 @@ K. Cross-Domain Regression Assessment
 L. Test / Verification Assessment
 M. Frontend Integration Assessment when relevant
 N. Deployment Assessment when relevant
-O. Configuration / Security Assessment
-P. Documentation / Project-State Assessment
-Q. Verified Strengths
-R. Bugs
-S. Design Issues
-T. Missing Verification
-U. Documentation Drift
-V. Deferred Features Correctly Left Untouched
-W. Improvements
-X. Recommended Action Order
-Y. Whether repository is safe to continue building on
+O. Event Rule / Release Policy Assessment when relevant
+P. Configuration / Security Assessment
+Q. Documentation / Project-State Assessment
+R. Verified Strengths
+S. Bugs
+T. Design Issues
+U. Missing Verification
+V. Documentation Drift
+W. Deferred Features Correctly Left Untouched
+X. Improvements
+Y. Recommended Action Order
+Z. Whether repository is safe to continue building on
 
 Then stop. Do not fix findings during the initial review.
 
-23. Review Status
+24. Review Status
 End with exactly one:
 
 REVIEW STATUS: PASS
@@ -387,10 +403,10 @@ No blocking issue, but P2, design, improvement, or missing-verification items re
 BLOCKED
 Verified P0 or P1 prevents safe dependent development.
 
-24. Human Approval Before Fixes
+25. Human Approval Before Fixes
 The Reviewer must not automatically fix findings. Initial findings remain in the review report until human review. A human must first approve specific findings for correction.
 
-25. Local Review-Fix Ownership
+26. Local Review-Fix Ownership
 Approved small, local, design-preserving bugs may be fixed in the same Reviewer chat. Examples include:
 - Validation bug
 - Incorrect query or order
@@ -415,7 +431,7 @@ Do not commit or push automatically.
 
 After a finding is accepted or verified and a local fix is approved, record the accepted review result and verified BUG-ID/history in the appropriate repository-review document and concise review.md history. Documentation drift may be corrected only after explicit human approval. Major corrective findings remain escalated to a corrective Builder workstream.
 
-26. Major Corrective Workstream Escalation
+27. Major Corrective Workstream Escalation
 Do not silently fix findings requiring material change to:
 - Architecture
 - Persisted schema or data model
@@ -435,10 +451,10 @@ Instead produce a corrective-workstream handoff containing:
 
 Then open a fresh corrective Builder workstream in Plan Mode.
 
-27. New Functionality
+28. New Functionality
 Missing future functionality is not a review fix. It remains a Builder workstream according to plan.md and execute.md.
 
-28. Review Documentation
+29. Review Documentation
 After human acceptance or fixes as appropriate, create:
 docs/reviews/<workstream-slug>-review.md
 
@@ -460,6 +476,7 @@ Use:
 ## Test Coverage And Verification
 ## Frontend Integration Assessment
 ## Deployment Assessment
+## Event Rule / Release Policy Assessment
 ## Configuration / Security Assessment
 ## Documentation / Project-State Assessment
 ## Bugs
@@ -477,37 +494,39 @@ End with the final review status. Do not duplicate the entire review into review
 
 In strict hackathon or time-constrained mode, use a concise review record by default: review scope, evidence checked, relevant findings by classification and severity, verification performed, remaining risks or deferrals, and final review status. Use the detailed structure above when risk, complexity, deployment, or learning value justifies it. Omit irrelevant sections or mark them not applicable; do not create empty sections solely to satisfy a template.
 
-29. Project State Updates
+30. Project State Updates
 - review.md - concise project-level accepted review and verified bug history; do not add unconfirmed suspicions
 - execute.md - update only when review changes actual execution state or checkpoint
 - plan.md - update only if review creates an approved roadmap or design change
 
 Do not rewrite project-state files unnecessarily.
 
-30. Git Rules
+31. Git Rules
 Initial review is read-only. Approved fixes and review documentation should be committed separately when practical. The Reviewer never commits or pushes unless explicitly requested.
 
-31. Quality Gate
+32. Quality Gate
 Do not recommend beginning dependent major work while a P0 remains. A P1 should normally be resolved when it creates material correctness or integration risk. P2 may remain documented or deferred.
 
 The purpose is safe MVP progress, not perfection.
 
-32. Hackathon Review Compression
+33. Hackathon Review Compression
 Under severe time constraints, prioritize review of:
 1. Application startup
 2. Golden user flow
 3. Core decision correctness
 4. Persistence and state correctness
 5. Frontend/backend compatibility
-6. Deployed access and deployed integration when the demo is remote
-7. P0 and P1 bugs
-8. Critical validation and security issues
+6. Selected release-path evidence
+7. Local E2E/final verification when using the local release path
+8. Official Code Freeze or submission blockers
+9. P0 and P1 bugs
+10. Critical validation and security issues
 
 Do not spend final hackathon time fixing low-value style, polish, or learning-completeness findings.
 
-Prioritize working MVP, correctness, integration, deployed verification when needed, and demo readiness before documentation depth. Use the concise review record in Section 28 unless risk or complexity justifies the detailed structure.
+Prioritize working MVP, correctness, integration, selected release-path verification, and demo readiness before documentation depth. Use the concise review record in Section 29 unless risk or complexity justifies the detailed structure.
 
-33. Final Principle
+34. Final Principle
 The Reviewer Agent's job is to independently challenge completion claims using repository evidence.
 
 It should try to detect real correctness and regression problems without manufacturing bugs, turning intentional MVP limitations into defects, or treating local success as deployed success.

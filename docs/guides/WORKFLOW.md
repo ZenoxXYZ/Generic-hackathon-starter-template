@@ -7,12 +7,15 @@ The workflow is designed to make a fast-moving project understandable after chat
 Keep three questions separate:
 
 ```text
-What must be solved?       authoritative brief -> problem.md
+What may be done?          official event rules / official clarifications
+What must be solved?       official challenge / problem statement -> problem.md
 How will we solve it?      approved design -> plan.md
 What actually works?       code + tests + migrations + Git + safe verification
 ```
 
 `execute.md` and `review.md` are useful checkpoints, but they summarize implemented state. They cannot override contradictory code, tests, migrations, or Git evidence.
+
+Official event rules and organizer clarifications outrank the template workflow for competition constraints. Reusable/prebuilt infrastructure, challenge-specific implementation, AI-assisted development, deployment, and submission/code-freeze behavior must comply with those official rules.
 
 ## Why Builders and Reviewers Are Separate
 
@@ -29,7 +32,7 @@ Generated code becomes a completed checkpoint only after relevant tests, imports
 
 ## Why Post-Implementation Reconstruction Exists
 
-AI can produce working code faster than a human can internalize it.
+When official rules permit AI-assisted development, AI can produce working code faster than a human can internalize it.
 
 ```text
 verified code != human understanding
@@ -106,16 +109,33 @@ Verify the happy path as well as important loading, validation, error, and empty
 
 ## Deployment Lifecycle
 
-When the MVP is intended to be demoed remotely, deployment is its own engineering workstream:
+The workflow supports two release paths.
+
+Local release path:
 
 ```text
 local integration
--> deployment
--> deployed integration verification
+-> local E2E verification
 -> final review
 -> whole-project engineering reconstruction
--> Demo Freeze
+-> internal Demo Freeze
+-> official event freeze/submission
 ```
+
+Deployed release path:
+
+```text
+local integration
+-> deployment decision
+-> deployment
+-> deployed E2E verification
+-> final review
+-> whole-project engineering reconstruction
+-> internal Demo Freeze
+-> official event freeze/submission
+```
+
+Public deployment is not universally mandatory. Deploy when deployment is officially required, necessary for the demo, or reliable and valuable within remaining time. Otherwise, reliable local demonstration with local E2E/final verification remains valid.
 
 Local success is not deployment success. A deployed app has different URLs, environment variables, origins, database connectivity, migrations, build commands, startup behavior, and failure modes.
 
@@ -135,6 +155,25 @@ hosted frontend
 ```
 
 Deploy the smallest architecture that reliably demonstrates the critical path. Do not add infrastructure merely to look production-grade.
+
+## Demo Freeze vs Official Freeze
+
+Demo Freeze is an internal stability gate chosen by the team. It means optional feature work stops and the team protects startup, the primary flow, correctness, integration, verification, known fallback paths, and explanation readiness.
+
+Official Code Freeze or submission deadline is an external competition boundary. The official rules always take precedence over the template workflow.
+
+## Starter, AI, and External Service Policy
+
+Reusable code, boilerplate, starter infrastructure, authentication components, UI libraries, AI-assisted development, deployment, and submission behavior are governed by official event rules and organizer clarifications. Do not assume every event permits the same starting point or assistance model.
+
+Challenge-specific implementation boundaries also come from the official event rules. The generic template should not claim when every event requires challenge-specific code to be created.
+
+When external, cloud, or third-party services are used:
+- Justify why they are needed.
+- Verify credentials and access before relying on them.
+- Understand failure modes.
+- Avoid unnecessary single points of failure.
+- Preserve a local or degraded fallback where practical.
 
 ## Whole-Project Engineering Reconstruction
 

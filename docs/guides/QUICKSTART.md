@@ -4,6 +4,8 @@ Use this guide when a new hackathon brief arrives. The goal is to establish an e
 
 ## 1. Create Your Project
 
+First inspect any official event rules or organizer clarifications. Reusable code, boilerplate, starter infrastructure, authentication components, UI libraries, AI-assisted development, deployment, and submission/code-freeze behavior must comply with those rules.
+
 Use GitHub's **Use this template** option if the owner has enabled it, then clone the resulting repository. Alternatively:
 
 ```powershell
@@ -11,7 +13,7 @@ git clone <template-repository-url> my-hackathon-project
 cd my-hackathon-project
 ```
 
-If you need independent Git history, use the template feature or deliberately reinitialize Git yourself. This template never changes Git history automatically.
+If the official rules permit starter reuse and you need independent Git history, use the template feature or deliberately reinitialize Git yourself. This template never changes Git history automatically. Do not assume every event permits the same prebuilt starting point.
 
 ## 2. Prepare the Local Foundation
 
@@ -37,11 +39,11 @@ At the opening of an AI or team workstream, explicitly state:
 STRICT HACKATHON / TIME-CONSTRAINED MODE
 ```
 
-This asks the team to protect the MVP, correctness, integration, deployment readiness when needed, verification, and demo readiness before detailed documentation, long teaching sessions, or polish.
+This asks the team to protect the MVP, correctness, integration, deployment readiness when needed, verification, and demo readiness before detailed documentation, long teaching sessions, or polish. It does not override official event rules, official Code Freeze, or submission deadlines.
 
 ## 4. Define the Problem Before Designing
 
-1. Provide the authoritative hackathon statement.
+1. Provide official event rules, organizer clarifications, and the authoritative hackathon statement when available.
 2. Use Problem Statement Intake in the [Prompt Playbook](PROMPT_PLAYBOOK.md).
 3. Use Problem Definition and review the proposed `problem.md`.
 4. Approve `problem.md`.
@@ -60,6 +62,7 @@ create repo from template
 -> install dependencies
 -> run starter tests
 -> verify health endpoint
+-> official event rules / clarifications
 -> authoritative problem statement
 -> Problem Intake
 -> problem.md
@@ -69,12 +72,12 @@ create repo from template
 -> workstream reconstruction
 -> frontend, when needed
 -> local integration
--> deployment, when a remote demo is intended
--> deployed verification
+-> choose local or deployed release path
+-> local E2E verification or deployment plus deployed verification
 -> final review
 -> whole-project reconstruction
--> Demo Freeze
--> demo/submission
+-> internal Demo Freeze
+-> official event freeze/submission
 ```
 
 For each meaningful Builder workstream:
@@ -85,7 +88,7 @@ For each meaningful Builder workstream:
 5. Reconstruct the verified workstream so the human understands what was built, where it lives, how it runs, what state it touches, and how it was verified.
 6. Close the Builder chat only after the human understanding checkpoint is sufficient.
 
-Frontend work should follow approved backend contracts. Local full-stack integration verifies the app on local services. If the MVP must be demoed remotely, add a deployment workstream and verify the deployed golden path before Demo Freeze.
+Frontend work should follow approved backend contracts. Local full-stack integration verifies the app on local services. If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, add a deployment workstream and verify the deployed golden path before internal Demo Freeze. If deployment is not required or not a good tradeoff, reliable local E2E/final verification remains a valid release path.
 
 ## 6. Compressed Six-Hour Guidance
 
@@ -96,8 +99,8 @@ Frontend work should follow approved backend contracts. Local full-stack integra
 | 1:00-3:00 | Build and verify the primary backend path. |
 | 3:00-4:15 | Connect the smallest useful interface to stable contracts. |
 | 4:15-5:00 | Exercise the golden path, failures, local integration, and critical fixes. |
-| 5:00-5:30 | Deploy if a remote demo is needed; verify public backend, frontend, database, migrations, CORS, and golden path. |
-| 5:30-6:00 | Final review, whole-project reconstruction, fallback demo path, and Demo Freeze. |
+| 5:00-5:30 | Choose local or deployed release path; deploy only when required, necessary, or valuable within time. |
+| 5:30-6:00 | Final review, whole-project reconstruction, fallback demo path, internal Demo Freeze, and official freeze/submission readiness. |
 
 Learning should be proportional:
 - Small reconstruction: 2-3 minutes.

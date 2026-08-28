@@ -1,6 +1,6 @@
 # Full-Stack Guide
 
-The template does not choose a frontend framework. Choose the smallest UI stack that matches the approved problem, team skills, and available time.
+The template does not choose a frontend framework. Choose the smallest UI stack that matches official event rules, the approved problem, team skills, and available time.
 
 ## Contract-First Integration
 
@@ -53,7 +53,7 @@ hosted frontend
 -> hosted PostgreSQL
 ```
 
-When deployment is in scope, verify both. Local success does not prove deployed success.
+When deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, verify both. Local success does not prove deployed success. When deployment is not required or not a good tradeoff, reliable local E2E/final verification remains a valid release path.
 
 Deployment-specific integration should cover:
 - `API_BASE_URL` or equivalent environment configuration.
@@ -66,8 +66,11 @@ Deployment-specific integration should cover:
 - Deployed contract testing.
 - Deployment-specific integration failures such as missing environment variables, unapplied migrations, blocked cross-origin requests, wrong route prefixes, or frontend builds pointing at local services.
 
+If external, cloud, or third-party services are part of the full-stack path, justify why they are needed, verify credentials/access before relying on them, understand failure modes, avoid unnecessary single points of failure, and preserve a local or degraded fallback where practical.
+
 ## Integration Checklist
 
+- [ ] Release path is explicit: local E2E or deployed E2E.
 - [ ] Frontend API base URL is the production URL when deployed.
 - [ ] Endpoint path matches.
 - [ ] HTTP method matches.
@@ -78,13 +81,14 @@ Deployment-specific integration should cover:
 - [ ] CORS works.
 - [ ] No localhost dependency remains in deployed code.
 - [ ] Hosted DB persists state.
-- [ ] Deployed golden request tested.
+- [ ] Local golden request tested when using the local release path.
+- [ ] Deployed golden request tested when using the deployed release path.
 
 ## Workstreams and Review
 
 A frontend Builder workstream should first inspect the approved problem, plan, API contracts, and current backend behavior. It plans UI scope and states, receives human approval, then implements and verifies the interface. A full-stack workstream verifies the actual path from user input through backend behavior and back to rendering.
 
-If the MVP must be demoed remotely, a deployment workstream follows local integration. It should configure hosted services, environment variables, migrations, production API URL, CORS, and deployed end-to-end verification.
+If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, a deployment workstream follows local integration. It should configure hosted services, environment variables, migrations, production API URL, CORS, and deployed end-to-end verification.
 
 An independent Reviewer checks contract compatibility, loading/error/empty behavior, stale state risks, accidental duplication of backend decision logic, and deployed integration evidence when deployment is in scope. It does not invent a framework or redesign the product without approval.
 

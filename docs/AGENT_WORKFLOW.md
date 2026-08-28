@@ -4,6 +4,8 @@ This workflow enables a fresh Builder Agent chat to reconstruct project state fr
 
 2. Repository State Reconstruction
 Every fresh Builder workstream begins by reading or inspecting the following when present and relevant:
+- Official event rules and organizer clarifications
+- Official challenge or problem statement
 - AGENTS.md
 - docs/AGENT_WORKFLOW.md
 - problem.md
@@ -20,7 +22,7 @@ Every fresh Builder workstream begins by reading or inspecting the following whe
 - Migrations
 - Dependency and configuration files
 
-Apply the two-axis model in AGENTS.md: use the authoritative problem statement, approved problem.md, and approved plan.md for requirements and design authority; use code, tests, migrations, Git history/status, and safe runtime verification for implemented-state evidence. execute.md, review.md, phase documentation, and review documentation are summaries, not overriding evidence.
+Apply the two-axis model in AGENTS.md: use official event rules/clarifications, the official challenge/problem statement, approved problem.md, and approved plan.md for competition constraints, requirements, and design authority; use code, tests, migrations, Git history/status, and safe runtime verification for implemented-state evidence. execute.md, review.md, phase documentation, and review documentation are summaries, not overriding evidence.
 
 Do not trust execute.md or other documentation blindly. Cross-check important completion claims against code, tests, migrations, Git history, and review evidence.
 
@@ -28,7 +30,8 @@ If repository evidence conflicts with project-state files, do not silently choos
 
 3. Determine the Next Engineering Workstream
 Use the repository sources for their distinct purposes:
-- The authoritative problem statement, problem.md, and approved plan.md - requirements and approved design direction
+- Official event rules and organizer clarifications - competition constraints, including starter, AI, deployment, and submission/code-freeze policy
+- The official challenge/problem statement, problem.md, and approved plan.md - requirements and approved design direction
 - execute.md, review.md, and phase/review documentation - implementation-state summaries
 - Git, code, tests, migrations, and safe verification - implementation-state evidence
 
@@ -71,6 +74,7 @@ Do not force independent review after every tiny workstream. Do not force a long
 Meaningful workstreams begin in Plan Mode. Plan Mode is read-only.
 
 Before proposing a plan:
+- Inspect official event rules or organizer clarifications when supplied.
 - Inspect the current architecture.
 - Verify existing behavior.
 - Inspect related tests and migrations.
@@ -82,7 +86,7 @@ Verified Current State
 What actually exists and works?
 
 Requirements Addressed
-Which [PROBLEM REQUIREMENT] does this workstream solve?
+Which official rule, official challenge requirement, or [PROBLEM REQUIREMENT] does this workstream address?
 
 Design Decisions
 Which choices are ours?
@@ -131,6 +135,12 @@ Logical change groups, if commits are later requested.
 
 Risks / Open Decisions
 Questions, dependencies, assumptions, and decision points.
+
+Event Rule Constraints
+Starter/prebuilt infrastructure, AI assistance, challenge-specific implementation boundary, deployment, official Code Freeze, and submission constraints that affect this workstream.
+
+External Services
+Any cloud or third-party service dependency, why it is needed, access verification, failure modes, single-point-of-failure risk, and local or degraded fallback where practical.
 
 Do not implement before human approval.
 
@@ -223,9 +233,10 @@ After implementation, run relevant checks such as:
 6. Compile or static sanity checks
 7. Dependency consistency check
 8. Local frontend/backend integration test, where applicable
-9. Deployed end-to-end verification, when deployment is in scope
-10. git diff --check
-11. git status
+9. Local E2E verification, when using the local release path
+10. Deployed end-to-end verification, when using the deployed release path
+11. git diff --check
+12. git status
 
 Only run checks relevant to the repository. Do not claim unperformed verification. Clearly classify results as:
 - VERIFIED
@@ -257,7 +268,7 @@ Test at minimum:
 - Backend/frontend schema compatibility
 
 14. Deployment Workstream
-When the intended MVP requires a remotely accessible demonstration, deployment is a first-class Builder workstream. Local integration is not final verification.
+Deployment is a first-class Builder workstream when official rules require it, the demo needs it, or it is reliable and valuable within remaining time. Public deployment is not universally mandatory. Local integration is not deployed verification.
 
 The deployment lifecycle is:
 
@@ -301,7 +312,18 @@ Completion criteria:
 - State persists in the hosted database.
 - Golden demo flow passes end to end.
 
-Do not add Docker, containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it. Deploy the smallest architecture that reliably demonstrates the critical path.
+Do not add Docker, containers, queues, cloud infrastructure, or deployment complexity unless official rules, the selected provider, or the approved problem requires it. Deploy the smallest architecture that reliably demonstrates the critical path.
+
+If deployment is not required or not a good tradeoff, use the local release path:
+
+```text
+local integration
+-> local E2E verification
+-> final review
+-> whole-project reconstruction
+-> internal Demo Freeze
+-> official event freeze/submission
+```
 
 15. Phase Documentation
 After successful verification of a meaningful workstream, document it under:
@@ -533,10 +555,12 @@ problem
 -> dynamic updates
 -> deployment
 -> verification
+-> internal Demo Freeze
+-> official Code Freeze / submission
 -> limitations / tradeoffs
 ```
 
-The goal is not memorizing every line. The goal is to understand what happens, why, where, what depends on what, and what evidence proves it.
+The goal is not memorizing every line. The goal is to understand what happens, why, where, what depends on what, what evidence proves it, and which official event rules governed starter use, AI assistance, deployment, and submission behavior.
 
 27. Hackathon Time Compression
 Under strict time limits, prioritize:
@@ -545,7 +569,7 @@ Under strict time limits, prioritize:
 3. Core domain or state
 4. Core decision or business logic
 5. Frontend/backend integration
-6. Deployment readiness when the demo is remote
+6. Selected release-path readiness
 7. Verification and debugging
 8. Demo readiness
 
@@ -553,7 +577,7 @@ Compress workstreams when useful. Do not allow process documentation or long lec
 
 Near demo freeze:
 - Stop speculative feature development.
-- Fix only issues threatening startup, primary flow, correctness, persistence, integration, deployed access, or critical validation.
+- Fix only issues threatening startup, primary flow, correctness, persistence, integration, selected release path, official submission requirements, or critical validation.
 
 28. Final Principle
 The Builder Agent's job is not to maximize code volume.

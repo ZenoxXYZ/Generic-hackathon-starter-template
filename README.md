@@ -1,14 +1,14 @@
 # Generic Hackathon Starter
 
-A reusable, backend-first foundation for building small, demonstrable projects with AI coding agents while keeping requirements, design decisions, implementation evidence, and review history clear.
+A reusable, backend-first foundation for building small, demonstrable projects with AI coding agents, when official rules permit that workflow, while keeping requirements, design decisions, implementation evidence, and review history clear.
 
-Bring an authoritative problem statement. This template supplies repeatable engineering infrastructure; it does not decide the product.
+Bring official event rules, organizer clarifications, and an authoritative problem statement. This template supplies repeatable engineering infrastructure; it does not decide the product or override competition policy.
 
 > This is a starting point, not a solution generator.
 
 ## What It Is
 
-This repository is a problem-agnostic engineering foundation for hackathons, take-home challenges, rapid prototypes, and other time-constrained exercises. It keeps durable project state in the repository so people and fresh AI sessions can reconstruct what is required, what was designed, what was implemented, and what was verified.
+This repository is a problem-agnostic engineering foundation for hackathons, take-home challenges, rapid prototypes, and other time-constrained exercises. It keeps durable project state in the repository so people and fresh AI sessions can reconstruct what is required, what was designed, what was implemented, and what was verified. Reusable starter infrastructure, AI assistance, challenge-specific implementation boundaries, deployment, and submission behavior must follow the relevant official rules.
 
 ## Why It Exists
 
@@ -52,7 +52,10 @@ The repository uses four state files with distinct purposes:
 Requirements and design authority flow from:
 
 ```text
-authoritative problem statement -> approved problem.md -> approved plan.md
+official event rules / official clarifications
+-> official challenge / problem statement
+-> approved problem.md
+-> approved plan.md
 ```
 
 Implemented-state truth comes from:
@@ -106,13 +109,13 @@ Human checkpoint -> independent review -> understand workstream
 Next workstream -> frontend / full-stack integration when applicable
         |
         v
-Deployment when remote demo is intended
+Deployment decision when required or valuable
         |
         v
-Deployed verification -> final review
+Local or deployed E2E verification -> final review
         |
         v
-Whole-project understanding -> Demo Freeze
+Whole-project understanding -> internal Demo Freeze -> official event freeze/submission
 ```
 
 ## Repository Structure
@@ -150,14 +153,14 @@ Frontend -> HTTP request -> FastAPI route -> Pydantic validation
 -> response schema -> frontend state and rendering
 ```
 
-Frontend, local integration, deployment, and deployed end-to-end verification can become separate workstreams. The frontend should use approved backend contracts rather than duplicate backend business or decision logic. See the [full-stack guide](docs/guides/FULL_STACK_GUIDE.md).
+Frontend, local integration, deployment decisions, deployment, and local or deployed end-to-end verification can become separate workstreams. Public deployment is not universally mandatory; use the release path that official rules, demo needs, reliability, and remaining time justify. The frontend should use approved backend contracts rather than duplicate backend business or decision logic. See the [full-stack guide](docs/guides/FULL_STACK_GUIDE.md).
 
 ## Quick Start
 
 1. Use the repository as a GitHub template, or clone/copy it deliberately.
 2. Create and activate a virtual environment.
 3. Install dependencies and verify the starter.
-4. Provide the authoritative problem statement.
+4. Provide official event rules, organizer clarifications, and the authoritative problem statement when available.
 5. Run Problem Statement Intake, then Problem Definition; review and approve `problem.md`.
 6. Run Master System Design; review and approve `plan.md`.
 7. Initialize execution state.
@@ -165,8 +168,8 @@ Frontend, local integration, deployment, and deployed end-to-end verification ca
 9. Use independent reviews for meaningful checkpoints.
 10. Reconstruct meaningful workstreams so humans understand what was built and verified.
 11. Build frontend and local integration work only when the approved problem requires it.
-12. Add deployment and deployed end-to-end verification when a remote demo is intended.
-13. Run final review, whole-project engineering reconstruction, and Demo Freeze.
+12. Choose local or deployed release path according to official rules, demo needs, reliability, and remaining time.
+13. Run final review, whole-project engineering reconstruction, internal Demo Freeze, and official event freeze/submission.
 
 ```powershell
 python -m venv .venv
@@ -196,7 +199,7 @@ This is an engineering prioritization rule under time pressure. It does not mean
 - Deployment architecture or distributed infrastructure
 - ML systems, optimization infrastructure, caches, queues, or background workers
 
-Those choices must come from the authoritative problem statement and approved design.
+Those choices must come from official event rules, the official challenge/problem statement, and approved design.
 
 ## Documentation
 
@@ -208,6 +211,8 @@ Those choices must come from the authoritative problem statement and approved de
 - [Reviewer workflow](docs/REPO_REVIEW_WORKFLOW.md)
 
 Reusable methodology lives in `AGENTS.md`, `docs/AGENT_WORKFLOW.md`, `docs/REPO_REVIEW_WORKFLOW.md`, and `docs/guides/`. Project-specific state lives in `problem.md`, `plan.md`, `execute.md`, `review.md`, phase/review records, and the implementation that an approved problem justifies.
+
+Demo Freeze is this workflow's internal stability gate. Official Code Freeze or submission deadlines are external event boundaries and take precedence.
 
 ## Git Workflow
 
