@@ -29,6 +29,13 @@ If implementation evidence conflicts with project-state documentation:
 2. Verify the repository evidence.
 3. Report the inconsistency.
 4. Correct stale documentation only after the actual state is understood.
+Human/GPT/Codex responsibility split:
+- Human - approves, understands, prioritizes, decides, and explains.
+- GPT Control Room - requirements reasoning, architecture supervision, Codex prompt generation, Builder-plan critique, teaching, workstream reconstruction, debugging supervision, scope/time control, and judge readiness.
+- Codex Builder - repository reconstruction, workstream planning, implementation, tests, debugging, execute.md/evidence updates, and concise implementation reports.
+- Codex Reviewer - independent verification, classified findings, severity, and verdict.
+- Repository evidence - engineering truth.
+This repository should not imply that Codex is the primary long-form teaching agent; Codex records evidence and performs bounded implementation/review work, while GPT Control Room may supervise and reconstruct understanding for the human.
 3. Default Technology Direction
 The preferred default stack for fast hackathon MVP development is:
 - Python
@@ -236,7 +243,7 @@ Reviewer Agents must:
 - Read docs/REPO_REVIEW_WORKFLOW.md.
 - Use a fresh, independent repository-evidence review.
 - Perform the initial review read-only.
-- Distinguish bugs, design issues, missing verification, documentation drift, deferred features, and improvements.
+- Distinguish bugs, design issues, contract drift, integration failures, missing verification, doc drift, deferred work, and improvements.
 - Distinguish implementation bugs, contract drift, integration failures, missing verification, unfinished planned capabilities, intentional backend-only/frontend-only workstreams, and deferred future features.
 - Avoid treating a missing layer as a finding when that layer was legitimately N/A for the approved workstream scope.
 - Not automatically fix review findings before human approval.
@@ -253,6 +260,13 @@ Reviewer Agents must:
 - docs/phases/ — detailed implementation and learning documentation
 - docs/reviews/ — detailed independent repository-review evidence
 Avoid duplicating full phase documentation into review.md.
+Document responsibilities:
+- problem.md - normalized WHAT the complete product must do, including frontend, backend, persistence/data, business rules, invariants, workflows, inputs/outputs, assumptions, constraints, and MVP boundaries when supported by the brief.
+- plan.md - approved HOW / Master System Design, including Golden Path, architecture, frontend/backend structure, entities, database design, invariants, important API contracts, business/decision logic, workstream map, dependencies, integration strategy, verification strategy, and release/deployment criteria.
+- execute.md - live implementation/workstream state, including workstream, objective, Golden-Path relevance, dependencies, contracts, Backend, Frontend, Persistence, Integration, Infrastructure, Verification, Evidence, Status, Blocker, Next, and Deferrals. N/A layers are valid.
+- review.md - verified review findings/history, not a duplicate implementation tracker.
+- README.md - project-facing explanation and usage guide for the actual repository; it does not replace problem.md, plan.md, or execute.md.
+- Actual code, migrations, tests, Git evidence, and safe runtime verification - implemented truth.
 20. Hackathon Priority Rule
 When time is constrained, prioritize in this order:
 1. Primary user journey works
@@ -267,9 +281,12 @@ When time is constrained, prioritize in this order:
 Near submission or demo freeze, do not add speculative features.
 Keep documentation concise enough that it does not delay the higher-priority working MVP, correctness, integration, verification, or demo readiness.
 Demo Freeze is an internal stability gate chosen by the team. Official Code Freeze or submission deadlines are external event boundaries and take precedence over template preferences.
-The intended lifecycle is: official event/challenge intake -> problem normalization -> MVP and Golden Path identification -> Master System Design -> architecture, data model, and API/data contracts -> capability/workstream map in plan.md -> backend/persistence foundation -> relevant contract becomes implementation-ready -> frontend begins where relevant -> capability-oriented workstreams -> incremental vertical integration -> Golden Path implementation complete -> systematic full-stack integration/hardening -> local Golden-Path E2E -> Feature Freeze -> release/deployment decision -> local final E2E or deployment plus deployed E2E -> P0/P1 fixes -> independent final review -> whole-project reconstruction -> internal Demo Freeze -> official event freeze/submission boundary.
+The intended lifecycle is: official rules/challenge -> requirements extraction -> problem.md -> MVP -> Golden Path -> Master System Design -> plan.md -> initialize execute.md -> early README challenge transition -> backend/persistence foundation -> relevant contracts implemented/stabilized -> frontend begins consuming relevant contracts -> capability-oriented workstream loop -> incremental vertical integration -> focused verification -> repeat -> Golden Path assembled -> systematic full-stack integration/hardening -> local Golden-Path E2E -> Feature Freeze -> release/deployment decision -> local final runtime or deployment -> chosen-runtime E2E -> P0/P1 corrections -> final README reconciliation -> independent final review -> required final corrections -> whole-project reconstruction/judge readiness -> Demo Freeze -> Git/source checkpoint -> official freeze.
 When deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, treat deployment as a bounded engineering workstream, verify the deployed backend, frontend, database, migrations, CORS, production API URL, and golden path, and do not treat local success as deployment success. When deployment is not required or not a good tradeoff, reliable local demonstration with local E2E/final verification remains a valid release path. Local runtime is browser -> frontend development server -> local backend -> local database. Deployed runtime is browser -> hosted frontend -> hosted backend -> hosted database. Do not add containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it.
 Before the final demo, perform a whole-project engineering reconstruction sufficient for the human to explain the problem, requirements, architecture, data model, API, services, business or decision logic, persistence, frontend, dynamic updates, deployment, verification, limitations, and tradeoffs. Under strict hackathon timing, keep learning focused on major decisions, critical flows, and judge readiness rather than exhaustive theory.
+README lifecycle:
+1. Early challenge transition - after problem.md is approved, plan.md is approved, and execute.md is initialized, README.md should transition from generic-starter documentation into a challenge-specific project README. It may include project/challenge name, concise problem summary, approved MVP, Golden Path, architecture overview, tech stack, frontend/backend/persistence structure, local setup/run instructions, environment variables, migration commands, test commands, and current implementation status. Do not claim planned but unimplemented features as completed.
+2. Final README reconciliation - once Golden Path implementation is stable, reconcile README.md against actual verified code, migrations, tests, and runtime behavior. Update implemented features, architecture, API overview where useful, setup, migrations, tests, demo flow, deployment if used, known limitations, and explicit deferrals. Remove stale generic-starter wording and inaccurate claims.
 21. AI Agent Final Rule
 The agent's objective is not to generate the most code.
 The objective is to produce the smallest correct, verified, understandable, demonstrable solution consistent with official event rules, the official challenge/problem statement, approved problem.md, and approved plan.md.

@@ -17,6 +17,28 @@ What actually works?       code + tests + migrations + Git + safe verification
 
 Official event rules and organizer clarifications outrank the template workflow for competition constraints. Reusable/prebuilt infrastructure, challenge-specific implementation, AI-assisted development, deployment, and submission/code-freeze behavior must comply with those official rules.
 
+Document roles:
+- `problem.md` is the normalized WHAT the complete product must do. It may include frontend, backend, persistence/data, business rules, invariants, user workflows, inputs/outputs, assumptions, constraints, and MVP boundaries, but it should not become an implementation design document.
+- `plan.md` is the approved HOW / Master System Design. It records Golden Path, architecture, frontend/backend structure, entities, database design, invariants, important API contracts, business/decision logic, workstream map, dependencies, integration strategy, verification strategy, and release/deployment criteria.
+- `execute.md` is live implementation/workstream state with capability, Golden-Path relevance, dependencies, contracts, layer tasks, verification, evidence, status, blockers, next step, and deferrals. N/A layers are valid.
+- `review.md` is verified review findings/history, not a duplicate implementation tracker.
+- `README.md` is project-facing documentation for the actual repository.
+- Actual code, migrations, tests, Git evidence, and safe runtime checks are implemented truth.
+
+`plan.md` and Codex Plan Mode are different. `plan.md` is the persistent whole-system Master Design. Codex Plan Mode is a repo-grounded implementation plan for one bounded workstream.
+
+## Human, GPT, Codex, and Repository Roles
+
+```text
+Human: approves, understands, prioritizes, decides, explains
+GPT Control Room: requirements reasoning, architecture supervision, Codex prompts, Builder-plan critique, teaching, reconstruction, debugging supervision, scope/time control, judge readiness
+Codex Builder: repo reconstruction, workstream planning, implementation, tests, debugging, execute.md/evidence updates, concise implementation report
+Codex Reviewer: independent verification, findings, severity, verdict
+Repository: engineering truth
+```
+
+Codex records evidence and performs bounded implementation/review work. The workflow should not depend on Codex as the primary long-form teaching agent; GPT Control Room may reconstruct workstream understanding after Builder evidence exists.
+
 ## Why Builders and Reviewers Are Separate
 
 ```text
@@ -63,17 +85,31 @@ Golden Path means the most important successful user journey that demonstrates t
 A meaningful Builder chat normally closes after:
 
 ```text
-approved plan
+plan.md / execute.md
+-> next workstream
+-> fresh Codex Builder where useful
+-> repository reconstruction
+-> Codex Plan Mode
+-> bounded implementation plan
+-> GPT/human review
+-> human approval
 -> implementation
 -> debugging
--> verification
--> documentation/state reconciliation
--> relevant review handling
--> workstream reconstruction
+-> focused verification
+-> evidence
+-> execute.md update
+-> implementation report
+-> GPT workstream reconstruction
+-> optional risk-driven Reviewer
 -> human understanding checkpoint
+-> close workstream
 ```
 
 Multiple small tasks may form one workstream and should usually receive one combined reconstruction. Do not require a long teaching session after every microscopic edit.
+
+A workstream is complete only when its relevant path reaches: DESIGNED -> PLANNED -> APPROVED -> IMPLEMENTED -> INTEGRATED where relevant -> VERIFIED -> EVIDENCE RECORDED -> EXIT CRITERIA SATISFIED -> CLOSED.
+
+Reviewers are selective and risk-driven. Useful checkpoints include complex business/decision logic, concurrency/integrity, critical state transitions, important DB constraints, major API changes, significant integration, and final product checkpoints.
 
 ## Phase and Review Evidence
 
@@ -128,30 +164,46 @@ Systematic full-stack integration is a later hardening/reconciliation pass, not 
 
 The workflow supports two release paths.
 
+Release decision starts after local evidence:
+
+```text
+Golden Path assembled
+-> systematic full-stack hardening
+-> local Golden-Path E2E
+-> Feature Freeze
+-> release decision
+```
+
 Local release path:
 
 ```text
-local Golden-Path E2E
--> Feature Freeze
--> release decision
--> local final E2E
+Feature Freeze
+-> local final runtime
+-> chosen-runtime E2E
+-> P0/P1 fixes
+-> final README reconciliation
 -> final review
+-> required critical corrections
 -> whole-project engineering reconstruction
 -> internal Demo Freeze
+-> Git/source checkpoint
 -> official event freeze/submission
 ```
 
 Deployed release path:
 
 ```text
-local Golden-Path E2E
 -> Feature Freeze
 -> deployment decision
 -> deployment
 -> deployed E2E verification
+-> P0/P1 fixes
+-> final README reconciliation
 -> final review
+-> required critical corrections
 -> whole-project engineering reconstruction
 -> internal Demo Freeze
+-> Git/source checkpoint
 -> official event freeze/submission
 ```
 
@@ -181,6 +233,16 @@ Deploy the smallest architecture that reliably demonstrates the critical path. D
 Demo Freeze is an internal stability gate chosen by the team. It means optional feature work stops and the team protects startup, the primary flow, correctness, integration, verification, known fallback paths, and explanation readiness.
 
 Official Code Freeze or submission deadline is an external competition boundary. The official rules always take precedence over the template workflow.
+
+## README Lifecycle
+
+README.md starts as generic starter documentation, then transitions with the project.
+
+Pass 1 - early challenge transition: after `problem.md` is approved, `plan.md` is approved, and `execute.md` is initialized, README.md should become a challenge-specific project README. It may include project/challenge name, concise problem summary, approved MVP, Golden Path, architecture overview, tech stack, frontend/backend/persistence structure, local setup/run instructions, environment variables, migration commands, test commands, and current implementation status. It must not claim planned but unimplemented features as completed.
+
+Pass 2 - final README reconciliation: once the Golden Path and implementation are stable, reconcile README.md against actual verified code, migrations, tests, runtime behavior, selected release path, demo flow, deployment if used, known limitations, and explicit deferrals. Remove stale generic-starter wording and inaccurate claims.
+
+GPT Control Room decides when README transition/reconciliation is required and generates the bounded Codex prompt. Codex performs the edit and verifies README.md against repository reality.
 
 ## Starter, AI, and External Service Policy
 

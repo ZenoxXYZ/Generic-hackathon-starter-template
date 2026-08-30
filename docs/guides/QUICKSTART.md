@@ -49,6 +49,7 @@ This asks the team to protect the MVP, correctness, integration, deployment read
 4. Approve `problem.md`.
 5. Run Master System Design, identify the Golden Path, important API/data contracts, and capability/workstream map, then approve `plan.md`.
 6. Initialize or reconcile `execute.md` and `review.md` with repository evidence.
+7. Transition README.md from generic starter documentation to challenge-specific project documentation after `problem.md`, `plan.md`, and `execute.md` are approved/initialized.
 
 Only then begin product implementation.
 
@@ -70,6 +71,7 @@ create repo from template
 -> Master System Design
 -> plan.md contracts and workstream map
 -> execution state
+-> early README challenge transition
 -> backend/persistence foundation
 -> first stable capability and relevant contracts
 -> frontend begins where relevant
@@ -82,9 +84,13 @@ create repo from template
 -> Feature Freeze
 -> choose local or deployed release path
 -> local final E2E or deployment plus deployed verification
+-> P0/P1 corrections
+-> final README reconciliation
 -> final review
+-> required final corrections
 -> whole-project reconstruction
 -> internal Demo Freeze
+-> Git/source checkpoint
 -> official event freeze/submission
 ```
 
@@ -92,13 +98,15 @@ For each meaningful Builder workstream:
 1. Start a fresh Builder workstream in Plan Mode.
 2. Approve its plan before implementation.
 3. Implement, debug, test, verify, and record the workstream under `docs/phases/`.
-4. Run an independent Reviewer workstream for meaningful or risky checkpoints.
-5. Reconstruct the verified workstream so the human understands what was built, where it lives, how it runs, what state it touches, and how it was verified.
+4. Reconstruct the verified workstream so the human understands what was built, where it lives, how it runs, what state it touches, and how it was verified.
+5. Run an independent Reviewer workstream for meaningful or risky checkpoints.
 6. Close the Builder chat only after the human understanding checkpoint is sufficient.
 
 Golden Path means the most important successful user journey that demonstrates the core value of the MVP. Identify it before implementation and use it to prioritize scope, contracts, workstreams, integration, E2E, and demo preparation.
 
 Backend-first does not mean backend-complete-first. Establish the domain foundations, persistence, invariants, critical backend capabilities, and sufficiently stable API/data contracts first; then frontend work may begin where relevant once the needed contract/capability is stable enough. Local full-stack integration verifies the app on local services. Systematic full-stack integration is a hardening pass after incremental slice integration has already happened. If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, add a deployment workstream and verify the deployed golden path before internal Demo Freeze. If deployment is not required or not a good tradeoff, reliable local E2E/final verification remains a valid release path.
+
+GPT Control Room supervises requirements, architecture, Codex prompts, plan critique, teaching, reconstruction, debugging strategy, scope/time control, and judge readiness. Codex Builder implements bounded approved workstreams and records evidence. Codex Reviewer performs independent risk-driven verification for meaningful checkpoints.
 
 ## 6. Compressed Six-Hour Guidance
 
@@ -111,7 +119,7 @@ Backend-first does not mean backend-complete-first. Establish the domain foundat
 | 3:45-4:45 | Complete the Golden Path, verify focused slices, and harden systematic full-stack integration. |
 | 4:45-5:15 | Run local Golden-Path E2E, critical failure checks, and P0/P1 fixes. |
 | 5:15-5:35 | Feature Freeze and choose local or deployed release path; deploy only when required, necessary, or valuable within time. |
-| 5:35-6:00 | Local final E2E or deployed E2E, final review, whole-project reconstruction, fallback demo path, internal Demo Freeze, and official freeze/submission readiness. |
+| 5:35-6:00 | Chosen-runtime E2E, final README reconciliation, final review, required critical corrections, whole-project reconstruction, fallback demo path, Demo Freeze, Git/source checkpoint, and official freeze/submission readiness. |
 
 Learning should be proportional:
 - Small reconstruction: 2-3 minutes.

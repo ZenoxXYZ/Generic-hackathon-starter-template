@@ -76,6 +76,10 @@ Do not force independent review after every tiny workstream. Do not force a long
 6. Planning Phase
 Meaningful workstreams begin in Plan Mode. Plan Mode is read-only.
 
+Distinguish persistent design from workstream planning:
+- `plan.md` is the approved whole-system Master Design.
+- Codex Plan Mode is a repo-grounded implementation plan for one bounded workstream.
+
 Before proposing a plan:
 - Inspect official event rules or organizer clarifications when supplied.
 - Inspect the current architecture.
@@ -160,6 +164,8 @@ A produced plan is not automatically approved. Wait for explicit human approval 
 
 If the human adds clarifications, incorporate them as approved constraints. Only after approval should Plan Mode be exited.
 
+GPT Control Room may critique the Builder plan, generate follow-up prompts, supervise debugging strategy, and teach/reconstruct the completed workstream. Codex Builder remains responsible for bounded implementation, tests, evidence updates, and concise implementation reporting.
+
 8. Implementation Phase
 After approval:
 - Re-check Git status when Git metadata exists.
@@ -216,6 +222,7 @@ Rules:
 - Keep low-level tasks under their capability/workstream.
 - Support arbitrary workstreams from plan.md; do not hardcode a fixed count or folder sequence.
 - Use N/A explicitly for layers outside the approved scope.
+- Track completion with DESIGNED, PLANNED, APPROVED, IMPLEMENTED, INTEGRATED where relevant, VERIFIED, EVIDENCE RECORDED, EXIT CRITERIA SATISFIED, and CLOSED when useful.
 - Use meaningful checkpoint updates, not constant edits after every line.
 - Final workstream closeout must update execution state accurately.
 - Treat execute.md as a summary and reconcile it to verified repository evidence before updating it.
@@ -444,6 +451,19 @@ Phase documentation must describe actual verified implementation, not merely rep
 16. Post-Implementation Workstream Reconstruction
 Purpose: convert verified implementation into human engineering understanding. AI can produce working code faster than a human can internalize it; reconstruction bridges that gap after verification, using the real implementation rather than a hypothetical design.
 
+Normal teaching/reconstruction happens after Builder completion:
+
+```text
+Builder
+-> focused verification
+-> implementation report/evidence
+-> GPT workstream reconstruction
+-> human understanding
+-> optional Reviewer
+```
+
+Reviewer is not required before every reconstruction. If a Reviewer causes a meaningful corrective change, use: Reviewer finding -> corrective Builder -> verification -> short delta reconstruction.
+
 For a meaningful workstream, reconstruct:
 1. Requirement - what approved requirement does this solve?
 2. Design - what design was selected, why, and what important alternative was rejected?
@@ -549,7 +569,7 @@ Before committing:
 Push only when explicitly requested.
 
 22. Independent Repository Review Handoff
-After a meaningful executable, deployment, or cross-domain workstream is implemented, debugged, verified, documented, human-reviewed, and normally committed and pushed, an independent Reviewer Agent may run the quality gate in docs/REPO_REVIEW_WORKFLOW.md when practical before dependent major development continues. A human may explicitly authorize review of a clean, identified uncommitted checkpoint under that workflow.
+Independent review is selective and risk-driven, not mandatory after every tiny change. It is useful for complex business/decision logic, concurrency/integrity, critical state transitions, important DB constraints, major API changes, significant integration, deployment, and final product checkpoints. After a meaningful executable, deployment, or cross-domain workstream is implemented, debugged, verified, documented, human-reviewed, and normally committed and pushed, an independent Reviewer Agent may run the quality gate in docs/REPO_REVIEW_WORKFLOW.md when practical before dependent major development continues. A human may explicitly authorize review of a clean, identified uncommitted checkpoint under that workflow.
 
 Tiny documentation-only changes do not automatically require a full independent review.
 
@@ -598,7 +618,7 @@ A fresh Builder chat/session is normally responsible for one meaningful workstre
 The next meaningful workstream should normally begin in a fresh Builder context. The repository carries engineering memory across chats.
 
 26. Whole-Project Engineering Reconstruction
-Before the final demo, reconstruct the full project so the human can explain:
+After final independent review and required critical corrections, reconstruct the full project so the human can explain:
 
 ```text
 problem
@@ -614,6 +634,7 @@ problem
 -> deployment
 -> verification
 -> internal Demo Freeze
+-> Git/source checkpoint
 -> official Code Freeze / submission
 -> limitations / tradeoffs
 ```

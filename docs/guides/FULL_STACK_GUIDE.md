@@ -8,7 +8,9 @@ Master System Design should identify the important API/data contracts needed by 
 
 Backend-first does not mean backend-complete-first. Establish domain foundations, persistence, major invariants, critical backend capabilities, and sufficiently stable API/data contracts; then frontend work may begin where relevant once the needed contract/capability is stable enough.
 
-Define the API request and response contracts before connecting the interface. Backend routes, Pydantic contracts, services, and logic remain the source of backend behavior; the frontend should not duplicate core business or decision logic.
+Define the API request and response contracts before connecting the interface. `plan.md` records contract design; backend work implements/stabilizes the contract; frontend work consumes the contract; integration proves both sides agree. Important contracts may define method, path, params, request body, field names/types, validation, response shape, status codes, important errors, and frontend consumer. Backend routes, Pydantic contracts, services, and logic remain the source of backend behavior; the frontend should not duplicate core business or decision logic.
+
+If a Builder discovers a material flaw in an approved contract, it should stop and replan rather than silently drift.
 
 ```text
 User
@@ -25,6 +27,32 @@ User
 ```
 
 Configure backend URLs through environment-aware frontend configuration when appropriate. Do not hardcode deployment-specific URLs or credentials into a public client.
+
+## Vertical Slice Path
+
+Where relevant, a full-stack capability follows:
+
+```text
+Requirement
+-> frontend page/component
+-> event/handler
+-> frontend API client
+-> HTTP contract
+-> FastAPI router
+-> Pydantic validation
+-> service/use case
+-> business/decision logic
+-> SQLAlchemy/session
+-> database
+-> commit
+-> response
+-> frontend state/refetch
+-> rerender
+-> visible user result
+-> focused verification
+```
+
+Not every workstream needs every layer. Backend-only, frontend-only, verification, integration, or deployment workstreams may mark unrelated layers N/A.
 
 ## Integration Levels
 
@@ -72,6 +100,8 @@ browser
 
 When deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, verify both. Local success does not prove deployed success. When deployment is not required or not a good tradeoff, reliable local E2E/final verification remains a valid release path.
 
+Local E2E proves the application works in the local runtime. Deployed E2E proves it also works in the hosted runtime.
+
 Deployment-specific integration should cover:
 - `API_BASE_URL` or equivalent environment configuration.
 - No hard-coded localhost dependency in production frontend code.
@@ -109,7 +139,7 @@ A frontend Builder workstream should first inspect the approved problem, plan, A
 
 A full-stack vertical slice verifies the actual path from user input through backend behavior and back to rendering for that capability. A later systematic full-stack integration workstream is a hardening/reconciliation pass across the assembled Golden Path; it should inspect endpoint/path mismatch, HTTP method mismatch, request-field mismatch, response-field mismatch, status/error handling, frontend API base URL, CORS, environment configuration, loading state, empty state, error state, success state, mutation/refetch behavior, stale frontend state, backend validation, persistent state, refresh/reload correctness, cross-page continuity, and Golden-Path continuity.
 
-If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, the deployment decision follows local Golden-Path E2E and Feature Freeze. The release path is then either local final verification or deployment plus deployed E2E, covering hosted services, environment variables, migrations, production API URL, and CORS when deployment is selected.
+If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, the deployment decision follows Golden Path assembly, systematic hardening, local Golden-Path E2E, and Feature Freeze. The release path is then either local final runtime verification or deployment plus deployed Golden-Path E2E, covering hosted services, environment variables, migrations, production API URL, and CORS when deployment is selected.
 
 An independent Reviewer checks contract compatibility, loading/error/empty behavior, stale state risks, accidental duplication of backend decision logic, and deployed integration evidence when deployment is in scope. It does not invent a framework or redesign the product without approval.
 

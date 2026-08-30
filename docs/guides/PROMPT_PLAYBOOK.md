@@ -12,19 +12,23 @@ Use the smallest sequence that protects the critical path:
 4. Master System Design
 5. Plan Pre-Implementation Review
 6. Initialize Execution State
-7. New Builder Workstream
-8. Approve and Implement
-9. Independent Review for meaningful checkpoints
+7. Early README Challenge Transition
+8. New Builder Workstream
+9. Approve and Implement
 10. Post-Implementation Workstream Reconstruction
-11. Frontend Workstream if needed and relevant contracts are stable enough
-12. Systematic Full-Stack Integration / Hardening
-13. Release Path Decision
-14. Local E2E or Deployment Workstream
-15. Local/Deployed Verification / Final E2E Review
-16. Whole-Project Engineering Reconstruction
-17. Internal Demo Freeze and Official Event Freeze/Submission
+11. Independent Review for meaningful checkpoints
+12. Frontend Workstream if needed and relevant contracts are stable enough
+13. Systematic Full-Stack Integration / Hardening
+14. Release Path Decision
+15. Local Final Runtime or Deployment Workstream
+16. Chosen-Runtime E2E and P0/P1 Corrections
+17. Final README Reconciliation
+18. Final Independent Review
+19. Required Final Corrections
+20. Whole-Project Engineering Reconstruction
+21. Internal Demo Freeze, Git/Source Checkpoint, and Official Event Freeze/Submission
 
-Not every tiny task requires a fresh Reviewer or long reconstruction. Golden Path means the most important successful user journey that demonstrates the core value of the MVP. Identify it before implementation, use it to drive workstream priority and contracts, and refine it only when legitimate evidence or approved design changes require that. Public deployment is conditional, and local E2E remains a valid final path when official rules and demo needs allow it. Do not compress away verification of the critical path.
+Not every tiny task requires a fresh Reviewer or long reconstruction. Golden Path means the most important successful user journey that demonstrates the core value of the MVP. Identify it before implementation, use it to drive workstream priority and contracts, and refine it only when legitimate evidence or approved design changes require that. GPT Control Room supervises requirements, architecture, prompts, plan critique, teaching, reconstruction, debugging strategy, scope/time control, and judge readiness; Codex Builder implements bounded approved workstreams; Codex Reviewer independently verifies meaningful checkpoints. Public deployment is conditional, and local E2E remains a valid final path when official rules and demo needs allow it. Do not compress away verification of the critical path.
 
 ## 1. Starter Check
 
@@ -182,7 +186,29 @@ Implementation.
 Read AGENTS.md, docs/AGENT_WORKFLOW.md, official event rules/clarifications when supplied, approved problem.md and plan.md, current state files, and repository evidence. Initialize or reconcile execute.md and review.md only where verified evidence supports it. In execute.md, derive the compact workstream status summary from plan.md and track each workstream by capability, Golden-Path relationship, dependencies, relevant contracts, involved layers, verification expectation, evidence, blockers, next step, and deferrals. Use N/A for layers outside the approved scope. Do not implement product behavior, change architecture, commit, or push.
 ```
 
-## 8. New Builder Workstream
+## 8. Early README Challenge Transition
+
+### Role
+
+Documentation Builder.
+
+### When to Use
+
+After `problem.md` is approved, `plan.md` is approved, and `execute.md` is initialized.
+
+### Mode
+
+Implementation.
+
+### Prompt
+
+```text
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/WORKFLOW.md, approved problem.md, approved plan.md, execute.md, review.md, current README.md, code, tests, migrations, configuration, and Git evidence. Update README.md from generic-starter documentation into a challenge-specific project README that matches approved requirements/design and actual implemented state.
+
+It may include project/challenge name, concise problem summary, approved MVP, Golden Path, architecture overview, tech stack, frontend/backend/persistence structure, local setup/run instructions, environment variables, migration commands, test commands, and current implementation status. Do not claim planned but unimplemented features as completed. Preserve generic setup instructions only when still accurate. Modify only README.md unless the human explicitly approves a wider documentation scope. Do not commit or push.
+```
+
+## 9. New Builder Workstream
 
 ### Role
 
@@ -204,7 +230,7 @@ In a fresh session, read AGENTS.md and docs/AGENT_WORKFLOW.md. Reconstruct autho
 Propose a bounded capability-oriented plan for [WORKSTREAM NAME] with: objective/capability; Golden-Path relationship; official event constraints; requirements addressed; verified current state; design decisions; scope; explicit deferrals; files and layers likely affected; data/schema changes; API/data contracts affected and whether they are implementation-ready; service or logic changes; frontend impact or N/A; backend impact or N/A; persistence impact or N/A; integration impact or N/A; infrastructure/deployment impact if any; external-service dependencies and fallback if any; validation and error behavior; migration implications; implementation tasks; focused slice verification; API/frontend/backend/persistence verification where applicable; reconstruction topics; risks; and completion criteria. Stop before implementation for human approval.
 ```
 
-## 9. Approve and Implement Workstream
+## 10. Approve and Implement Workstream
 
 ### Role
 
@@ -228,7 +254,7 @@ Reproduce and fix implementation-time bugs with evidence, add regression coverag
 Report changed files, database changes, request/data flow, verification results, remaining deferrals, reconstruction summary, and anything not verified. Stop before commit or push for human review.
 ```
 
-## 10. Implementation-Time Bug Investigation
+## 11. Implementation-Time Bug Investigation
 
 ### Role
 
@@ -248,7 +274,7 @@ Implementation.
 For [SYMPTOM], reproduce or verify the failure, record expected and actual behavior, inspect repository evidence, locate the responsible layer, and identify the root cause. Propose the smallest design-preserving fix. Add regression coverage, run focused and broader relevant verification, and record a stable BUG-ID only after the bug is verified. Escalate any material architecture, schema, API, policy, deployment, or scope change for human approval before implementing it.
 ```
 
-## 11. Builder Closeout
+## 12. Builder Closeout
 
 ### Role
 
@@ -268,7 +294,7 @@ Implementation.
 Audit [WORKSTREAM NAME] against AGENTS.md and docs/AGENT_WORKFLOW.md. Reconcile completion claims against code, tests, migrations, safe runtime checks, documentation, and Git evidence. Report changed files, implementation, request/data flow, verification, verified bugs, deferrals, risks, exact checkpoint scope, and what should be reconstructed for human understanding. Update only repository records that the evidence supports. Do not commit or push.
 ```
 
-## 12. Independent Repository Review
+## 13. Independent Repository Review
 
 ### Role
 
@@ -276,7 +302,7 @@ Independent Reviewer.
 
 ### When to Use
 
-After a meaningful workstream or named checkpoint.
+After a meaningful or risky workstream or named checkpoint. Review is selective/risk-driven, not mandatory after every tiny change.
 
 ### Mode
 
@@ -287,10 +313,10 @@ Read-only initial review.
 ```text
 Read AGENTS.md and docs/REPO_REVIEW_WORKFLOW.md. Establish the exact [CHECKPOINT] and diff scope, including the baseline commit and uncommitted changes if applicable. Independently reconstruct requirements and implemented state from repository evidence; do not rely on Builder claims.
 
-Trace requirement coverage and inspect architecture, schema/migration consistency, API contracts, validation, business or decision logic, failure handling, tests, regression risk, configuration/security concerns relevant to scope, documentation drift, frontend/backend compatibility where applicable, and deployed verification where deployment is in scope. Classify each finding exactly as a verified bug, design issue, documentation drift, missing verification, deferred feature, or optional improvement, following the Reviewer workflow. The initial pass is read-only: do not fix, commit, or push. End with the required review status and stop.
+Trace requirement coverage and inspect architecture, schema/migration consistency, API contracts, validation, business or decision logic, failure handling, tests, regression risk, configuration/security concerns relevant to scope, doc drift, frontend/backend compatibility where applicable, and deployed verification where deployment is in scope. Classify each finding as BUG, DESIGN ISSUE, CONTRACT DRIFT, INTEGRATION FAILURE, MISSING VERIFICATION, DOC DRIFT, DEFERRED, or IMPROVEMENT, following the Reviewer workflow. Assign P0/P1/P2 severity and end with PASS, PASS WITH NON-BLOCKING FINDINGS, or BLOCKED. The initial pass is read-only: do not fix, commit, or push.
 ```
 
-## 13. Approve Local Review Fixes
+## 14. Approve Local Review Fixes
 
 ### Role
 
@@ -310,7 +336,7 @@ Implementation.
 Human approval: correct only [FINDING IDs]. Follow docs/REPO_REVIEW_WORKFLOW.md: reproduce each accepted finding, identify the root cause, make the smallest design-preserving correction, add regression coverage where appropriate, verify it, and update accepted review evidence. Do not widen scope, redesign architecture, commit, or push.
 ```
 
-## 14. Corrective Builder Workstream
+## 15. Corrective Builder Workstream
 
 ### Role
 
@@ -330,7 +356,7 @@ Plan Mode.
 Read AGENTS.md, docs/AGENT_WORKFLOW.md, the approved review finding [FINDING IDs OR EVIDENCE], approved requirements/design, and repository evidence. Produce a corrective Builder plan covering the violated invariant, affected architecture/data/API/policy/deployment behavior, decisions required, scope, explicit deferrals, migration and compatibility implications, tests, verification, and risks. Do not implement until the human approves the plan.
 ```
 
-## 15. Frontend Workstream
+## 16. Frontend Workstream
 
 ### Role
 
@@ -352,7 +378,7 @@ Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/FULL_STACK_GUIDE.md, approve
 Keep business and decision logic in the backend. Identify any missing or incompatible contract before implementation. State scope, deferrals, affected files, tests, verification, environment configuration for API base URL, deployment implications, and risks. Stop for human approval.
 ```
 
-## 16. Systematic Full-Stack Integration / Hardening Workstream
+## 17. Systematic Full-Stack Integration / Hardening Workstream
 
 ### Role
 
@@ -376,7 +402,7 @@ User action -> frontend state -> HTTP request -> FastAPI route -> validation -> 
 Inspect endpoint/path mismatch, HTTP method mismatch, request-field mismatch, response-field mismatch, status/error handling, frontend API base URL, CORS, environment configuration, loading state, empty state, error state, success state, mutation/refetch behavior, stale frontend state, backend validation, persistent state, refresh/reload correctness, cross-page continuity, and Golden-Path continuity. Identify each contract boundary, error propagation path, mismatch risk, test approach, affected files, scope, deferrals, verification commands, deployment implications, and completion criteria. Stop before implementation for human approval.
 ```
 
-## 17. Integration Debugging
+## 18. Integration Debugging
 
 ### Role
 
@@ -396,7 +422,7 @@ Implementation.
 Reproduce [INTEGRATION SYMPTOM] across user action, frontend state, request, route, validation, service/logic, persistence, response, and rendering. Compare expected and actual behavior at each boundary, isolate the root cause, and implement only an approved design-preserving correction. Verify the full path, contract compatibility, error propagation, and relevant regression checks. Escalate material contract, deployment, or architecture changes for approval. Do not commit or push.
 ```
 
-## 18. Deployment Workstream Plan
+## 19. Deployment Workstream Plan
 
 ### Role
 
@@ -404,7 +430,7 @@ Deployment Builder.
 
 ### When to Use
 
-After local backend and local frontend integration are verified, when deployment is officially required, necessary for the demo, or reliable and valuable within remaining time.
+After Golden Path assembly, systematic hardening, local Golden-Path E2E, and Feature Freeze, when deployment is officially required, necessary for the demo, or reliable and valuable within remaining time.
 
 ### Mode
 
@@ -420,7 +446,7 @@ First verify that deployment is allowed and justified by official rules, demo ne
 Do not add Docker, containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it. Do not edit files, commit, push, or mutate a real hosted database. Stop for human approval before implementation.
 ```
 
-## 19. Approve and Implement Deployment
+## 20. Approve and Implement Deployment
 
 ### Role
 
@@ -444,7 +470,7 @@ Apply or verify migrations only against the approved deployment database and onl
 Report public backend URL, public frontend URL if applicable, hosted database/migration status, environment variables configured by name only, verification evidence, known risks, fallback demo path, and anything not verified. Do not commit or push.
 ```
 
-## 20. Post-Implementation Workstream Reconstruction
+## 21. Post-Implementation Workstream Reconstruction
 
 ### Role
 
@@ -452,7 +478,7 @@ Technical explainer / Builder handoff.
 
 ### When to Use
 
-After a meaningful workstream is implemented and verified.
+After a meaningful workstream is implemented and verified. Reviewer is not required before every reconstruction.
 
 ### Mode
 
@@ -467,36 +493,32 @@ Read AGENTS.md, docs/AGENT_WORKFLOW.md, approved problem.md, approved plan.md, e
 
 Cover: 1. requirement solved; 2. capability/objective; 3. Golden-Path relationship; 4. design chosen and why; 5. important files; 6. layer responsibilities and N/A layers; 7. runtime flow; 8. data flow; 9. DB/API impact; 10. dependencies; 11. downstream consumers; 12. verification/tests; 13. meaningful bugs/fixes; 14. assumptions/deferrals; 15. a 30-60 second judge explanation.
 
-Link theory directly to the actual implementation. For relevant full-stack slices, trace requirement -> user action -> frontend -> API route -> schema -> service -> business or decision logic -> SQLAlchemy/database -> response -> frontend update -> visible outcome -> verification. For backend-only or frontend-only workstreams, explain only relevant layers and why other layers were N/A. Use concise hackathon mode unless the human asks for deeper teaching. Ask/check whether the human can explain the workstream, then stop once understanding is sufficient.
+Link theory directly to the actual implementation. For relevant full-stack slices, trace requirement -> user action -> frontend -> API route -> schema -> service -> business or decision logic -> SQLAlchemy/database -> response -> frontend update -> visible outcome -> verification. For backend-only or frontend-only workstreams, explain only relevant layers and why other layers were N/A. If a Reviewer later causes a meaningful corrective change, perform a short delta reconstruction after the corrective Builder verification. Use concise hackathon mode unless the human asks for deeper teaching. Ask/check whether the human can explain the workstream, then stop once understanding is sufficient.
 ```
 
-## 21. Whole-Project Engineering Reconstruction / Judge Readiness
+## 22. Final README Reconciliation
 
 ### Role
 
-Technical explainer / demo readiness coach.
+Documentation Builder.
 
 ### When to Use
 
-After major workstreams and final review, before Demo Freeze or judge presentation.
+After Golden Path implementation is stable and before final review / Demo Freeze.
 
 ### Mode
 
-Read-only explanation. Do not modify code.
+Implementation.
 
 ### Prompt
 
 ```text
-Do not modify code, configuration, dependencies, migrations, tests, project-state files, commit, or push.
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/guides/WORKFLOW.md, approved problem.md, approved plan.md, execute.md, review.md, current README.md, phase/review docs, code, tests, migrations, configuration, selected release path, deployment evidence if used, and Git evidence. Reconcile README.md against actual verified repository reality.
 
-Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/REPO_REVIEW_WORKFLOW.md, approved problem.md, approved plan.md, execute.md, review.md, phase/review docs, code, tests, migrations, frontend, deployment configuration, public URLs if available, and Git evidence. Reconstruct the whole project from repository evidence for judge readiness.
-
-Cover: project objective; actors; MVP and Golden Path; architecture; capability-oriented workstreams; entity/domain relationships; database; API/data contracts; request flows; service boundaries; business/decision logic; dynamic updates or re-evaluation when present; frontend; frontend/backend contracts; integration stages; selected release path; deployment if selected; tests; known limitations; major engineering decisions; why modular monolith; why FastAPI/Pydantic/SQLAlchemy/Alembic if those remain the chosen stack; and what would change for production.
-
-Produce a whole-repo map, a 2-minute technical explanation, a 30-second architecture explanation, likely judge questions, concise answers, critical files to know, and the golden demo flow. Keep it concise enough for hackathon use and stop for human review.
+Update implemented features, architecture, API overview where useful, setup, migrations, tests, demo flow, deployment if used, known limitations, and explicit deferrals. Remove stale generic-starter wording and inaccurate claims. Do not claim unverified or planned behavior as complete. Modify only README.md unless the human explicitly approves a wider documentation scope. Run Markdown/link checks and git diff --check. Do not commit or push.
 ```
 
-## 22. Final End-to-End Review
+## 23. Final End-to-End Review
 
 ### Role
 
@@ -520,7 +542,33 @@ When using the local release path, verify or inspect evidence for local integrat
 The initial review is read-only. Classify evidence and findings under the Reviewer workflow, report the required review status, and stop without fixing, committing, or pushing.
 ```
 
-## 23. Demo Freeze
+## 24. Whole-Project Engineering Reconstruction / Judge Readiness
+
+### Role
+
+Technical explainer / demo readiness coach.
+
+### When to Use
+
+After final independent review and required critical corrections, before Demo Freeze or judge presentation.
+
+### Mode
+
+Read-only explanation. Do not modify code.
+
+### Prompt
+
+```text
+Do not modify code, configuration, dependencies, migrations, tests, project-state files, commit, or push.
+
+Read AGENTS.md, docs/AGENT_WORKFLOW.md, docs/REPO_REVIEW_WORKFLOW.md, approved problem.md, approved plan.md, execute.md, review.md, phase/review docs, code, tests, migrations, frontend, deployment configuration, public URLs if available, and Git evidence. Reconstruct the whole project from repository evidence for judge readiness.
+
+Cover: project objective; actors; MVP and Golden Path; architecture; capability-oriented workstreams; entity/domain relationships; database; API/data contracts; request flows; service boundaries; business/decision logic; dynamic updates or re-evaluation when present; frontend; frontend/backend contracts; integration stages; selected release path; deployment if selected; tests; known limitations; major engineering decisions; why modular monolith; why FastAPI/Pydantic/SQLAlchemy/Alembic if those remain the chosen stack; and what would change for production.
+
+Produce a whole-repo map, a 2-minute technical explanation, a 30-second architecture explanation, likely judge questions, concise answers, critical files to know, and the golden demo flow. Keep it concise enough for hackathon use and stop for human review.
+```
+
+## 25. Demo Freeze
 
 ### Role
 
@@ -539,12 +587,12 @@ Implementation.
 ```text
 Enter STRICT HACKATHON / TIME-CONSTRAINED MODE. Read AGENTS.md, the governing workflows, official event rules/clarifications when supplied, approved requirements/design, current state files, code, tests, migrations, configuration, deployment records if applicable, public URLs if available, and Git evidence to reconstruct what is verified. Identify the golden demo path and freeze optional feature development.
 
-Identify P0/P1 blockers. Verify startup; required database and migrations; backend behavior; frontend behavior; selected release path; local full-stack integration; local E2E when using the local path; deployed URLs, hosted DB, applied migrations, environment configuration, production API URL, CORS, and deployed golden path when using the deployed path; fallback demo path; known limitations; official Code Freeze/submission readiness; and critical validation and error behavior.
+Identify P0/P1 blockers. Verify startup; required database and migrations; backend behavior; frontend behavior; selected release path; local full-stack integration; local E2E when using the local path; deployed URLs, hosted DB, applied migrations, environment configuration, production API URL, CORS, and deployed golden path when using the deployed path; final README reconciliation; fallback demo path; known limitations; Git/source checkpoint readiness; official Code Freeze/submission readiness; and critical validation and error behavior.
 
 Demo Freeze is an internal stability gate, not the official deadline. Official Code Freeze and submission deadlines are external event boundaries and take precedence. Do not perform speculative refactoring, add features, commit, or push. Stop for human approval of the checkpoint.
 ```
 
-## 24. Optional Post-Hackathon Hardening
+## 26. Optional Post-Hackathon Hardening
 
 ### Role
 

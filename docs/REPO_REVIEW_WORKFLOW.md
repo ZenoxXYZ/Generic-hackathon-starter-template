@@ -294,7 +294,7 @@ Treat execute.md, review.md, phase documentation, and review documentation as su
 
 If evidence conflicts, verify repository state, report the inconsistency, and correct stale documentation only after the actual state is understood. Detect stale checkpoint wording or false completion claims.
 
-Human understanding documentation and reconstruction may be checked for documentation drift or contradiction, but the Reviewer should not turn learning completeness into a product correctness bug.
+Human understanding documentation and reconstruction may be checked for doc drift or contradiction, but the Reviewer should not turn learning completeness into a product correctness bug.
 
 20. Finding Classification
 Every finding must be exactly one of the following:
@@ -305,24 +305,25 @@ Verified implemented behavior is incorrect.
 [DESIGN ISSUE]
 Concrete design or architecture concern requiring an engineering decision.
 
+[CONTRACT DRIFT]
+Implementation no longer matches an approved contract or its consuming layer.
+
+[INTEGRATION FAILURE]
+Independently plausible layers do not cooperate across a required boundary.
+
 [MISSING VERIFICATION]
 Implementation may be correct, but evidence is insufficient.
 
-[DOCUMENTATION DRIFT]
+[DOC DRIFT]
 Project-state documentation disagrees with repository reality.
 
-[DEFERRED FEATURE]
+[DEFERRED]
 Intentionally postponed functionality.
 
 [IMPROVEMENT]
 Non-blocking enhancement.
 
-Also distinguish:
-- Contract drift: implementation no longer matches an approved contract or its consuming layer.
-- Integration failure: independently correct layers do not cooperate across a required boundary.
-- Unfinished planned capability: an approved workstream remains incomplete.
-- Intentional N/A layer: a layer was outside the approved workstream scope.
-- Deferred future feature: planned or desirable work was intentionally postponed.
+Also distinguish unfinished planned capabilities from deferred future work. Intentional N/A layers are not defects.
 
 Do not classify deferred work, intentional N/A layers, style preferences, hypothetical scale issues, optional polish, or incomplete learning narration as bugs.
 
@@ -388,8 +389,8 @@ R. Verified Strengths
 S. Bugs
 T. Design Issues
 U. Missing Verification
-V. Documentation Drift
-W. Deferred Features Correctly Left Untouched
+V. Doc Drift
+W. Deferred Work Correctly Left Untouched
 X. Improvements
 Y. Recommended Action Order
 Z. Whether repository is safe to continue building on
@@ -431,7 +432,7 @@ Approved small, local, design-preserving bugs may be fixed in the same Reviewer 
 - Incorrect approved formula implementation
 - Route wiring issue
 - Missing regression test
-- Documentation drift
+- Doc drift
 
 Reviewer workflow:
 1. Reproduce.
@@ -446,7 +447,7 @@ Reviewer workflow:
 
 Do not commit or push automatically.
 
-After a finding is accepted or verified and a local fix is approved, record the accepted review result and verified BUG-ID/history in the appropriate repository-review document and concise review.md history. Documentation drift may be corrected only after explicit human approval. Major corrective findings remain escalated to a corrective Builder workstream.
+After a finding is accepted or verified and a local fix is approved, record the accepted review result and verified BUG-ID/history in the appropriate repository-review document and concise review.md history. Doc drift may be corrected only after explicit human approval. Major corrective findings remain escalated to a corrective Builder workstream.
 
 27. Major Corrective Workstream Escalation
 Do not silently fix findings requiring material change to:
@@ -499,8 +500,8 @@ Use:
 ## Bugs
 ## Design Issues
 ## Missing Verification
-## Documentation Drift
-## Deferred Features
+## Doc Drift
+## Deferred Work
 ## Improvements
 ## Fixes Performed
 ## Regression Verification

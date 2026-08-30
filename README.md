@@ -68,13 +68,11 @@ State files summarize the repository; they do not override contradictory impleme
 
 ## Builder and Reviewer Roles
 
-| Builder | Reviewer |
-| ------- | -------- |
-| Plans and implements an approved workstream. | Independently reconstructs a checkpoint and audits its evidence. |
-| Fixes implementation-time bugs and runs verification. | Searches for defects, regressions, contradictions, missing verification, and requirement drift. |
-| Records verified implementation evidence. | Starts read-only and classifies findings before any human-approved correction. |
+| Human | GPT Control Room | Codex Builder | Codex Reviewer | Repository |
+| ----- | ---------------- | ------------- | -------------- | ---------- |
+| Approves, prioritizes, decides, understands, and explains. | Reasons about requirements, supervises architecture, critiques Builder plans, generates Codex prompts, teaches, reconstructs workstreams, controls scope/time, and prepares judge readiness. | Reconstructs the repository, plans one bounded workstream, implements, tests, debugs, updates evidence, and reports concisely. | Independently verifies meaningful checkpoints, classifies findings, assigns severity, and gives a verdict. | Preserves engineering truth through code, tests, migrations, Git evidence, runtime checks, and state files. |
 
-Separating these roles reduces the risk that an implementation agent merely confirms its own assumptions. Independent review improves scrutiny; it does not guarantee correctness. Humans approve material transitions, design changes, and Git history changes.
+Separating these roles reduces the risk that an implementation agent merely confirms its own assumptions. Codex is not assumed to be the primary long-form teaching agent; GPT Control Room may supervise, teach, and reconstruct understanding after Builder evidence exists. Independent review improves scrutiny; it does not guarantee correctness. Humans approve material transitions, design changes, and Git history changes.
 
 ## Golden Path and Workstreams
 
@@ -94,16 +92,16 @@ Plan -> Human Approval -> Implement -> Debug -> Verify -> Document -> Review -> 
 Official Event / Challenge Intake
         |
         v
-Problem Normalization
+Requirements Extraction -> problem.md
         |
         v
-MVP + Golden Path -> Master System Design
+MVP -> Golden Path -> Master System Design
         |
         v
-Architecture + data model + API/data contracts
+plan.md -> execute.md initialization
         |
         v
-plan.md workstream map -> execute.md tracker
+early README challenge transition
         |
         v
 Backend/persistence foundation -> relevant contracts stabilize
@@ -121,13 +119,16 @@ Systematic full-stack integration / hardening
 Local Golden-Path E2E -> Feature Freeze -> release decision
         |
         v
-Local final E2E or deployment + deployed E2E
+local final runtime or deployment -> chosen-runtime E2E
         |
         v
-P0/P1 fixes -> final review -> whole-project understanding
+P0/P1 fixes -> final README reconciliation -> final review
         |
         v
-internal Demo Freeze -> official event freeze/submission
+required corrections -> whole-project understanding / judge readiness
+        |
+        v
+Demo Freeze -> Git/source checkpoint -> official event freeze/submission
 ```
 
 ## Repository Structure
@@ -225,6 +226,8 @@ Those choices must come from official event rules, the official challenge/proble
 Reusable methodology lives in `AGENTS.md`, `docs/AGENT_WORKFLOW.md`, `docs/REPO_REVIEW_WORKFLOW.md`, and `docs/guides/`. Project-specific state lives in `problem.md`, `plan.md`, `execute.md`, `review.md`, phase/review records, and the implementation that an approved problem justifies.
 
 Demo Freeze is this workflow's internal stability gate. Official Code Freeze or submission deadlines are external event boundaries and take precedence.
+
+README.md follows the project, not the template forever. After `problem.md`, `plan.md`, and `execute.md` are approved/initialized, perform an early challenge transition so README.md describes the actual project without claiming unimplemented features. Near the end, perform final README reconciliation against verified code, migrations, tests, runtime behavior, selected release path, limitations, and deferrals.
 
 ## Git Workflow
 

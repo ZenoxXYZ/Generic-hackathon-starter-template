@@ -20,7 +20,7 @@ Actual workstreams must come from the approved `plan.md`. Keep this table compac
 
 | Workstream | Capability | Status | Golden Path | Blocker | Next |
 | ---------- | ---------- | ------ | ----------- | ------- | ---- |
-| WS-XX | TBD from approved `plan.md` | NOT STARTED | TBD | TBD | TBD |
+| WS-XX | TBD from approved `plan.md` | DESIGNED / PLANNED / APPROVED / IMPLEMENTED / INTEGRATED / VERIFIED / CLOSED | TBD | TBD | TBD |
 
 ## Workstream Template
 
@@ -87,6 +87,12 @@ Infrastructure: N/A
 - [ ] `git status`
 
 Status:
+
+Use the most accurate lifecycle state:
+
+```text
+DESIGNED -> PLANNED -> APPROVED -> IMPLEMENTED -> INTEGRATED where relevant -> VERIFIED -> EVIDENCE RECORDED -> EXIT CRITERIA SATISFIED -> CLOSED
+```
 
 Evidence:
 

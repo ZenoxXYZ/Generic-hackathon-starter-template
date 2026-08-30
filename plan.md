@@ -8,7 +8,7 @@ No product architecture, schema, API surface, frontend behavior, business rules,
 
 ## Problem / MVP Summary
 
-Capture the approved problem interpretation from `problem.md`, the smallest viable MVP, and any official event constraints that affect architecture, starter use, AI assistance, deployment, or submission.
+Capture the approved problem interpretation from `problem.md`, the smallest viable MVP, and any official event constraints that affect architecture, starter use, AI assistance, deployment, or submission. `problem.md` is the normalized WHAT; this file is the approved HOW / Master System Design.
 
 ## Golden Path
 
@@ -117,6 +117,12 @@ local Golden-Path E2E
 ```
 
 Local runtime usually means browser -> frontend development server -> local backend -> local database. Deployed runtime usually means browser -> hosted frontend -> hosted backend -> hosted database. Business/domain architecture should ideally remain substantially unchanged between them.
+
+## README Lifecycle
+
+Early challenge transition: after `problem.md` is approved, this plan is approved, and `execute.md` is initialized, update README.md from generic-starter documentation into a challenge-specific project README. Do not claim planned but unimplemented features as completed.
+
+Final README reconciliation: after the Golden Path is stable and before final review/Demo Freeze, reconcile README.md against verified code, migrations, tests, runtime behavior, selected release path, limitations, and deferrals.
 
 ## Assumptions
 
