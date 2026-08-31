@@ -63,13 +63,13 @@ Use the starter like this:
 
 ## Development Process Model
 
-This starter uses a hybrid iterative-incremental process with capability-oriented vertical-slice delivery, human-gated important decisions, risk-driven review, and evidence-based verification.
+This starter uses a hybrid iterative-incremental process with Golden-Path-driven scope control, capability-oriented vertical-slice delivery, human-gated important decisions, risk-driven review, and evidence-based verification.
 
-In practice, that means the product is built capability by capability. Each capability is planned, implemented through the layers it actually needs, verified, and then closed before the next useful capability is added. A workstream might cross frontend, API, backend, business logic, persistence, and UI result, but it does not have to touch every layer when the approved scope does not need them.
+In practice, that means the product is built capability by capability, but not by adding arbitrary features in random order. Workstreams are selected and ordered by how they contribute to the MVP and Golden Path: the most important successful user journey that demonstrates the core value of the MVP. Each capability is planned, implemented through the layers it actually needs, verified, and then closed before the next useful capability is added.
 
 The model is Agile-style without claiming to be a pure textbook framework. Scope can adapt based on working software, risk, evidence, and remaining time, while the Golden Path stays more important than speculative completeness. Important requirements, design decisions, material implementation plans, release decisions, and major changes can require explicit approval before proceeding.
 
-This fits hackathons because teams need enough upfront requirements and Master System Design to avoid chaos, but not so much planning that implementation starts too late. The practical rhythm is short upfront understanding, small implementation increments, early integration, continuous verification, risk-driven review where it matters, and scope adaptation as the deadline gets closer.
+This fits hackathons because teams need enough upfront requirements and Master System Design to avoid chaos, but not so much planning that implementation starts too late. The practical rhythm is short upfront understanding, small implementation increments, early integration, continuous verification, risk-driven review where it matters, and scope adaptation as the deadline gets closer. As vertical slices accumulate, they should gradually assemble the Golden Path; once assembled, systematic integration and E2E verification prove it as one complete demo-critical journey.
 
 ## Workflow At A Glance
 
@@ -80,9 +80,9 @@ Official challenge and rules
 -> plan.md
 -> execute.md
 -> capability workstreams
--> focused verification
--> Golden Path integration
--> local E2E
+-> Golden Path assembled
+-> systematic integration/hardening
+-> local Golden-Path E2E
 -> release/deployment decision
 -> final review
 -> demo/freeze
@@ -124,6 +124,8 @@ Generic examples:
 
 Some workstreams are backend-heavy. Some are frontend-heavy. Some are full-stack. Some are only verification or hardening. Do not force every workstream through every layer.
 
+Workstreams that directly unlock or protect the Golden Path normally take priority over optional capabilities, while foundation, hardening, review, or release work may still be necessary.
+
 ## Vertical Slices
 
 Build one meaningful capability through the layers it actually needs.
@@ -144,6 +146,8 @@ User
 ```
 
 That is a vertical slice. It proves a real capability, not just isolated files.
+
+The Golden Path is larger than one vertical slice: it is the critical end-to-end user journey created by combining the capabilities needed for the MVP.
 
 Some workstreams may be backend-only or frontend-only. That is fine when the approved plan says those layers are not needed yet.
 
@@ -259,6 +263,8 @@ Use verification that matches the risk of the workstream:
 - focused workstream verification for one capability;
 - integration checks when frontend and backend meet;
 - Golden-Path E2E before demo/freeze.
+
+Focused workstream verification proves one capability. Golden-Path E2E proves the complete critical user journey across the assembled system.
 
 Generated code is not complete until relevant behavior is verified.
 
