@@ -1,188 +1,180 @@
 # Generic Hackathon Starter
 
-A reusable, backend-first, full-stack-capable foundation for building small, demonstrable projects with AI coding agents, when official rules permit that workflow, while keeping requirements, design decisions, implementation evidence, and review history clear.
+A reusable full-stack starter and engineering workflow for turning an unknown hackathon challenge into a working, explainable MVP.
 
-Bring official event rules, organizer clarifications, and an authoritative problem statement. This template supplies repeatable engineering infrastructure; it does not decide the product or override competition policy.
+This repository gives you a small backend foundation, database/migration wiring, tests, documentation templates, and a practical workflow for building capability by capability. It does not decide your product, your domain, your frontend framework, or your deployment provider.
 
-> This is a starting point, not a solution generator.
+Official event rules and the actual challenge brief always come first.
 
-## What It Is
+## Why This Repository Exists
 
-This repository is a problem-agnostic engineering foundation for hackathons, take-home challenges, rapid prototypes, and other time-constrained exercises. It keeps durable project state in the repository so people and fresh AI sessions can reconstruct what is required, what was designed, what was implemented, and what was verified. Reusable starter infrastructure, AI assistance, challenge-specific implementation boundaries, deployment, and submission behavior must follow the relevant official rules.
+Hackathons move fast. Teams can lose precious hours to setup, unclear scope, late frontend/backend integration, unverified code, and forgotten decisions.
 
-## Why It Exists
+This starter helps you begin with:
 
-Fast projects often lose context between people, chats, and implementation checkpoints. That can produce invented requirements, unverified code, unnecessary infrastructure, and mismatched frontend and backend behavior.
+- a runnable backend foundation;
+- a place to record requirements, design, execution state, and review history;
+- a workflow for building the smallest useful MVP;
+- a habit of verifying real behavior before calling work complete.
 
-This template provides a repeatable engineering workflow: understand the problem, identify the MVP Golden Path, approve a small design with important contracts, implement bounded capability-oriented workstreams, verify them with evidence, review meaningful checkpoints independently, reconstruct enough understanding for humans to supervise and explain the system, deploy when a remote demo is needed, and stabilize the demo-critical path.
+The goal is not to create the most code. The goal is to build the smallest correct, explainable, demonstrable solution that matches the challenge.
 
-## Why Start From a Backend Template?
+## Who It Is For
 
-The starter separates two concerns that should not be conflated.
+This repository is useful for:
 
-**Repeatable engineering infrastructure** is setup that is useful across many projects: Python application structure, FastAPI startup, environment configuration, SQLAlchemy foundations, Alembic migration wiring, automated-test foundations, a health endpoint, backend-layer organization, a frontend workspace placeholder, and AI engineering workflows.
+- hackathon participants;
+- students and learning teams;
+- solo builders;
+- small teams;
+- beginner-to-intermediate full-stack developers;
+- people working with or without AI coding agents.
 
-**Problem-specific product design** must be derived from the actual brief: domain entities, database schema, business rules, APIs, decision algorithms, product validation, frontend framework, and deployment architecture.
+You can use the workflow manually, with human teammates, with agents, or with a mix of both.
 
-Without a reusable foundation, limited project time is repeatedly spent recreating framework structure, configuration, database wiring, migration setup, and test scaffolding before product work can begin. With this starter, work can move earlier into:
+## What Is Included
 
-```text
-requirements -> design -> domain modeling -> implementation -> integration -> verification
-```
+| Area | What exists now |
+| ---- | --------------- |
+| Backend | Minimal FastAPI app with `GET /` health endpoint. |
+| Configuration | Environment-based database URL helper with safe local default. |
+| Persistence | SQLAlchemy engine/session/base wiring. |
+| Migrations | Alembic configuration and migration environment. |
+| Tests | Pytest coverage for app health, imports, OpenAPI, config, and Alembic wiring. |
+| Frontend | Placeholder directory only; no framework or real UI has been selected. |
+| Workflow docs | Builder, reviewer, full-stack, quickstart, and prompt guidance. |
+| State files | Templates for requirements, design, execution tracking, and review history. |
 
-This is a deliberate starting point, not a claim that the supplied architecture is optimal for every project.
+The starter intentionally does not include product entities, product APIs, business rules, domain tables, decision logic, or real frontend functionality.
 
-## Why FastAPI?
+## Core Philosophy
 
-**[TEMPLATE DESIGN DECISION]** FastAPI is the default backend framework because Python supports rapid prototyping; FastAPI has relatively low ceremony; Pydantic provides typed request and response contracts; it generates OpenAPI schemas and interactive API documentation; and it works directly with SQLAlchemy, Alembic, Uvicorn, and common Python testing tools. It is also practical when data-processing, optimization, or AI-related logic is written in Python.
+Use the starter like this:
 
-FastAPI is **not** a [PROBLEM REQUIREMENT]. A future problem statement may justify another architecture or technology. The template chooses a consistent default for speed and clarity, not universal superiority.
+1. Understand the challenge before coding.
+2. Define the smallest meaningful MVP.
+3. Identify the Golden Path: the most important successful user journey.
+4. Design important API/data contracts early.
+5. Build capability by capability.
+6. Integrate frontend and backend incrementally.
+7. Verify continuously with evidence.
+8. Keep the final user journey working.
+9. Prefer simplicity under hackathon constraints.
 
-## Engineering Model
-
-The repository uses four state files with distinct purposes:
-
-| File | Engineering role |
-| ---- | ---------------- |
-| `problem.md` | Normalized requirements model: the approved interpretation of the authoritative brief. |
-| `plan.md` | Approved solution architecture and design decisions. |
-| `execute.md` | Execution and checkpoint tracker. |
-| `review.md` | Concise verified engineering and bug history. |
-
-Requirements and design authority flow from:
-
-```text
-official event rules / official clarifications
--> official challenge / problem statement
--> approved problem.md
--> approved plan.md
-```
-
-Implemented-state truth comes from:
-
-```text
-code + tests + migrations + Git evidence + safe runtime verification
-```
-
-State files summarize the repository; they do not override contradictory implementation evidence. See [Workflow concepts](docs/guides/WORKFLOW.md) for the detailed model.
-
-## Builder and Reviewer Roles
-
-| Human | GPT Control Room | Codex Builder | Codex Reviewer | Repository |
-| ----- | ---------------- | ------------- | -------------- | ---------- |
-| Approves, prioritizes, decides, understands, and explains. | Reasons about requirements, supervises architecture, critiques Builder plans, generates Codex prompts, teaches, reconstructs workstreams, controls scope/time, and prepares judge readiness. | Reconstructs the repository, plans one bounded workstream, implements, tests, debugs, updates evidence, and reports concisely. | Independently verifies meaningful checkpoints, classifies findings, assigns severity, and gives a verdict. | Preserves engineering truth through code, tests, migrations, Git evidence, runtime checks, and state files. |
-
-Separating these roles reduces the risk that an implementation agent merely confirms its own assumptions. Codex is not assumed to be the primary long-form teaching agent; GPT Control Room may supervise, teach, and reconstruct understanding after Builder evidence exists. Independent review improves scrutiny; it does not guarantee correctness. Humans approve material transitions, design changes, and Git history changes.
-
-## Golden Path and Workstreams
-
-Golden Path means the most important successful user journey that demonstrates the core value of the MVP. It is identified before implementation during problem intake and Master System Design, then used to drive MVP scope, workstream priority, architecture decisions, data/API contracts, frontend views, integration order, E2E verification, and demo preparation.
-
-An engineering workstream is a bounded engineering objective that creates or strengthens meaningful system behavior. A workstream may be backend-only, backend-heavy, frontend-only, frontend-heavy, a full-stack vertical slice, business/decision-logic oriented, integration/hardening oriented, specialized verification, or release/deployment oriented, depending entirely on the approved problem and plan.
-
-Backend-first does not mean backend-complete-first. It means establishing authoritative domain foundations, persistence, major invariants, critical backend capabilities, and sufficiently stable API/data contracts. Frontend work may begin once a relevant contract/capability is stable enough for its approved scope. Bounded workstreams reduce context size and make implementation, debugging, documentation, review, and rollback easier to reason about.
+## Workflow At A Glance
 
 ```text
-Plan -> Human Approval -> Implement -> Debug -> Verify -> Document -> Review -> Understand
+Official challenge and rules
+-> problem.md
+-> MVP + Golden Path
+-> plan.md
+-> execute.md
+-> capability workstreams
+-> focused verification
+-> Golden Path integration
+-> local E2E
+-> release/deployment decision
+-> final review
+-> demo/freeze
 ```
 
-## Complete Workflow
+The exact event rules override this generic workflow. If an event limits starter code, AI assistance, deployment, or submission timing, follow the event.
+
+## Core Repository Files
+
+| File or directory | Purpose |
+| ----------------- | ------- |
+| `problem.md` | What the product must do: normalized requirements from the official challenge. |
+| `plan.md` | How the system is designed: architecture, contracts, workstreams, and release criteria. |
+| `execute.md` | What is currently being implemented, verified, blocked, or deferred. |
+| `review.md` | Verified review findings and bug/history summary. |
+| `README.md` | Project-facing explanation and usage guide. |
+| `AGENTS.md` | Repository operating instructions for human or automated agents. |
+| `backend/` | FastAPI application foundation. |
+| `frontend/` | Placeholder for a future problem-driven interface. |
+| `migrations/` | Alembic migration foundation. |
+| `tests/` | Automated verification. |
+| actual code, tests, migrations, and runtime checks | Implemented truth. |
+
+Project-state files are useful summaries, but the real implementation is proven by code, tests, migrations, Git evidence, and safe runtime checks.
+
+## Capability-Oriented Workstreams
+
+A workstream is one bounded engineering objective, not necessarily one folder or one technical layer.
+
+Generic examples:
+
+- persistence foundation;
+- create booking;
+- approve request;
+- dashboard;
+- conflict handling;
+- full-stack integration;
+- deployment/release preparation.
+
+Some workstreams are backend-heavy. Some are frontend-heavy. Some are full-stack. Some are only verification or hardening. Do not force every workstream through every layer.
+
+## Vertical Slices
+
+Build one meaningful capability through the layers it actually needs.
+
+For example, a full-stack "Create Booking" capability might include:
 
 ```text
-Official Event / Challenge Intake
-        |
-        v
-Requirements Extraction -> problem.md
-        |
-        v
-MVP -> Golden Path -> Master System Design
-        |
-        v
-plan.md -> execute.md initialization
-        |
-        v
-early README challenge transition
-        |
-        v
-Backend/persistence foundation -> relevant contracts stabilize
-        |
-        v
-Frontend begins where relevant -> capability workstreams
-        |
-        v
-Incremental vertical integration -> Golden Path complete
-        |
-        v
-Systematic full-stack integration / hardening
-        |
-        v
-Local Golden-Path E2E -> Feature Freeze -> release decision
-        |
-        v
-local final runtime or deployment -> chosen-runtime E2E
-        |
-        v
-P0/P1 fixes -> final README reconciliation -> final review
-        |
-        v
-required corrections -> whole-project understanding / judge readiness
-        |
-        v
-Demo Freeze -> Git/source checkpoint -> official event freeze/submission
+User
+-> frontend form
+-> API request
+-> backend validation
+-> business rule
+-> database write
+-> response
+-> updated frontend state
+-> visible result
+-> focused verification
 ```
 
-## Repository Structure
+That is a vertical slice. It proves a real capability, not just isolated files.
+
+Some workstreams may be backend-only or frontend-only. That is fine when the approved plan says those layers are not needed yet.
+
+## Backend-First, Not Backend-Complete-First
+
+This starter is backend-first because a reliable MVP often needs clear data, rules, validation, persistence, and API contracts.
+
+Backend-first does not mean finishing the entire backend before any frontend starts.
+
+A better pattern is:
 
 ```text
-backend/          FastAPI application foundation
-frontend/         Placeholder for a future, problem-driven interface
-migrations/       Alembic database-schema migration foundation
-tests/            Automated verification
-docs/guides/      Usage guides and reusable AI prompts
-docs/phases/      Builder workstream records
-docs/reviews/     Independent review records (created when reviews run)
-
-problem.md        Approved problem interpretation
-plan.md           Approved design and roadmap
-execute.md        Current engineering checkpoint
-review.md         Verified review and bug summary
+backend/persistence foundation
+-> relevant contract becomes stable enough
+-> frontend consumes it
+-> slice integration
+-> next capability
 ```
 
-## Technology Foundation
+Frontend work should begin when the relevant contracts are stable enough for the approved scope.
 
-The generic defaults are Python, FastAPI, Pydantic, SQLAlchemy, PostgreSQL-ready configuration, Alembic, Uvicorn, and isolated automated tests. These are template design defaults, not requirements for every future problem.
+## API Contracts
 
-The current app intentionally exposes only `GET /`, which returns `{"status":"ok"}`. It does not create tables, run migrations at startup, or require a real database connection for the health response.
+Important request/response interfaces should be designed in `plan.md`, implemented by the backend, consumed by the frontend, and proven during integration.
 
-## Full-Stack Positioning
+A useful contract may define:
 
-This is currently a **backend-first, full-stack-capable** starter. Frontend technology is intentionally unspecified because UI choices depend more strongly on real interaction requirements and available constraints than the generic backend foundation does.
+- method and path;
+- route params or query params;
+- request body;
+- field names and types;
+- validation behavior;
+- response shape;
+- status codes and important errors;
+- frontend view or component that consumes it.
 
-When a frontend is in scope, the contract boundary is:
+If a material contract flaw appears during implementation, stop and update the approved design instead of silently letting frontend and backend drift apart.
 
-```text
-Frontend -> HTTP request -> FastAPI route -> Pydantic validation
--> service / business logic -> SQLAlchemy / persistence
--> response schema -> frontend state and rendering
-```
+## Getting Started
 
-Integration should grow in stages: contract agreement, feature/slice integration, systematic full-stack hardening, and Golden-Path E2E verification. Later full-stack integration is a hardening/reconciliation pass, not the first time frontend and backend meet. Public deployment is not universally mandatory; use the release path that official rules, demo needs, reliability, and remaining time justify. The frontend should use approved backend contracts rather than duplicate backend business or decision logic. See the [full-stack guide](docs/guides/FULL_STACK_GUIDE.md).
-
-## Quick Start
-
-1. Use the repository as a GitHub template, or clone/copy it deliberately.
-2. Create and activate a virtual environment.
-3. Install dependencies and verify the starter.
-4. Provide official event rules, organizer clarifications, and the authoritative problem statement when available.
-5. Run Problem Statement Intake, then Problem Definition; review and approve `problem.md`.
-6. Run Master System Design; identify the Golden Path, important contracts, and workstream map; review and approve `plan.md`.
-7. Initialize execution state.
-8. Plan, approve, implement, and verify capability-oriented Builder workstreams.
-9. Use independent reviews for meaningful checkpoints.
-10. Reconstruct meaningful workstreams so humans understand what was built and verified.
-11. Build frontend and local integration work only when the approved problem requires it and relevant contracts are stable enough.
-12. Choose local or deployed release path according to official rules, demo needs, reliability, and remaining time.
-13. Run final review, whole-project engineering reconstruction, internal Demo Freeze, and official event freeze/submission.
+Clone or create a new repository from this starter, then run the local foundation:
 
 ```powershell
 python -m venv .venv
@@ -192,27 +184,103 @@ python -m pytest
 uvicorn backend.main:app --reload
 ```
 
-Confirm [http://127.0.0.1:8000/](http://127.0.0.1:8000/) returns `{"status":"ok"}`. Set `DATABASE_URL` in the process environment only when approved persistence or Alembic work needs it; never commit credentials.
+Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/). The starter health endpoint should return:
 
-For step-by-step onboarding, read [Quickstart](docs/guides/QUICKSTART.md). For copy/paste lifecycle handoffs, open the [Prompt Playbook](docs/guides/PROMPT_PLAYBOOK.md).
-
-## Hackathon Engineering Priority
-
-```text
-working MVP -> correctness -> integration -> verification -> demo readiness -> documentation depth
+```json
+{"status":"ok"}
 ```
 
-This is an engineering prioritization rule under time pressure. It does not mean skipping validation, ignoring bugs, omitting critical tests, or accepting broken integration. It means not spending scarce time on speculative infrastructure or documentation polish while the critical product path is incomplete.
+Database notes:
 
-## What This Template Does Not Predetermine
+- The app can import and serve the health endpoint without a real database.
+- `DATABASE_URL` is read from the process environment when persistence work needs it.
+- The default local database URL is in-memory SQLite.
+- Alembic is wired, but product migrations should be created only after an approved problem and design require real persistence changes.
+- Do not commit real credentials or `.env` files.
 
-- Domain entities, database schema, or domain APIs
-- Business rules, decision algorithms, or product-specific validation
-- A frontend framework or real interface
-- Deployment architecture or distributed infrastructure
-- ML systems, optimization infrastructure, caches, queues, or background workers
+Frontend notes:
 
-Those choices must come from official event rules, the official challenge/problem statement, and approved design.
+- `frontend/` is a placeholder.
+- No frontend framework has been selected.
+- Add real frontend functionality only after the challenge and approved plan require it.
+
+## Starting A New Hackathon Challenge
+
+Recommended sequence:
+
+1. Read the official challenge and rules.
+2. Normalize requirements into `problem.md`.
+3. Define the MVP and Golden Path.
+4. Design the system in `plan.md`.
+5. Initialize `execute.md`.
+6. Transition this README from generic starter documentation to challenge-specific project documentation.
+7. Start the first workstream.
+8. Build and verify capabilities incrementally.
+9. Use independent review for meaningful or risky checkpoints.
+10. Reconcile final docs and prepare the demo.
+
+## README Lifecycle
+
+This README starts as generic starter documentation. It should not stay generic forever after a real challenge begins.
+
+Early transition:
+
+- after `problem.md` is approved;
+- after `plan.md` is approved;
+- after `execute.md` is initialized;
+- rewrite README.md so it describes the actual challenge, MVP, Golden Path, architecture, setup, and current status.
+
+Final reconciliation:
+
+- near the end of the project;
+- compare README.md against actual code, tests, migrations, runtime behavior, and selected release path;
+- update implemented features, setup, demo flow, deployment notes if used, known limitations, and explicit deferrals.
+
+Do not claim planned functionality as implemented.
+
+## Testing And Verification
+
+Use verification that matches the risk of the workstream:
+
+- unit tests for pure logic;
+- schema/API tests for request and response behavior;
+- service tests for application workflow;
+- migration checks when persistence changes;
+- focused workstream verification for one capability;
+- integration checks when frontend and backend meet;
+- Golden-Path E2E before demo/freeze.
+
+Generated code is not complete until relevant behavior is verified.
+
+## Local E2E Before Deployment
+
+Prove the application locally before treating it as demo-ready.
+
+```text
+local browser/app
+-> local frontend if present
+-> local backend
+-> local/test database
+-> visible result
+```
+
+Deployment is conditional unless the rules or demo require it. If you deploy, run deployed E2E afterward because hosted runtime changes URLs, environment variables, CORS, database connectivity, migrations, startup behavior, and failure modes.
+
+## AI-Assisted Development
+
+This repository works for human-only, AI-assisted, or mixed development workflows.
+
+When using agents, keep the responsibilities clear:
+
+| Role | Responsibility |
+| ---- | -------------- |
+| Human / project owner | Understands requirements, approves decisions, prioritizes scope, and remains accountable. |
+| Control / supervisor role | Helps analyze requirements, architecture, plans, debugging, explanations, and workflow control. |
+| Builder role | Implements bounded workstreams, tests, debugs, and records evidence. |
+| Reviewer role | Independently checks correctness, integration, contract drift, and missing verification. |
+| Repository | Remains the engineering source of truth. |
+
+These roles may be filled by humans, AI agents, or a combination of both. No specific tool or model is required.
 
 ## Documentation
 
@@ -223,11 +291,42 @@ Those choices must come from official event rules, the official challenge/proble
 - [Builder workflow](docs/AGENT_WORKFLOW.md)
 - [Reviewer workflow](docs/REPO_REVIEW_WORKFLOW.md)
 
-Reusable methodology lives in `AGENTS.md`, `docs/AGENT_WORKFLOW.md`, `docs/REPO_REVIEW_WORKFLOW.md`, and `docs/guides/`. Project-specific state lives in `problem.md`, `plan.md`, `execute.md`, `review.md`, phase/review records, and the implementation that an approved problem justifies.
+Use the README for orientation. Use the detailed docs when you need exact operating rules.
 
-Demo Freeze is this workflow's internal stability gate. Official Code Freeze or submission deadlines are external event boundaries and take precedence.
+## Adapting The Starter
 
-README.md follows the project, not the template forever. After `problem.md`, `plan.md`, and `execute.md` are approved/initialized, perform an early challenge transition so README.md describes the actual project without claiming unimplemented features. Near the end, perform final README reconciliation against verified code, migrations, tests, runtime behavior, selected release path, limitations, and deferrals.
+When a real challenge starts:
+
+- keep reusable infrastructure that is allowed by the official rules;
+- replace placeholder/generic language with challenge-specific facts;
+- keep requirements in `problem.md`;
+- keep design decisions in `plan.md`;
+- keep implementation progress in `execute.md`;
+- keep review history in `review.md`;
+- avoid carrying domain assumptions from previous projects.
+
+## Hackathon Priorities
+
+Under time pressure, prioritize:
+
+1. working Golden Path;
+2. correctness;
+3. persistence and integrity;
+4. frontend/backend integration;
+5. verification;
+6. explainability;
+7. demo reliability;
+8. optional polish.
+
+## What This Template Does Not Predetermine
+
+- Domain entities, database schema, or domain APIs
+- Business rules, decision algorithms, or product-specific validation
+- A frontend framework or real interface
+- Deployment architecture or distributed infrastructure
+- ML systems, optimization infrastructure, caches, queues, or background workers
+
+Those choices must come from official event rules, the official challenge/problem statement, and approved design.
 
 ## Git Workflow
 
