@@ -1,6 +1,6 @@
-Builder Agent Engineering Workstream Workflow
+Builder Role Engineering Workstream Workflow
 1. Purpose
-This workflow enables a fresh Builder Agent chat to reconstruct project state from repository evidence and safely continue the next engineering workstream without depending on previous chat context. It defines the procedure for planning, implementing, debugging, verifying, documenting, reconstructing, and handing off work. Stable repository rules remain in AGENTS.md.
+This workflow enables a fresh Builder session or agent to reconstruct project state from repository evidence and safely continue the next engineering workstream without depending on previous chat context. It defines the procedure for planning, implementing, debugging, verifying, documenting, reconstructing, and handing off work. Stable repository rules remain in AGENTS.md.
 
 2. Repository State Reconstruction
 Every fresh Builder workstream begins by reading or inspecting the following when present and relevant:
@@ -74,11 +74,12 @@ repository reconstruction
 Do not force independent review after every tiny workstream. Do not force a long teaching session after every small edit. Use proportionality.
 
 6. Planning Phase
-Meaningful workstreams begin in Plan Mode. Plan Mode is read-only.
+Meaningful workstreams begin in the Builder Planning Phase / Plan Mode. This planning phase is read-only.
 
 Distinguish persistent design from workstream planning:
 - `plan.md` is the approved whole-system Master Design.
-- Codex Plan Mode is a repo-grounded implementation plan for one bounded workstream.
+- Builder Planning Phase / Plan Mode is a repo-grounded implementation plan for one bounded workstream.
+- If the selected Builder tool has a dedicated planning mode, use it. If it does not, the Builder must still stop before implementation and return a bounded implementation plan for review.
 
 Before proposing a plan:
 - Inspect official event rules or organizer clarifications when supplied.
@@ -164,7 +165,7 @@ A produced plan is not automatically approved. Wait for explicit human approval 
 
 If the human adds clarifications, incorporate them as approved constraints. Only after approval should Plan Mode be exited.
 
-GPT Control Room may critique the Builder plan, generate follow-up prompts, supervise debugging strategy, and teach/reconstruct the completed workstream. Codex Builder remains responsible for bounded implementation, tests, evidence updates, and concise implementation reporting.
+The Control / Supervisor may critique the Builder plan, generate follow-up tasks/prompts, supervise debugging strategy, and teach/reconstruct the completed workstream. The Builder remains responsible for bounded implementation, tests, evidence updates, and concise implementation reporting.
 
 8. Implementation Phase
 After approval:
@@ -457,7 +458,7 @@ Normal teaching/reconstruction happens after Builder completion:
 Builder
 -> focused verification
 -> implementation report/evidence
--> GPT workstream reconstruction
+-> Control / Supervisor workstream reconstruction
 -> human understanding
 -> optional Reviewer
 ```
@@ -574,7 +575,7 @@ Independent review is selective and risk-driven, not mandatory after every tiny 
 Tiny documentation-only changes do not automatically require a full independent review.
 
 23. Builder vs Reviewer Ownership
-Builder Agent:
+Builder:
 - Plans
 - Implements
 - Fixes implementation-time bugs
@@ -584,7 +585,7 @@ Builder Agent:
 - Performs workstream reconstruction
 - Prepares commits
 
-Reviewer Agent:
+Reviewer:
 - Independently audits stable committed work
 - Starts read-only
 - Classifies findings
@@ -659,6 +660,6 @@ Near demo freeze:
 - Fix only issues threatening startup, primary flow, correctness, persistence, integration, selected release path, official submission requirements, or critical validation.
 
 28. Final Principle
-The Builder Agent's job is not to maximize code volume.
+The Builder's job is not to maximize code volume.
 
 It is to convert approved requirements and design decisions into the smallest correct, verified, understandable, demonstrable MVP while leaving enough repository evidence for another fresh agent to continue safely.

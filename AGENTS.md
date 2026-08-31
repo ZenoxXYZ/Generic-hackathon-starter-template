@@ -29,13 +29,13 @@ If implementation evidence conflicts with project-state documentation:
 2. Verify the repository evidence.
 3. Report the inconsistency.
 4. Correct stale documentation only after the actual state is understood.
-Human/GPT/Codex responsibility split:
-- Human - approves, understands, prioritizes, decides, and explains.
-- GPT Control Room - requirements reasoning, architecture supervision, Codex prompt generation, Builder-plan critique, teaching, workstream reconstruction, debugging supervision, scope/time control, and judge readiness.
-- Codex Builder - repository reconstruction, workstream planning, implementation, tests, debugging, execute.md/evidence updates, and concise implementation reports.
-- Codex Reviewer - independent verification, classified findings, severity, and verdict.
+Human / Supervisor / Builder / Reviewer responsibility split:
+- Human / Project Owner - approves, understands, prioritizes, decides, and explains.
+- Control / Supervisor - requirements reasoning, architecture supervision, Builder task/prompt preparation where agents are used, Builder-plan critique, teaching, workstream reconstruction, debugging supervision, scope/time control, and judge readiness.
+- Builder - repository reconstruction, workstream planning, implementation, tests, debugging, execute.md/evidence updates, and concise implementation reports.
+- Reviewer - independent verification, classified findings, severity, and verdict.
 - Repository evidence - engineering truth.
-This repository should not imply that Codex is the primary long-form teaching agent; Codex records evidence and performs bounded implementation/review work, while GPT Control Room may supervise and reconstruct understanding for the human.
+This repository should not imply that any specific tool is the primary long-form teaching agent. The Builder records evidence and performs bounded implementation work, the Reviewer performs independent checks, and the Control / Supervisor may supervise and reconstruct understanding for the human.
 3. Default Technology Direction
 The preferred default stack for fast hackathon MVP development is:
 - Python
@@ -287,7 +287,7 @@ Before the final demo, perform a whole-project engineering reconstruction suffic
 README lifecycle:
 1. Early challenge transition - after problem.md is approved, plan.md is approved, and execute.md is initialized, README.md should transition from generic-starter documentation into a challenge-specific project README. It may include project/challenge name, concise problem summary, approved MVP, Golden Path, architecture overview, tech stack, frontend/backend/persistence structure, local setup/run instructions, environment variables, migration commands, test commands, and current implementation status. Do not claim planned but unimplemented features as completed.
 2. Final README reconciliation - once Golden Path implementation is stable, reconcile README.md against actual verified code, migrations, tests, and runtime behavior. Update implemented features, architecture, API overview where useful, setup, migrations, tests, demo flow, deployment if used, known limitations, and explicit deferrals. Remove stale generic-starter wording and inaccurate claims.
-21. AI Agent Final Rule
-The agent's objective is not to generate the most code.
+21. Final Role Rule
+The objective of any Builder, Reviewer, or supporting agent is not to generate the most code.
 The objective is to produce the smallest correct, verified, understandable, demonstrable solution consistent with official event rules, the official challenge/problem statement, approved problem.md, and approved plan.md.
 This workflow supports AI-assisted engineering when official rules permit it. Actual AI allowance and restrictions come from the official event rules and organizer clarifications; the human remains responsible for understanding and explaining important architecture, code, database behavior, algorithms, decisions, and tradeoffs.

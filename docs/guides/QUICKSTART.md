@@ -106,7 +106,7 @@ Golden Path means the most important successful user journey that demonstrates t
 
 Backend-first does not mean backend-complete-first. Establish the domain foundations, persistence, invariants, critical backend capabilities, and sufficiently stable API/data contracts first; then frontend work may begin where relevant once the needed contract/capability is stable enough. Local full-stack integration verifies the app on local services. Systematic full-stack integration is a hardening pass after incremental slice integration has already happened. If deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, add a deployment workstream and verify the deployed golden path before internal Demo Freeze. If deployment is not required or not a good tradeoff, reliable local E2E/final verification remains a valid release path.
 
-GPT Control Room supervises requirements, architecture, Codex prompts, plan critique, teaching, reconstruction, debugging strategy, scope/time control, and judge readiness. Codex Builder implements bounded approved workstreams and records evidence. Codex Reviewer performs independent risk-driven verification for meaningful checkpoints.
+The Control / Supervisor role supervises requirements, architecture, Builder task/prompt preparation, plan critique, teaching, reconstruction, debugging strategy, scope/time control, and judge readiness. The Builder implements bounded approved workstreams and records evidence. The Reviewer performs independent risk-driven verification for meaningful checkpoints.
 
 ## 6. Compressed Six-Hour Guidance
 

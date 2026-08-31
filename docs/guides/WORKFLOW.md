@@ -25,19 +25,19 @@ Document roles:
 - `README.md` is project-facing documentation for the actual repository.
 - Actual code, migrations, tests, Git evidence, and safe runtime checks are implemented truth.
 
-`plan.md` and Codex Plan Mode are different. `plan.md` is the persistent whole-system Master Design. Codex Plan Mode is a repo-grounded implementation plan for one bounded workstream.
+`plan.md` and the Builder Planning Phase / Plan Mode are different. `plan.md` is the persistent whole-system Master Design. Builder Planning Phase / Plan Mode is a repo-grounded implementation plan for one bounded workstream.
 
-## Human, GPT, Codex, and Repository Roles
+## Human, Supervisor, Builder, Reviewer, and Repository Roles
 
 ```text
-Human: approves, understands, prioritizes, decides, explains
-GPT Control Room: requirements reasoning, architecture supervision, Codex prompts, Builder-plan critique, teaching, reconstruction, debugging supervision, scope/time control, judge readiness
-Codex Builder: repo reconstruction, workstream planning, implementation, tests, debugging, execute.md/evidence updates, concise implementation report
-Codex Reviewer: independent verification, findings, severity, verdict
+Human / Project Owner: approves, understands, prioritizes, decides, explains
+Control / Supervisor: requirements reasoning, architecture supervision, Builder task/prompt preparation, Builder-plan critique, teaching, reconstruction, debugging supervision, scope/time control, judge readiness
+Builder: repo reconstruction, workstream planning, implementation, tests, debugging, execute.md/evidence updates, concise implementation report
+Reviewer: independent verification, findings, severity, verdict
 Repository: engineering truth
 ```
 
-Codex records evidence and performs bounded implementation/review work. The workflow should not depend on Codex as the primary long-form teaching agent; GPT Control Room may reconstruct workstream understanding after Builder evidence exists.
+These roles may be filled by humans, AI agents, or a combination of both. The workflow should not depend on any specific tool as the primary long-form teaching agent; the Control / Supervisor may reconstruct workstream understanding after Builder evidence exists.
 
 ## Why Builders and Reviewers Are Separate
 
@@ -87,11 +87,11 @@ A meaningful Builder chat normally closes after:
 ```text
 plan.md / execute.md
 -> next workstream
--> fresh Codex Builder where useful
+-> fresh Builder session or agent where useful
 -> repository reconstruction
--> Codex Plan Mode
+-> Builder Planning Phase / Plan Mode
 -> bounded implementation plan
--> GPT/human review
+-> Control / Supervisor + Human review
 -> human approval
 -> implementation
 -> debugging
@@ -99,7 +99,7 @@ plan.md / execute.md
 -> evidence
 -> execute.md update
 -> implementation report
--> GPT workstream reconstruction
+-> Control / Supervisor workstream reconstruction
 -> optional risk-driven Reviewer
 -> human understanding checkpoint
 -> close workstream
@@ -242,7 +242,7 @@ Pass 1 - early challenge transition: after `problem.md` is approved, `plan.md` i
 
 Pass 2 - final README reconciliation: once the Golden Path and implementation are stable, reconcile README.md against actual verified code, migrations, tests, runtime behavior, selected release path, demo flow, deployment if used, known limitations, and explicit deferrals. Remove stale generic-starter wording and inaccurate claims.
 
-GPT Control Room decides when README transition/reconciliation is required and generates the bounded Codex prompt. Codex performs the edit and verifies README.md against repository reality.
+The Control / Supervisor decides when README transition/reconciliation is required and prepares the bounded Builder task/prompt. The Builder performs the edit and verifies README.md against repository reality.
 
 ## Starter, AI, and External Service Policy
 

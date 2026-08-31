@@ -1,6 +1,6 @@
 # Prompt Playbook
 
-Use these prompts as copy/paste lifecycle handoffs. Replace bracketed placeholders. Each agent must read `AGENTS.md` and the governing workflow before acting. Planning prompts use Plan Mode; implementation begins only after explicit human approval.
+Use these prompts as copy/paste lifecycle handoffs. Replace bracketed placeholders. Each agent or role must read `AGENTS.md` and the governing workflow before acting. Planning prompts use the Builder Planning Phase / Plan Mode; implementation begins only after explicit human approval.
 
 ## Essential Set Under Time Pressure
 
@@ -28,7 +28,7 @@ Use the smallest sequence that protects the critical path:
 20. Whole-Project Engineering Reconstruction
 21. Internal Demo Freeze, Git/Source Checkpoint, and Official Event Freeze/Submission
 
-Not every tiny task requires a fresh Reviewer or long reconstruction. Golden Path means the most important successful user journey that demonstrates the core value of the MVP. Identify it before implementation, use it to drive workstream priority and contracts, and refine it only when legitimate evidence or approved design changes require that. GPT Control Room supervises requirements, architecture, prompts, plan critique, teaching, reconstruction, debugging strategy, scope/time control, and judge readiness; Codex Builder implements bounded approved workstreams; Codex Reviewer independently verifies meaningful checkpoints. Public deployment is conditional, and local E2E remains a valid final path when official rules and demo needs allow it. Do not compress away verification of the critical path.
+Not every tiny task requires a fresh Reviewer or long reconstruction. Golden Path means the most important successful user journey that demonstrates the core value of the MVP. Identify it before implementation, use it to drive workstream priority and contracts, and refine it only when legitimate evidence or approved design changes require that. The Control / Supervisor role supports requirements, architecture, prompts/tasks, plan critique, teaching, reconstruction, debugging strategy, scope/time control, and judge readiness; the Builder implements bounded approved workstreams; the Reviewer independently verifies meaningful checkpoints. Public deployment is conditional, and local E2E remains a valid final path when official rules and demo needs allow it. Do not compress away verification of the critical path.
 
 ## 1. Starter Check
 
@@ -227,7 +227,7 @@ Plan Mode.
 ```text
 In a fresh session, read AGENTS.md and docs/AGENT_WORKFLOW.md. Reconstruct authoritative requirements, approved design, the execution checkpoint, relevant code, tests, migrations, configuration, dependencies, phase/review records, and Git evidence. Do not rely on prior chat memory.
 
-Propose a bounded capability-oriented plan for [WORKSTREAM NAME] with: objective/capability; Golden-Path relationship; official event constraints; requirements addressed; verified current state; design decisions; scope; explicit deferrals; files and layers likely affected; data/schema changes; API/data contracts affected and whether they are implementation-ready; service or logic changes; frontend impact or N/A; backend impact or N/A; persistence impact or N/A; integration impact or N/A; infrastructure/deployment impact if any; external-service dependencies and fallback if any; validation and error behavior; migration implications; implementation tasks; focused slice verification; API/frontend/backend/persistence verification where applicable; reconstruction topics; risks; and completion criteria. Stop before implementation for human approval.
+Propose a bounded capability-oriented plan for [WORKSTREAM NAME] with: objective/capability; Golden-Path relationship; official event constraints; requirements addressed; verified current state; design decisions; scope; explicit deferrals; files and layers likely affected; data/schema changes; API/data contracts affected and whether they are implementation-ready; service or logic changes; frontend impact or N/A; backend impact or N/A; persistence impact or N/A; integration impact or N/A; infrastructure/deployment impact if any; external-service dependencies and fallback if any; validation and error behavior; migration implications; implementation tasks; focused slice verification; API/frontend/backend/persistence verification where applicable; reconstruction topics; risks; and completion criteria. Stop before implementation for Human / Project Owner approval.
 ```
 
 ## 10. Approve and Implement Workstream
