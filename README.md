@@ -61,6 +61,16 @@ Use the starter like this:
 8. Keep the final user journey working.
 9. Prefer simplicity under hackathon constraints.
 
+## Development Process Model
+
+This starter uses a hybrid iterative-incremental process with capability-oriented vertical-slice delivery, human-gated important decisions, risk-driven review, and evidence-based verification.
+
+In practice, that means the product is built capability by capability. Each capability is planned, implemented through the layers it actually needs, verified, and then closed before the next useful capability is added. A workstream might cross frontend, API, backend, business logic, persistence, and UI result, but it does not have to touch every layer when the approved scope does not need them.
+
+The model is Agile-style without claiming to be a pure textbook framework. Scope can adapt based on working software, risk, evidence, and remaining time, while the Golden Path stays more important than speculative completeness. Important requirements, design decisions, material implementation plans, release decisions, and major changes can require explicit approval before proceeding.
+
+This fits hackathons because teams need enough upfront requirements and Master System Design to avoid chaos, but not so much planning that implementation starts too late. The practical rhythm is short upfront understanding, small implementation increments, early integration, continuous verification, risk-driven review where it matters, and scope adaptation as the deadline gets closer.
+
 ## Workflow At A Glance
 
 ```text
