@@ -1,8 +1,10 @@
 # HADF Generic Hackathon Starter
 
-HADF (the **Hackathon Agentic Development Framework**) is a reusable FastAPI starter and human-AI engineering workflow for building hackathon MVPs with controlled architecture, Git isolation, AI-agent supervision, testing, review, and incremental integration.
+HADF (the **Hackathon Agentic Development Framework**) is a reusable FastAPI starter and human-AI engineering workflow for turning an unknown hackathon challenge into a scoped, integrated, tested, explainable MVP.
 
-It gives a team a safe starting point before the challenge is known: technical scaffolding, shared project-truth files, and an operating model that keeps humans accountable for important decisions.
+It gives a team a safe starting point before the challenge is known: technical scaffolding, shared project-truth files, and an operating model that keeps humans accountable for important decisions. Humans interpret requirements and approve material decisions; agents perform bounded planning, implementation, testing, debugging, review, and evidence work.
+
+The repository remains challenge-neutral until the official challenge is understood and its requirements and design are approved. It is not a product or a preselected domain; it is the controlled engineering system used to build one.
 
 ## What problem does this solve?
 
@@ -10,14 +12,16 @@ It gives a team a safe starting point before the challenge is known: technical s
 | --- | --- |
 | Team starts coding before understanding the challenge | `problem.md` + challenge intake |
 | Everyone imagines a different architecture | Shared `plan.md` |
+| Scope becomes too large | MVP boundary |
+| Team builds the wrong things first | Golden Path |
 | AI agents make unrelated changes | Bounded tasks + `AGENTS.md` |
 | Frontend and backend drift | Approved API contracts |
 | Multiple agents overwrite each other | Branches + conditional worktrees |
 | “Agent says done” but code is unverified | Tests + evidence + review |
 | PR merges but teammates still have old code | Post-merge synchronization |
 | Features work separately but not together | Rendezvous + QA + E2E |
-| Team builds too much | MVP + Golden Path |
-| Nobody understands the final system | Reconstruction + documentation |
+| Integration happens too late | Incremental vertical-slice integration |
+| Nobody understands the final system | Reconstruction + README reconciliation |
 
 ## What this repository gives you
 
@@ -27,6 +31,7 @@ It gives a team a safe starting point before the challenge is known: technical s
 - ✓ GitHub Actions CI and a pull-request template
 - ✓ Agent governance through `AGENTS.md`
 - ✓ `problem` / `plan` / `execute` / `review` workflow
+- ✓ Golden Path and capability-oriented workstream guidance
 - ✓ Solo, 2-, 3-, and 4-member operating modes
 - ✓ Git branch, worktree, PR, merge, and post-merge guidance
 - ✓ QA, E2E, and deployment-readiness runbooks
@@ -48,9 +53,13 @@ Workstreams + Contracts
    ↓
 Branch / Worktree
    ↓
-AI Builder
+Builder Plan
    ↓
-Tests + Review
+Human Approval
+   ↓
+Implementation
+   ↓
+Tests + Evidence
    ↓
 PR + CI
    ↓
@@ -61,7 +70,7 @@ Integration + QA + E2E
 Verified MVP
 ```
 
-The Golden Path is the most important successful user journey that proves the MVP’s value. Work from approved requirements and design, then integrate and verify each relevant capability before calling the MVP complete.
+The Golden Path is the most important successful user journey that proves the MVP’s value. Work from approved requirements and design, then integrate and verify each relevant capability before calling the MVP complete. This sequence converts shared understanding into bounded work, then bounded work into a verified system rather than a collection of isolated features.
 
 ## Who this is for
 
@@ -90,31 +99,58 @@ This repository is useful for:
 | Agent governance | `AGENTS.md` |
 | Frontend | Intentionally unselected placeholder |
 
+## Current technical foundation
+
+| Layer | Current implementation |
+| --- | --- |
+| Application entry | `backend/main.py` |
+| API framework | FastAPI with `GET /` health endpoint |
+| Configuration | Environment-driven `DATABASE_URL` with a safe fallback |
+| Database access | SQLAlchemy engine, session factory, base, and dependency helper |
+| Migration system | Alembic environment under `migrations/` |
+| Default development DB | In-memory SQLite fallback |
+| Production-ready DB direction | PostgreSQL through `psycopg` and `DATABASE_URL` |
+| Testing | pytest + httpx application/configuration tests |
+| CI | `.github/workflows/ci.yml` runs the test suite on Python 3.12 |
+| Frontend | Placeholder only; no framework or UI selected |
+
+The starter intentionally contains no product-specific routers, services, entities, domain tables, authentication, business rules, or real frontend behavior. Those are introduced only after the challenge is understood and the design is approved.
+
 ## Architecture at a glance
 
 ```text
-User
+Browser / Client
  ↓
-Frontend
+Frontend Event Handler
+ ↓
+API Client
  ↓
 HTTP / JSON
  ↓
-FastAPI Route
+FastAPI Router
  ↓
 Pydantic Validation
  ↓
-Service / Business Logic
+Service / Use Case
  ↓
-SQLAlchemy
+Business Rules / Invariants
  ↓
-Database
+SQLAlchemy Session
  ↓
-Response
+Database Transaction
+ ↓
+Response Schema
+ ↓
+JSON Response
  ↓
 Frontend State
+ ↓
+Rendered UI
 ```
 
-The current starter contains the foundation only. Product-specific routes, services, entities, tables, and frontend behavior are added only after an actual challenge is understood and approved.
+The generic starter currently provides only the foundation. Challenge-specific routers, schemas, services, invariants, models, and frontend behavior are introduced after `problem.md` and `plan.md` are approved.
+
+An **invariant** is a rule that must always remain true. A **transaction** is a group of database changes that succeeds or fails together.
 
 ## Quick start
 
@@ -317,22 +353,121 @@ QA verifies persistence
 | 3-member | A leads architecture/integration; B owns backend/data; C owns frontend/QA | [Team of 3](docs/modes/TEAM_3.md) |
 | 4-member | A integrates; B owns backend/data; C owns frontend; D owns QA/reliability | [Team of 4](docs/modes/TEAM_4.md) |
 
-## AI agent governance
+## How the agentic workflow works
 
-AI may inspect, implement, test, debug, review, and document within an approved bounded task.
+HADF separates authority from execution. Humans interpret official rules and the challenge, approve requirements, define the MVP and Golden Path, approve architecture, approve material API/schema/invariant/security changes, and decide when work may merge or release.
 
-Humans retain authority for requirement interpretation, architecture, contracts, major data decisions, security decisions, and merge or release decisions.
+AI agents inspect repository state, propose bounded plans, implement approved workstreams, test, debug, review, generate evidence, and support documentation or reconstruction. They do not silently redefine the product or shared architecture.
 
 ```text
-Agent says done
-→ evidence
-→ tests
-→ diff
-→ review
-→ human approval
+Official Challenge
+      ↓
+Human + Control Room
+      ↓
+problem.md
+      ↓
+MVP + Golden Path
+      ↓
+Master System Design
+      ↓
+plan.md
+      ↓
+Workstreams
+      ↓
+Bounded AI Builders
+      ↓
+Tests + Evidence
+      ↓
+Human / Reviewer Gate
+      ↓
+PR + CI
+      ↓
+Merge
+      ↓
+Sync + Integration
+      ↓
+QA + E2E
+      ↓
+Verified MVP
 ```
 
-Read [Decision Authority](docs/core/DECISION_AUTHORITY.md) and [AGENTS.md](AGENTS.md) before assigning implementation work.
+**Parallelize implementation, not architecture.** Different people and agents may implement simultaneously, but they work against one approved architecture and shared contracts. Read [Decision Authority](docs/core/DECISION_AUTHORITY.md) and [AGENTS.md](AGENTS.md) before assigning implementation work.
+
+## Why agent tasks are bounded
+
+Coding agents are more reliable when they receive a clear objective, approved contract, exact scope, relevant files, exit criteria, test expectations, and stop/escalation conditions.
+
+```text
+Bad:    "Build the backend."
+
+Better: "Implement WS-03 Resource Creation using the approved POST /resources
+         contract. Do not change shared schema or unrelated endpoints. Run
+         focused tests and stop if the approved contract must change."
+```
+
+Bounded tasks reduce architecture drift, unrelated edits, hidden assumptions, integration conflicts, and accidental scope growth.
+
+## MVP: the smallest product that proves the idea
+
+MVP means **Minimum Viable Product**: the smallest integrated version of the system that proves the solution works.
+
+An MVP is not every feature, production completeness, maximum polish, or every optional edge case. It is enough functionality to prove core value, enough integration to demonstrate the main workflow, and enough correctness to support the critical demo journey. HADF defines it early to protect the event from uncontrolled scope growth.
+
+## Golden Path: the critical user journey
+
+The Golden Path is the most important end-to-end user journey that demonstrates the MVP’s value.
+
+```text
+User enters system
+→ submits important input
+→ backend validates and processes it
+→ database state changes
+→ response returns
+→ frontend displays the result
+```
+
+```text
+MVP         = what must exist
+Golden Path = the critical journey through it
+Workstreams = bounded capabilities needed to build it
+```
+
+If the Golden Path does not work end-to-end, the project is not demo-ready even if many isolated features exist.
+
+## Workstreams and vertical slices
+
+A workstream is a bounded capability, not simply a technical folder.
+
+```text
+Less useful: frontend / backend / database
+
+Better:      user entry / resource creation / recommendation / allocation / dashboard
+```
+
+A vertical slice may cross frontend → API → service → database → response → UI. Backend-first does **not** mean backend-complete-first: backend foundations may start earlier, while frontend work can begin as soon as shared contracts are design-stable.
+
+## Example design-stable API contract
+
+This example is illustrative only; it does not add an endpoint or domain requirement to the starter.
+
+```text
+POST /resources
+
+Request
+{
+  "name": "Example"
+}
+
+Success: 201 Created
+{
+  "id": "generated-id",
+  "name": "Example"
+}
+
+Validation failure: 422
+```
+
+A design-stable contract lets frontend and backend work independently without inventing incompatible fields or behavior. When the real backend dependency is available, temporary mocks are removed and the team performs a real integration rendezvous.
 
 ## What this repository demonstrates
 
