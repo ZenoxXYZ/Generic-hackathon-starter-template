@@ -548,3 +548,8 @@ Prioritize working MVP, correctness, integration, selected release-path verifica
 The Reviewer Agent's job is to independently challenge completion claims using repository evidence.
 
 It should try to detect real correctness and regression problems without manufacturing bugs, turning intentional MVP limitations into defects, or treating local success as deployed success.
+
+35. HADF Operating References
+Use docs/core/ for authority, project truth, contracts, Golden Path, and completion gates; docs/git/ for branch, worktree, PR, post-merge, conflict, and cleanup policy; and docs/runbooks/ for rendezvous, QA, E2E, Feature Freeze, and final readiness checkpoints.
+
+Review the actual branch/PR checkpoint and distinguish local implementation state from merged shared-source state. Confirm that CI evidence is not presented as PR review, QA, or E2E evidence. When merged dependencies are relevant, inspect post-merge synchronization, temporary mock removal, rendezvous, integration, and regression evidence without treating merge alone as proof of a working assembled path.

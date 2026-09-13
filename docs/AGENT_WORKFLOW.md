@@ -663,3 +663,8 @@ Near demo freeze:
 The Builder's job is not to maximize code volume.
 
 It is to convert approved requirements and design decisions into the smallest correct, verified, understandable, demonstrable MVP while leaving enough repository evidence for another fresh agent to continue safely.
+
+29. HADF Operating References
+Use docs/core/ for project truth, decision authority, Golden Path, workstreams, contracts, and completion gates. Use docs/git/ for branch, worktree, PR, post-merge sync, conflict, and cleanup rules. Use docs/runbooks/ for workstream start, Builder launch, rendezvous, QA, E2E, and release checkpoints. Use docs/prompts/ only as reusable handoffs, not as authority over repository evidence.
+
+One bounded implementation change uses one branch. One concurrent Builder uses one mutable workspace. The Builder must confirm whether the normal branch is sufficient or whether the same human's concurrent mutable work requires a dedicated worktree. Before an implementation PR is considered closed, follow the documented PR lifecycle and record post-merge synchronization, real-dependency/mock status, rendezvous, and applicable QA/E2E evidence.

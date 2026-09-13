@@ -1,194 +1,24 @@
-# Generic Hackathon Starter
+# HADF Generic Hackathon Starter
 
-A reusable full-stack starter and engineering workflow for turning an unknown hackathon challenge into a working, explainable MVP.
+HADF, the **Hackathon Agentic Development Framework**, is a challenge-neutral repository and operating model for building a small, verified, explainable hackathon MVP with humans and agents.
 
-This repository gives you a small backend foundation, database/migration wiring, tests, documentation templates, and a practical workflow for building capability by capability. It does not decide your product, your domain, your frontend framework, or your deployment provider.
+This repository is a generic FastAPI scaffold, a repository-held engineering control system, a human-plus-agent workflow template, and a Git/PR/integration operating environment. It is not a product, a preselected domain, a frontend framework, an enterprise platform, or a substitute for official event rules.
 
-Official event rules and the actual challenge brief always come first.
+## Generic Runtime Scaffold
 
-## Why This Repository Exists
+The current scaffold intentionally contains only:
 
-Hackathons move fast. Teams can lose precious hours to setup, unclear scope, late frontend/backend integration, unverified code, and forgotten decisions.
+- a FastAPI application with `GET /` health endpoint returning `{"status":"ok"}`;
+- environment-based database URL configuration with a safe in-memory SQLite default;
+- SQLAlchemy and Alembic wiring for future approved persistence work;
+- isolated tests for application and configuration behavior; and
+- a placeholder `frontend/` directory with no selected framework or UI.
 
-This starter helps you begin with:
+It does not include product entities, APIs, business rules, domain tables, decision logic, product data, or real frontend behavior.
 
-- a runnable backend foundation;
-- a place to record requirements, design, execution state, and review history;
-- a workflow for building the smallest useful MVP;
-- a habit of verifying real behavior before calling work complete.
+## Quick Start
 
-The goal is not to create the most code. The goal is to build the smallest correct, explainable, demonstrable solution that matches the challenge.
-
-## Who It Is For
-
-This repository is useful for:
-
-- hackathon participants;
-- students and learning teams;
-- solo builders;
-- small teams;
-- beginner-to-intermediate full-stack developers;
-- people working with or without AI coding agents.
-
-You can use the workflow manually, with human teammates, with agents, or with a mix of both.
-
-## What Is Included
-
-| Area | What exists now |
-| ---- | --------------- |
-| Backend | Minimal FastAPI app with `GET /` health endpoint. |
-| Configuration | Environment-based database URL helper with safe local default. |
-| Persistence | SQLAlchemy engine/session/base wiring. |
-| Migrations | Alembic configuration and migration environment. |
-| Tests | Pytest coverage for app health, imports, OpenAPI, config, and Alembic wiring. |
-| Frontend | Placeholder directory only; no framework or real UI has been selected. |
-| Workflow docs | Builder, reviewer, full-stack, quickstart, and prompt guidance. |
-| State files | Templates for requirements, design, execution tracking, and review history. |
-
-The starter intentionally does not include product entities, product APIs, business rules, domain tables, decision logic, or real frontend functionality.
-
-## Core Philosophy
-
-Use the starter like this:
-
-1. Understand the challenge before coding.
-2. Define the smallest meaningful MVP.
-3. Identify the Golden Path: the most important successful user journey.
-4. Design important API/data contracts early.
-5. Build capability by capability.
-6. Integrate frontend and backend incrementally.
-7. Verify continuously with evidence.
-8. Keep the final user journey working.
-9. Prefer simplicity under hackathon constraints.
-
-## Development Process Model
-
-This starter uses a hybrid iterative-incremental process with Golden-Path-driven scope control, capability-oriented vertical-slice delivery, human-gated important decisions, risk-driven review, and evidence-based verification.
-
-In practice, that means the product is built capability by capability, but not by adding arbitrary features in random order. Workstreams are selected and ordered by how they contribute to the MVP and Golden Path: the most important successful user journey that demonstrates the core value of the MVP. Each capability is planned, implemented through the layers it actually needs, verified, and then closed before the next useful capability is added.
-
-The model is Agile-style without claiming to be a pure textbook framework. Scope can adapt based on working software, risk, evidence, and remaining time, while the Golden Path stays more important than speculative completeness. Important requirements, design decisions, material implementation plans, release decisions, and major changes can require explicit approval before proceeding.
-
-This fits hackathons because teams need enough upfront requirements and Master System Design to avoid chaos, but not so much planning that implementation starts too late. The practical rhythm is short upfront understanding, small implementation increments, early integration, continuous verification, risk-driven review where it matters, and scope adaptation as the deadline gets closer. As vertical slices accumulate, they should gradually assemble the Golden Path; once assembled, systematic integration and E2E verification prove it as one complete demo-critical journey.
-
-## Workflow At A Glance
-
-```text
-Official challenge and rules
--> problem.md
--> MVP + Golden Path
--> plan.md
--> execute.md
--> capability workstreams
--> Golden Path assembled
--> systematic integration/hardening
--> local Golden-Path E2E
--> release/deployment decision
--> final review
--> demo/freeze
-```
-
-The exact event rules override this generic workflow. If an event limits starter code, AI assistance, deployment, or submission timing, follow the event.
-
-## Core Repository Files
-
-| File or directory | Purpose |
-| ----------------- | ------- |
-| `problem.md` | What the product must do: normalized requirements from the official challenge. |
-| `plan.md` | How the system is designed: architecture, contracts, workstreams, and release criteria. |
-| `execute.md` | What is currently being implemented, verified, blocked, or deferred. |
-| `review.md` | Verified review findings and bug/history summary. |
-| `README.md` | Project-facing explanation and usage guide. |
-| `AGENTS.md` | Repository operating instructions for human or automated agents. |
-| `backend/` | FastAPI application foundation. |
-| `frontend/` | Placeholder for a future problem-driven interface. |
-| `migrations/` | Alembic migration foundation. |
-| `tests/` | Automated verification. |
-| actual code, tests, migrations, and runtime checks | Implemented truth. |
-
-Project-state files are useful summaries, but the real implementation is proven by code, tests, migrations, Git evidence, and safe runtime checks.
-
-## Capability-Oriented Workstreams
-
-A workstream is one bounded engineering objective, not necessarily one folder or one technical layer.
-
-Generic examples:
-
-- persistence foundation;
-- create booking;
-- approve request;
-- dashboard;
-- conflict handling;
-- full-stack integration;
-- deployment/release preparation.
-
-Some workstreams are backend-heavy. Some are frontend-heavy. Some are full-stack. Some are only verification or hardening. Do not force every workstream through every layer.
-
-Workstreams that directly unlock or protect the Golden Path normally take priority over optional capabilities, while foundation, hardening, review, or release work may still be necessary.
-
-## Vertical Slices
-
-Build one meaningful capability through the layers it actually needs.
-
-For example, a full-stack "Create Booking" capability might include:
-
-```text
-User
--> frontend form
--> API request
--> backend validation
--> business rule
--> database write
--> response
--> updated frontend state
--> visible result
--> focused verification
-```
-
-That is a vertical slice. It proves a real capability, not just isolated files.
-
-The Golden Path is larger than one vertical slice: it is the critical end-to-end user journey created by combining the capabilities needed for the MVP.
-
-Some workstreams may be backend-only or frontend-only. That is fine when the approved plan says those layers are not needed yet.
-
-## Backend-First, Not Backend-Complete-First
-
-This starter is backend-first because a reliable MVP often needs clear data, rules, validation, persistence, and API contracts.
-
-Backend-first does not mean finishing the entire backend before any frontend starts.
-
-A better pattern is:
-
-```text
-backend/persistence foundation
--> relevant contract becomes stable enough
--> frontend consumes it
--> slice integration
--> next capability
-```
-
-Frontend work should begin when the relevant contracts are stable enough for the approved scope.
-
-## API Contracts
-
-Important request/response interfaces should be designed in `plan.md`, implemented by the backend, consumed by the frontend, and proven during integration.
-
-A useful contract may define:
-
-- method and path;
-- route params or query params;
-- request body;
-- field names and types;
-- validation behavior;
-- response shape;
-- status codes and important errors;
-- frontend view or component that consumes it.
-
-If a material contract flaw appears during implementation, stop and update the approved design instead of silently letting frontend and backend drift apart.
-
-## Getting Started
-
-Clone or create a new repository from this starter, then run the local foundation:
+Create a repository from this template when official rules allow reusable starter code, then clone it. If independent Git history is required, use the template feature or reinitialize Git deliberately; this repository never changes Git history automatically.
 
 ```powershell
 python -m venv .venv
@@ -198,156 +28,62 @@ python -m pytest
 uvicorn backend.main:app --reload
 ```
 
-Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/). The starter health endpoint should return:
+Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/). The health endpoint should return `{"status":"ok"}`.
 
-```json
-{"status":"ok"}
-```
+`DATABASE_URL` is optional for the health-only foundation. Set it from `.env.example` only when approved persistence work requires a real database. Alembic migrations require `DATABASE_URL`; do not run them against a real database without explicit approval.
 
-Database notes:
+Before product work, confirm official rules, verify the local foundation, normalize the challenge in `problem.md`, approve Master System Design in `plan.md`, and initialize `execute.md`. Use [Challenge Intake](docs/runbooks/CHALLENGE_INTAKE.md), [Master Design](docs/runbooks/MASTER_DESIGN.md), and [time-compressed guidance](docs/runbooks/TIME_COMPRESSION.md).
 
-- The app can import and serve the health endpoint without a real database.
-- `DATABASE_URL` is read from the process environment when persistence work needs it.
-- The default local database URL is in-memory SQLite.
-- Alembic is wired, but product migrations should be created only after an approved problem and design require real persistence changes.
-- Do not commit real credentials or `.env` files.
+## Project Truth
 
-Frontend notes:
+| Source | Purpose |
+| --- | --- |
+| `AGENTS.md` | Stable agent operating policy. |
+| `problem.md` | Normalized requirements. |
+| `plan.md` | Approved system design. |
+| `execute.md` | Live workstream state. |
+| `review.md` | Verification, findings, and risk state. |
+| Code, tests, and Git history | Implementation and historical truth. |
 
-- `frontend/` is a placeholder.
-- No frontend framework has been selected.
-- Add real frontend functionality only after the challenge and approved plan require it.
+Detailed precedence and the four repository states are in the [Project Truth Model](docs/core/PROJECT_TRUTH_MODEL.md).
 
-## Starting A New Hackathon Challenge
-
-Recommended sequence:
-
-1. Read the official challenge and rules.
-2. Normalize requirements into `problem.md`.
-3. Define the MVP and Golden Path.
-4. Design the system in `plan.md`.
-5. Initialize `execute.md`.
-6. Transition this README from generic starter documentation to challenge-specific project documentation.
-7. Start the first workstream.
-8. Build and verify capabilities incrementally.
-9. Use independent review for meaningful or risky checkpoints.
-10. Reconcile final docs and prepare the demo.
-
-## README Lifecycle
-
-This README starts as generic starter documentation. It should not stay generic forever after a real challenge begins.
-
-Early transition:
-
-- after `problem.md` is approved;
-- after `plan.md` is approved;
-- after `execute.md` is initialized;
-- rewrite README.md so it describes the actual challenge, MVP, Golden Path, architecture, setup, and current status.
-
-Final reconciliation:
-
-- near the end of the project;
-- compare README.md against actual code, tests, migrations, runtime behavior, and selected release path;
-- update implemented features, setup, demo flow, deployment notes if used, known limitations, and explicit deferrals.
-
-Do not claim planned functionality as implemented.
-
-## Testing And Verification
-
-Use verification that matches the risk of the workstream:
-
-- unit tests for pure logic;
-- schema/API tests for request and response behavior;
-- service tests for application workflow;
-- migration checks when persistence changes;
-- focused workstream verification for one capability;
-- integration checks when frontend and backend meet;
-- Golden-Path E2E before demo/freeze.
-
-Focused workstream verification proves one capability. Golden-Path E2E proves the complete critical user journey across the assembled system.
-
-Generated code is not complete until relevant behavior is verified.
-
-## Local E2E Before Deployment
-
-Prove the application locally before treating it as demo-ready.
+## Main Workflow
 
 ```text
-local browser/app
--> local frontend if present
--> local backend
--> local/test database
--> visible result
+challenge intake -> approved problem -> MVP + Golden Path -> Master Design
+-> workstream -> branch/worktree decision -> Builder plan -> human approval
+-> implementation -> local verification -> PR + CI + review -> merge
+-> post-merge sync -> rendezvous -> QA/E2E -> closed
 ```
 
-Deployment is conditional unless the rules or demo require it. If you deploy, run deployed E2E afterward because hosted runtime changes URLs, environment variables, CORS, database connectivity, migrations, startup behavior, and failure modes.
+The Golden Path is the most important successful user journey that demonstrates the core MVP value. Build and integrate capabilities that prove it before speculative features. See the [HADF overview](docs/core/HADF_OVERVIEW.md) and [Golden Path guide](docs/core/GOLDEN_PATH.md).
 
-## AI-Assisted Development
+## Team And Workspace Choice
 
-This repository works for human-only, AI-assisted, or mixed development workflows.
+Choose [Solo](docs/modes/SOLO.md), [Team of 2](docs/modes/TEAM_2.md), [Team of 3](docs/modes/TEAM_3.md), or [Team of 4](docs/modes/TEAM_4.md) according to people and responsibilities—not rigid technical silos.
 
-When using agents, keep the responsibilities clear:
+Use a normal feature branch for one human's one active mutable task. Use separate branches and worktrees only when that same human runs multiple concurrent mutable tasks or agents. Different humans normally use separate clones. See [worktree workflow](docs/git/WORKTREE_WORKFLOW.md).
 
-| Role | Responsibility |
-| ---- | -------------- |
-| Human / project owner | Understands requirements, approves decisions, prioritizes scope, and remains accountable. |
-| Control / supervisor role | Helps analyze requirements, architecture, plans, debugging, explanations, and workflow control. |
-| Builder role | Implements bounded workstreams, tests, debugs, and records evidence. |
-| Reviewer role | Independently checks correctness, integration, contract drift, and missing verification. |
-| Repository | Remains the engineering source of truth. |
+## PRs, Integration, And Agents
 
-These roles may be filled by humans, AI agents, or a combination of both. No specific tool or model is required.
+One bounded change belongs on one branch and in one PR. CI runs configured automated checks; PR review judges scope, architecture, contracts, and code; QA verifies behavior and risk; E2E proves the real assembled user journey. A merge changes shared source, but integration proves components cooperate.
 
-## Documentation
+Agents inspect repository evidence before modifying anything and must escalate material changes to architecture, public APIs, shared schemas, invariants, major dependencies, MVP, Golden Path, or another owner's scope. The human remains accountable. Start with [Decision Authority](docs/core/DECISION_AUTHORITY.md), [PR workflow](docs/git/PULL_REQUEST_WORKFLOW.md), and the [Builder workflow](docs/AGENT_WORKFLOW.md).
 
-- [Quickstart](docs/guides/QUICKSTART.md)
-- [Workflow concepts](docs/guides/WORKFLOW.md)
-- [Prompt Playbook](docs/guides/PROMPT_PLAYBOOK.md)
-- [Full-stack guide](docs/guides/FULL_STACK_GUIDE.md)
-- [Builder workflow](docs/AGENT_WORKFLOW.md)
-- [Reviewer workflow](docs/REPO_REVIEW_WORKFLOW.md)
+## Detailed Documentation
 
-Use the README for orientation. Use the detailed docs when you need exact operating rules.
+- [Core HADF guides](docs/core/HADF_OVERVIEW.md)
+- [Git operating guides](docs/git/GIT_MENTAL_MODEL.md)
+- [Team modes](docs/modes/SOLO.md)
+- [Operational runbooks](docs/runbooks/CHALLENGE_INTAKE.md)
+- [Role prompts](docs/prompts/CONTROL_ROOM.md)
+- [Lifecycle prompts](docs/prompts/lifecycle/CHALLENGE_INTAKE.md)
+- [Full-stack flow](docs/core/FULL_STACK_FLOW.md)
+- [Deployment readiness](docs/runbooks/DEPLOYMENT_READINESS.md)
+- [README lifecycle](docs/runbooks/README_LIFECYCLE.md)
+- [Builder procedure](docs/AGENT_WORKFLOW.md)
+- [Reviewer procedure](docs/REPO_REVIEW_WORKFLOW.md)
 
-## Adapting The Starter
+## Intentional Limitations
 
-When a real challenge starts:
-
-- keep reusable infrastructure that is allowed by the official rules;
-- replace placeholder/generic language with challenge-specific facts;
-- keep requirements in `problem.md`;
-- keep design decisions in `plan.md`;
-- keep implementation progress in `execute.md`;
-- keep review history in `review.md`;
-- avoid carrying domain assumptions from previous projects.
-
-## Hackathon Priorities
-
-Under time pressure, prioritize:
-
-1. working Golden Path;
-2. correctness;
-3. persistence and integrity;
-4. frontend/backend integration;
-5. verification;
-6. explainability;
-7. demo reliability;
-8. optional polish.
-
-## What This Template Does Not Predetermine
-
-- Domain entities, database schema, or domain APIs
-- Business rules, decision algorithms, or product-specific validation
-- A frontend framework or real interface
-- Deployment architecture or distributed infrastructure
-- ML systems, optimization infrastructure, caches, queues, or background workers
-
-Those choices must come from official event rules, the official challenge/problem statement, and approved design.
-
-## Git Workflow
-
-Agents do not commit or push automatically. Humans review verified work, approve checkpoints, and control history changes.
-
-## License
-
-No license is included yet. Choose one deliberately before publishing the repository.
+This starter stays generic until an authoritative challenge and approved design justify product work. It does not choose a domain, frontend stack, deployment provider, external services, or persistence model. Official event rules and organizer clarifications always override HADF guidance.
