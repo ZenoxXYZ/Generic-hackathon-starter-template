@@ -1,133 +1,61 @@
-# Engineering Plan
+# Engineering Plan / Master System Design
 
 ## Status
 
-[?] Requires approved problem definition.
+[?] Requires approved `problem.md` before product-specific design.
 
-No product architecture, schema, API surface, frontend behavior, business rules, decision logic, deployment path, or challenge-specific workstream map is approved yet.
+## MVP And Golden Path
 
-## Problem / MVP Summary
+Record the smallest viable MVP and the Golden Path: the most important successful user journey that demonstrates its core value.
 
-Capture the approved problem interpretation from `problem.md`, the smallest viable MVP, and any official event constraints that affect architecture, starter use, AI assistance, deployment, or submission. `problem.md` is the normalized WHAT; this file is the approved HOW / Master System Design.
+## Architecture And Service Boundaries
 
-## Golden Path
+Record approved runtime components, technology choices, frontend/backend boundaries, persistence, service/logic responsibilities, and reasons for each design decision.
 
-Golden Path = the most important successful user journey that demonstrates the core value of the MVP.
+## Entities, Schema, And Invariants
 
-Identify the Golden Path before implementation during problem intake and Master System Design. It should drive MVP scope, workstream priority, architecture, data/API contracts, required frontend views, integration order, E2E verification, and demo preparation. It may be refined only when legitimate new evidence or approved design changes require it.
+Record only approved domain entities, relationships, state transitions, validation, integrity, security, and business/decision invariants.
 
-## Architecture
+## API And Data Contracts
 
-Record the approved high-level architecture, major components, selected technology, runtime boundaries, and why the choices satisfy the approved problem without unnecessary infrastructure.
-
-## Major Entities / Relationships
-
-List approved domain entities, persistence models, important relationships, ownership rules, and state transitions. Leave this section empty or mark it pending until `problem.md` and design approval justify real domain concepts.
-
-## Important Invariants
-
-Record rules that must remain true across the system, including business, decision, validation, state, persistence, security, or event-rule constraints.
-
-## API / Data Contracts
-
-Master System Design should identify the important API/data contracts needed by the MVP and Golden Path. Each capability workstream may stabilize or refine the relevant contract for implementation, but material contract changes must be propagated to all consumers and recorded as approved design changes.
-
-For important endpoints, capture:
-
-| Method | Path | Request shape | Response shape | Status/error behavior | Consuming frontend view/component |
-| ------ | ---- | ------------- | -------------- | --------------------- | --------------------------------- |
+| Producer / consumer | Contract | Request/input | Response/output | Validation / errors | Owner |
+| --- | --- | --- | --- | --- | --- |
 | TBD | TBD | TBD | TBD | TBD | TBD |
 
-Also record non-HTTP data contracts, event payloads, file formats, or external-service contracts when approved.
+Material contract changes require explicit approval, propagation to all affected consumers and producers, updated tests, and an execution-state record.
 
-## Frontend / User-Facing Structure
+## Risks, Testing, And Integration
 
-At architecture level, record major pages/views, important user actions, state responsibilities, loading/empty/error/success states, and relationships to API/data contracts. No frontend framework is mandatory unless the approved problem or plan justifies one.
+Record architecture and delivery risks, focused tests, and the selected release path. Distinguish these integration stages:
 
-## Business / Decision Logic
+1. Contract integration — frontend expectations and backend design agree.
+2. Feature/slice integration — a real frontend capability reaches the corresponding backend capability.
+3. Systematic full-stack integration — the assembled Golden Path is hardened across boundaries.
+4. Golden-Path E2E — a real user journey proves the intended outcome.
 
-Record approved policies, formulas, ranking rules, eligibility checks, workflows, explainability requirements, deterministic ordering, and boundary behavior. Distinguish problem requirements from design decisions.
+Record local or deployed E2E expectations, important failure paths, browser/API evidence where applicable, and persistence/refresh expectations.
+
+## Release, Deployment, And Documentation Reconciliation
+
+After Golden-Path assembly, systematic hardening, local E2E, and Feature Freeze, choose a local final-runtime path or an approved deployment workstream. For deployment, record hosting, environment-variable names, migrations, production API URL, CORS, external-service fallback, and deployed E2E criteria.
+
+Record the early README transition after approved requirements/design and execution initialization, then final README reconciliation against verified implementation and the selected release path.
 
 ## Workstream Map
 
-Actual workstreams come from this approved plan. A workstream is a bounded engineering objective that creates or strengthens meaningful system behavior. Workstreams may be backend-only, backend-heavy, frontend-only, frontend-heavy, full-stack vertical slices, business/decision-logic oriented, integration/hardening oriented, specialized verification, or release/deployment oriented.
-
-For each workstream, capture:
-
-| ID / name | Capability / objective | Golden-Path relevance | Involved layers | Dependencies | Major contracts | Verification expectation | Exit criteria |
-| --------- | ---------------------- | --------------------- | --------------- | ------------ | --------------- | ------------------------ | ------------- |
+| ID | Objective | Golden-Path relevance | Owners | Dependencies | Contract | Risk | Verification / exit criteria |
+| --- | --- | --- | --- | --- | --- | --- |
 | WS-XX | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 
-Do not force every workstream to touch every layer. The boundary follows the capability or objective, not a technology folder.
+## Parallel Execution Policy
 
-## Integration Strategy
+Parallelize approved implementation, not architecture. One bounded change uses one branch. One concurrent implementation agent uses one mutable workspace.
 
-Use progressively stronger integration stages:
+- Use a normal feature branch when one human has one active mutable task.
+- Use separate branches and worktrees only when that same human has multiple concurrent mutable tasks.
+- Different humans normally use separate clones.
+- Frontend work starts when its relevant contract is stable enough; it does not wait for total backend completion.
 
-1. Level 1 - Contract integration: frontend expectations and backend design agree.
-2. Level 2 - Feature / slice integration: a real frontend capability communicates with the real corresponding backend capability.
-3. Level 3 - Systematic full-stack integration: the assembled Golden Path is checked and hardened across boundaries.
-4. Level 4 - E2E verification: a real user journey proves the system works through required layers and produces the intended outcome.
+## Explicit Deferrals And Assumptions
 
-Backend-first does not mean backend-complete-first. Backend-first means establishing authoritative domain foundations, persistence, major invariants, critical backend capabilities, and sufficiently stable API/data contracts. Frontend work may begin once a relevant contract/capability is stable enough for its approved scope.
-
-## E2E Strategy
-
-Separate focused slice verification from systematic integration and Golden-Path E2E.
-
-Where relevant, Golden-Path E2E should verify:
-
-```text
-user action
--> frontend
--> API
--> backend
--> persistence
--> response
--> visible result
--> refresh/reload
--> persisted result remains correct
-```
-
-Include proportionate failure-path verification. Heavyweight browser automation is useful when justified, but manual E2E may be acceptable under time constraints.
-
-## Release / Deployment Decision Criteria
-
-Deployment is conditional. Choose the local or deployed release path according to official rules, demo needs, reliability, and remaining time.
-
-Local path:
-
-```text
-local Golden-Path E2E
--> Feature Freeze
--> release decision
--> local final E2E
-```
-
-Deployed path:
-
-```text
-local Golden-Path E2E
--> Feature Freeze
--> release decision
--> deployment configuration
--> production database/migrations when approved
--> production CORS/env
--> deployed E2E
-```
-
-Local runtime usually means browser -> frontend development server -> local backend -> local database. Deployed runtime usually means browser -> hosted frontend -> hosted backend -> hosted database. Business/domain architecture should ideally remain substantially unchanged between them.
-
-## README Lifecycle
-
-Early challenge transition: after `problem.md` is approved, this plan is approved, and `execute.md` is initialized, update README.md from generic-starter documentation into a challenge-specific project README. Do not claim planned but unimplemented features as completed.
-
-Final README reconciliation: after the Golden Path is stable and before final review/Demo Freeze, reconcile README.md against verified code, migrations, tests, runtime behavior, selected release path, limitations, and deferrals.
-
-## Assumptions
-
-Record assumptions that are not problem requirements and need confirmation or future validation.
-
-## Explicit Deferrals
-
-Record intentionally postponed features, integrations, validations, hardening, deployment choices, or polish so they are not misclassified as bugs.
+Record intentionally postponed work and unverified assumptions so they are not mistaken for bugs or requirements.

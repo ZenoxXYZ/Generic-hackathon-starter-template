@@ -291,3 +291,18 @@ README lifecycle:
 The objective of any Builder, Reviewer, or supporting agent is not to generate the most code.
 The objective is to produce the smallest correct, verified, understandable, demonstrable solution consistent with official event rules, the official challenge/problem statement, approved problem.md, and approved plan.md.
 This workflow supports AI-assisted engineering when official rules permit it. Actual AI allowance and restrictions come from the official event rules and organizer clarifications; the human remains responsible for understanding and explaining important architecture, code, database behavior, algorithms, decisions, and tradeoffs.
+22. HADF Git and Workspace Isolation
+The repository-held HADF model is documented in docs/core/, docs/git/, docs/modes/, docs/runbooks/, and docs/prompts/. These documents complement this stable policy; they do not replace official rules, approved requirements, approved design, code, tests, migrations, or Git evidence.
+
+For normal implementation work:
+- One bounded change uses one feature branch and one PR.
+- One concurrent implementation agent uses one mutable workspace.
+- One human with one active mutable task normally uses a feature branch in the current checkout.
+- One human running multiple concurrent mutable tasks uses separate branches and separate worktrees.
+- Different humans normally use separate clones.
+- Agents must inspect the current repository and approved scope before modifying files.
+- Agents must stop and escalate before silently changing architecture, public API, shared schema, invariants, major dependencies, MVP, Golden Path, another owner's scope, or approved contract.
+
+Merge changes shared source. It does not prove integration. After a dependency merges, affected owners must synchronize, retest, remove temporary mocks when the real dependency is available, and arrange required frontend/backend or cross-owner rendezvous and QA. CI is configured automated checking; PR Review is scope, architecture, contract, and code judgment; QA is behavioral/risk verification; E2E proves a real assembled user journey.
+
+No destructive Git operation, history rewrite, force push, branch deletion, worktree deletion, commit, push, merge, or PR action occurs without explicit human approval.

@@ -2,14 +2,34 @@
 
 ## Status
 
-[?] Requires clarification.
+[?] Requires an authoritative challenge statement and human approval.
 
-No authoritative hackathon problem statement has been supplied or approved yet.
+## Source Material
 
-## Current Interpretation
+List official challenge text, event rules, clarifications, and source dates/links.
 
-No product requirements, user journeys, entities, tables, APIs, business rules, decision logic, or frontend behavior are defined.
+## Normalized Requirements
 
-## Next Step
+Use `[PROBLEM REQUIREMENT]` only for authoritative requirements. Use `[OUR DESIGN DECISION]` only for choices made by the team.
 
-Add the authoritative problem statement, then approve this file as the repository's problem interpretation before product-specific planning or implementation begins.
+### Actors
+
+### Entities And Inputs
+
+### Outputs And User Outcomes
+
+### Functional Requirements
+
+### Non-Functional Requirements
+
+### Constraints And Event Rules
+
+### Business Rules And Invariants
+
+### Ambiguities / Questions
+
+### Acceptance Expectations
+
+### Out Of Scope
+
+Do not invent domain concepts, product behavior, data models, or technical architecture before source material and approval justify them.

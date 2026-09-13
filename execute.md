@@ -1,123 +1,47 @@
 # Execution Tracker
 
-## Markers
+## Status Model
 
-- [ ] Pending
-- [~] In progress
-- [x] Completed and verified
-- [!] Blocked by a known issue or bug
-- [?] Requires clarification or an engineering/design decision
+`PLANNED -> READY -> IN PROGRESS -> VERIFYING -> COMPLETE -> CLOSED`
 
-## Current Status
+Completion is refined as:
 
-[?] Product-specific execution requires approved `problem.md` and `plan.md`.
+- **LOCAL COMPLETE** — approved implementation is locally finished and verified.
+- **MERGE READY** — PR, configured CI, and required review conditions are satisfied.
+- **WORKSTREAM COMPLETE** — merged, synchronized, integrated, QA-verified, and evidenced.
 
-No product entities, tables, APIs, business rules, decision logic, deployment behavior, or frontend functionality have been implemented.
+## Current Foundation State
 
-## Workstream Status Summary
+- [x] Generic runtime foundation exists and has recorded verification evidence.
+- [?] Product-specific work requires approved `problem.md` and `plan.md`.
 
-Actual workstreams must come from the approved `plan.md`. Keep this table compact and update it only when evidence changes.
+## Workstream Summary
 
-| Workstream | Capability | Status | Golden Path | Blocker | Next |
-| ---------- | ---------- | ------ | ----------- | ------- | ---- |
-| WS-XX | TBD from approved `plan.md` | DESIGNED / PLANNED / APPROVED / IMPLEMENTED / INTEGRATED / VERIFIED / CLOSED | TBD | TBD | TBD |
+| ID | Objective | Status | Golden Path | Primary owner | Branch / worktree | Local / PR / CI / review | Merge / sync / QA | Next |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| WS-XX | TBD from approved plan | PLANNED | TBD | TBD | TBD | TBD | TBD | TBD |
 
-## Workstream Template
+## Workstream Card
 
-Use this reusable template for each approved workstream. Keep useful low-level technical tasks, but nest them under the capability/workstream rather than replacing the capability with folder-based checklists.
+### WS-XX — Name
 
-## WS-XX - <Name>
+- **Objective:**
+- **Golden-Path relevance:**
+- **Primary owner / Backend owner / Frontend owner / QA owner / Integration owner:**
+- **Dependencies:**
+- **Approved contract:**
+- **Risk level:**
+- **Backend / Frontend / Persistence / Integration / Infrastructure:**
+- **Branch / worktree:**
+- **Builder / Builder status:**
+- **Local status:**
+- **PR / CI / Reviewer / Review verdict:**
+- **Merge status / Post-merge sync / Rendezvous / QA status:**
+- **Evidence:**
+- **Verification checklist:** focused tests; API/contract check; real frontend/backend request where applicable; persistence check where applicable; slice integration; Golden-Path E2E where applicable; `git diff --check`; `git status`.
+- **Blockers:**
+- **Next action:**
+- **Deferrals:**
+- **Overall status:**
 
-Objective / capability:
-
-Golden-Path relationship:
-
-Dependencies:
-
-Relevant contracts:
-
-### Backend
-
-- [ ] TBD
-
-Or:
-
-Backend: N/A
-
-### Frontend
-
-- [ ] TBD
-
-Or:
-
-Frontend: N/A
-
-### Persistence
-
-- [ ] TBD
-
-Or:
-
-Persistence: N/A
-
-### Integration
-
-- [ ] TBD
-
-Or:
-
-Integration: N/A
-
-### Infrastructure
-
-- [ ] TBD
-
-Or:
-
-Infrastructure: N/A
-
-### Verification
-
-- [ ] Focused tests
-- [ ] API verification where applicable
-- [ ] Real frontend/backend request where applicable
-- [ ] Persistence verification where applicable
-- [ ] Focused slice E2E where applicable
-- [ ] `git diff --check`
-- [ ] `git status`
-
-Status:
-
-Use the most accurate lifecycle state:
-
-```text
-DESIGNED -> PLANNED -> APPROVED -> IMPLEMENTED -> INTEGRATED where relevant -> VERIFIED -> EVIDENCE RECORDED -> EXIT CRITERIA SATISFIED -> CLOSED
-```
-
-Evidence:
-
-Blocker:
-
-Next step:
-
-Deferrals:
-
-## Tracker Questions
-
-This file should answer quickly:
-
-- What capability exists?
-- What workstream is active?
-- What blocks the Golden Path?
-- Which layer tasks remain?
-- Has integration occurred?
-- What evidence proves completion?
-- What happens next?
-- What was deferred?
-
-## Current Verified Foundation
-
-- [x] Generic starter foundation created and verified.
-- [x] Public template onboarding and workflow guides created and verified.
-- [?] Product-specific planning pending approved `problem.md`.
-- [ ] Product implementation pending approved `plan.md`.
+Track only evidence-backed state. Use `N/A` for layers that do not belong to the approved workstream.
