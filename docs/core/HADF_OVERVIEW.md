@@ -28,6 +28,9 @@ challenge and event constraints using [Timebox And Lifecycle Guidance](../runboo
 
 The classification and proof terms in this lifecycle are defined only in the canonical core guides below. Product Build is the first concrete specialization; use the [Product Build playbook](../playbooks/product-build.md) when the Challenge Profile and evaluation contract support it.
 
+HADF does not require the included FastAPI/PostgreSQL stack. It is an optional
+verified Product Build starter convenience when the approved design fits.
+
 ## Canonical Guides
 
 - [Project truth and authority](PROJECT_TRUTH_MODEL.md)

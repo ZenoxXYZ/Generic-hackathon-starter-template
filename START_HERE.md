@@ -16,6 +16,9 @@ Use this short route before choosing a stack, architecture, or workflow.
 - [Timebox guidance](docs/runbooks/TIME_COMPRESSION.md) after duration, checkpoints, and delivery constraints are known.
 - [HADF Overview](docs/core/HADF_OVERVIEW.md) for the universal workflow.
 - [Product Build](docs/playbooks/product-build.md) when the Challenge Profile and evaluation contract indicate a user-facing product or service.
-- [README](README.md) for the included software starter and its local setup.
+- If Product Build applies and the included stack fits, use the optional [FastAPI/PostgreSQL starter guide](docs/starters/software-fastapi-postgres.md).
+- [README](README.md) for repository orientation and the starter route.
 
 Do not select technology or assume a product shape before the challenge profile and proof needs are understood.
+This route is methodology-first; starter setup is optional after Product Build
+selection and design fit are established.
