@@ -1,5 +1,7 @@
 # Deployment Readiness Prompt
 
+> **Product Build specialization.** Deployment remains conditional; see the [Product Build playbook](../../playbooks/product-build.md).
+
 ## Use
 
 After Golden-Path assembly, systematic hardening, local E2E, and Feature Freeze.

@@ -15,6 +15,9 @@ rationale in `execute.md`.
 
 ## Product Build Extension
 
+See the [Product Build playbook](../playbooks/product-build.md) for when this
+frontend/API specialization applies.
+
 For frontend-to-API work, also confirm endpoint path and HTTP method, request
 and response shapes, validation and error behavior, client configuration,
 visible loading/success/empty/error states, mutation or refresh behavior, mock

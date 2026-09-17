@@ -1,5 +1,9 @@
 # Full-Stack Flow
 
+> **Product Build specialization.** This concrete UI-to-persistence flow is a
+> Product Build application of universal Interface / Assumption Contracts and
+> rendezvous. See the [Product Build playbook](../playbooks/product-build.md).
+
 This repository does not choose a frontend framework. Select the smallest UI stack consistent with official event rules, approved requirements, team skills, and available time.
 
 ## Contract-First Delivery
