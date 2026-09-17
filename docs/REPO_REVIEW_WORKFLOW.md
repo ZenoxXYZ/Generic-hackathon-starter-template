@@ -263,12 +263,12 @@ When deployment is in scope because official rules require it, the demo needs it
 
 Classify missing deployed verification as [MISSING VERIFICATION] unless evidence shows a true implemented defect.
 
-When deployment is not required or selected, verify that the local release path has evidence for local integration, local E2E/final verification, final review, whole-project reconstruction, internal Demo Freeze, and official event freeze/submission readiness as applicable.
+When deployment is not required or selected, verify that the local release path has evidence for local integration, local E2E/final verification, final review, whole-project reconstruction, submission readiness, and internal Demo Freeze where a live presentation is required.
 
 17. Event Rule / Release Policy Review
 When official rules or clarifications are supplied, review whether reusable/prebuilt infrastructure, challenge-specific implementation boundaries, AI-assisted development, deployment, submission behavior, and official Code Freeze constraints comply with them.
 
-Distinguish internal Demo Freeze from Official Code Freeze or submission deadlines. Demo Freeze is a team stability gate; official freeze/submission deadlines are external event boundaries.
+Distinguish universal Solution Freeze, optional internal Demo Freeze, and Official Code Freeze or submission deadlines. Demo Freeze is a presentation-state gate only where a live demonstration is required; official freeze/submission deadlines are external event boundaries.
 
 Do not assume starter use, AI assistance, deployment, or any challenge-specific implementation timing is universally permitted or forbidden. The event rules determine those boundaries.
 

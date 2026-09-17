@@ -11,6 +11,15 @@ accurately describe the current condition. Record Local Complete, Merge Ready
 where the repository workflow uses branches/PRs, and Workstream Complete as
 separate evidence-backed gates.
 
+## Timebox And Lifecycle Checkpoints
+
+- **Available time / selected strategy:**
+- **Official deadlines / mandatory checkpoints:**
+- **First credible proof target:**
+- **Riskiest integration boundary / target:**
+- **Approximate Solution Freeze zone:**
+- **Submission packaging / live-demo requirement:**
+
 ## Current Foundation State
 
 - [x] Generic runtime foundation exists and has recorded verification evidence.

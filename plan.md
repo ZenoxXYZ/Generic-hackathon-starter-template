@@ -8,6 +8,14 @@
 
 Copy the approved profile from `problem.md` using [Challenge Classification](docs/core/CHALLENGE_CLASSIFICATION.md).
 
+## Timebox Strategy
+
+Record available time, official deadlines and mandatory checkpoints, evaluation
+contract, dependency/risk structure, first credible proof target, risky
+integration boundary, approximate Solution Freeze zone, and required
+submission or live-demo format. Select guidance from [Timebox And Lifecycle
+Guidance](docs/runbooks/TIME_COMPRESSION.md); official event rules override it.
+
 ## Primary Playbook Candidate
 
 Record `TBD` or a provisional candidate only; playbooks are not selected by this template yet.

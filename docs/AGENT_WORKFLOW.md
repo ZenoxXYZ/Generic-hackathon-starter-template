@@ -381,7 +381,7 @@ local Golden-Path E2E
 -> local final E2E
 -> final review
 -> whole-project reconstruction
--> internal Demo Freeze
+-> optional internal Demo Freeze where a live presentation is required
 -> official event freeze/submission
 ```
 
@@ -634,7 +634,7 @@ problem
 -> dynamic updates
 -> deployment
 -> verification
--> internal Demo Freeze
+-> optional internal Demo Freeze where a live presentation is required
 -> Git/source checkpoint
 -> official Code Freeze / submission
 -> limitations / tradeoffs
@@ -655,7 +655,7 @@ Under strict time limits, prioritize:
 
 Compress workstreams when useful. Do not allow process documentation or long lectures to consume time needed for a working MVP. Prioritize working MVP, correctness, integration, verification, and demo readiness before documentation depth. Use the strict documentation and reconstruction modes above when appropriate.
 
-Near demo freeze:
+Near Solution Freeze or an optional Demo Freeze:
 - Stop speculative feature development.
 - Fix only issues threatening startup, primary flow, correctness, persistence, integration, selected release path, official submission requirements, or critical validation.
 
