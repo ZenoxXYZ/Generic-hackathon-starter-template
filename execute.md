@@ -13,6 +13,8 @@ Completion is refined as:
 ## Current Foundation State
 
 - [x] Generic runtime foundation exists and has recorded verification evidence.
+- [x] Generic PostgreSQL Compose, Alembic-baseline, and PostgreSQL CI artifacts exist without product-domain schema.
+- [~] Local PostgreSQL migration verification awaits a host with a running Docker daemon; this host also lacks the preferred `docker compose` v2 command.
 - [?] Product-specific work requires approved `problem.md` and `plan.md`.
 
 ## Workstream Summary
