@@ -36,8 +36,9 @@ Human / Supervisor / Builder / Reviewer responsibility split:
 - Reviewer - independent verification, classified findings, severity, and verdict.
 - Repository evidence - engineering truth.
 This repository should not imply that any specific tool is the primary long-form teaching agent. The Builder records evidence and performs bounded implementation work, the Reviewer performs independent checks, and the Control / Supervisor may supervise and reconstruct understanding for the human.
-3. Default Technology Direction
-The preferred default stack for fast hackathon MVP development is:
+3. Optional Product Build Starter Direction
+When Product Build applies and the included software starter fits the approved
+design, the preferred default stack is:
 - Python
 - FastAPI
 - Pydantic
@@ -46,9 +47,26 @@ The preferred default stack for fast hackathon MVP development is:
 - Alembic
 - Uvicorn
 - Isolated automated testing
-These are default design choices, not problem requirements. If official event rules, the official challenge/problem statement, or the approved plan justifies a different technology, the plan may override a default after documenting that decision. No frontend framework is mandatory.
-4. Default Architecture
-Prefer a modular monolith unless requirements justify another architecture. Common responsibilities are:
+These are starter design choices, not problem requirements or universal HADF
+infrastructure. If official event rules, the official challenge/problem
+statement, or the approved plan justifies a different technology, follow that
+decision. No frontend framework is mandatory.
+4. Universal Workstream Gate And Product Build Architecture
+Material implementation begins when the active workstream has enough approved
+design stability, including:
+- Challenge Profile
+- Minimum Winning Scope
+- Critical Proof Path relevance
+- relevant Interface / Assumption Contracts
+- dependencies
+- required evidence
+- exit criteria
+
+Do not require every challenge-wide detail to be finalized before a bounded
+workstream can start. Use the canonical core guides for these definitions.
+
+When Product Build applies and a modular monolith fits the approved design,
+common responsibilities are:
 - backend/main.py — application composition and app entry point
 - backend/routes/ — HTTP concerns
 - backend/schemas/ — request and response validation contracts
@@ -61,10 +79,18 @@ Prefer a modular monolith unless requirements justify another architecture. Comm
 - migrations/ — database schema evolution
 - frontend/ — user interface when the problem requires one
 Do not create unnecessary layers merely because they are theoretically clean.
-Workstreams should be capability-oriented. A workstream is a bounded engineering objective that creates or strengthens meaningful system behavior; it is not automatically a backend module, frontend folder, or fixed set of layers. Workstreams may be backend-only, backend-heavy, frontend-only, frontend-heavy, full-stack vertical slices, business/decision-logic oriented, integration/hardening oriented, specialized verification, or release/deployment oriented.
-Golden Path means the most important successful user journey that demonstrates the core value of the MVP. It must be identified before implementation during problem intake and Master System Design, then used to drive MVP scope, workstream priority, architecture decisions, API/data contracts, frontend views, integration order, E2E verification, and demo preparation.
-Backend-first does not mean backend-complete-first. Backend-first means establishing authoritative domain foundations, persistence, major invariants, critical backend capabilities, and sufficiently stable API/data contracts. Frontend work may begin once the relevant contract or capability is stable enough for its approved scope.
-Master System Design should identify the important API/data contracts needed by the MVP and Golden Path. Individual workstreams may refine relevant contract details during implementation, but material contract changes must be propagated to every affected layer and recorded as approved design changes.
+Workstreams are capability-oriented. They may be software, model/pipeline,
+benchmark, security, physical, simulation, design, integration, verification,
+or delivery work. They are not automatically folders, roles, or fixed layers.
+
+When Product Build applies, MVP is the Product Build application of Minimum
+Winning Scope, and Golden Path is the Product Build application of Critical
+Proof Path. API, schema, UI/backend, and persistence behavior are specialized
+Interface / Assumption Contracts. Backend-first does not mean
+backend-complete-first: frontend work may begin once the relevant approved
+contract or capability is stable enough. Material contract changes require
+approval, propagation to affected work, updated verification, and an
+execution-state record.
 5. Coding Principles
 - Inspect the real repository before making assumptions.
 - Read before editing.
@@ -202,12 +228,16 @@ After implementation, report:
 - What was not verified
 - What remains incomplete
 For meaningful workstreams, verified implementation should also be reconstructed for the human operator before handoff is considered complete. The reconstruction should be proportional and time-bounded, especially in strict hackathon mode, and should cover the requirement solved, design approach, important files and layers, runtime and data flow, dependencies, persistent state touched, verification evidence, and connection to the wider system. The purpose is not line-by-line memorization; it is to make the human able to supervise, debug, modify, and explain the system.
-Use progressively stronger integration evidence:
-1. Contract integration - frontend expectations and backend design agree.
-2. Feature / slice integration - a real frontend capability communicates with the real corresponding backend capability.
-3. Systematic full-stack integration - the assembled Golden Path is checked and hardened across boundaries.
-4. E2E verification - a real user journey proves the system works through required layers and produces the intended outcome.
-Focused slice verification, systematic integration, and Golden-Path E2E are distinct. Do not mark a workstream complete merely because files exist.
+Use progressively stronger evidence appropriate to the evaluation contract:
+1. Contract integration - relevant independently developed interfaces or assumptions agree.
+2. Feature / artifact integration - real dependent components, artifacts, or boundaries are exercised together.
+3. Systematic integration - the assembled Critical Proof Path is checked and hardened across applicable boundaries.
+4. End-to-end or equivalent proof - the required runtime, checker, benchmark, measurement, simulation, inspection, or other selected evidence proves the intended claim.
+
+For Product Build, this may be frontend expectations and backend design,
+real frontend-to-backend slices, systematic full-stack Golden-Path hardening,
+and browser E2E. Focused verification, systematic integration, and final proof
+are distinct. Do not mark a workstream complete merely because files exist.
 15. Git and Change Safety
 - Inspect git status before significant work when the repository has Git metadata.
 - Do not reset, discard, or revert unrelated user changes.
@@ -220,7 +250,8 @@ Focused slice verification, systematic integration, and Golden-Path E2E are dist
 - Prefer clear logical commit boundaries.
 16. Anti-Overengineering Rules
 - Build the smallest solution satisfying verified requirements.
-- Optimize for a working, explainable MVP under hackathon constraints.
+- Optimize for the smallest working, explainable solution that proves the
+  approved Minimum Winning Scope under hackathon constraints.
 - Do not introduce architecture only for hypothetical future scale.
 - Prefer a modular monolith by default.
 - Avoid unnecessary factories, wrappers, and layers.
@@ -232,7 +263,7 @@ Builder Agents must:
 - Reconstruct project state from repository evidence, not previous-chat memory.
 - Read problem.md, plan.md, execute.md, review.md, relevant phase and review documents, Git history, tests, migrations, and code.
 - Begin meaningful new workstreams with planning.
-- Plan workstreams around the approved capability/objective, Golden-Path relationship, involved layers, API/data contracts affected, dependencies, verification, and exit criteria.
+- Plan workstreams around the approved capability/objective, Critical-Proof-Path relevance, relevant Interface / Assumption Contracts, dependencies, verification, and exit criteria. Add Golden-Path relevance, layers, and API/data contracts only when Product Build applies.
 - Require human approval before implementing major plans.
 - Stop for approval if implementation requires a material architecture, schema, API, or policy change.
 - Create phase documentation under docs/phases/ appropriate to the workstream's complexity and available time.
@@ -261,32 +292,34 @@ Reviewer Agents must:
 - docs/reviews/ — detailed independent repository-review evidence
 Avoid duplicating full phase documentation into review.md.
 Document responsibilities:
-- problem.md - normalized WHAT the complete product must do, including frontend, backend, persistence/data, business rules, invariants, workflows, inputs/outputs, assumptions, constraints, and MVP boundaries when supported by the brief.
-- plan.md - approved HOW / Master System Design, including Golden Path, architecture, frontend/backend structure, entities, database design, invariants, important API contracts, business/decision logic, workstream map, dependencies, integration strategy, verification strategy, and release/deployment criteria.
-- execute.md - live implementation/workstream state, including workstream, objective, Golden-Path relevance, dependencies, contracts, Backend, Frontend, Persistence, Integration, Infrastructure, Verification, Evidence, Status, Blocker, Next, and Deferrals. N/A layers are valid.
+- problem.md - normalized WHAT the challenge requires: Challenge Profile, scope, inputs/outputs, assumptions, constraints, evaluation contract, proof, realization boundary, and applicable domain requirements. Product Build may additionally record MVP and Golden Path.
+- plan.md - approved HOW / Master System Design: workstreams, dependencies, Interface / Assumption Contracts, integration, verification, delivery strategy, risks, and approved architecture. Product Build may additionally record frontend/backend structure, entities, persistence, and API contracts.
+- execute.md - live workstream and checkpoint state: objective, Critical-Proof-Path relevance, owners, dependencies, contracts, integration applicability, verification, evidence, status, blockers, next actions, and deferrals. N/A fields are valid. Product Build may add Golden-Path and layer detail.
 - review.md - verified review findings/history, not a duplicate implementation tracker.
 - README.md - project-facing explanation and usage guide for the actual repository; it does not replace problem.md, plan.md, or execute.md.
 - Actual code, migrations, tests, Git evidence, and safe runtime verification - implemented truth.
 20. Hackathon Priority Rule
 When time is constrained, prioritize in this order:
-1. Primary user journey works
-2. Core decision or business behavior is correct
-3. Persistence and state are correct
-4. Backend/frontend contract works
-5. Important failure cases are handled
-6. Tests protect the demo-critical path
+1. Critical Proof Path and required artifact work
+2. Core decision or required behavior is correct
+3. Required state, interfaces, and assumptions hold
+4. Important failure cases are handled
+5. Evidence protects the central claim
+6. Product Build integration and user journey work where applicable
 7. Explainability
 8. Maintainability
 9. Polish
-Near submission or demo freeze, do not add speculative features.
-Keep documentation concise enough that it does not delay the higher-priority working MVP, correctness, integration, verification, or demo readiness.
-Demo Freeze is an internal stability gate chosen by the team. Official Code Freeze or submission deadlines are external event boundaries and take precedence over template preferences.
-The intended lifecycle is: official rules/challenge -> requirements extraction -> problem.md -> MVP -> Golden Path -> Master System Design -> plan.md -> initialize execute.md -> early README challenge transition -> backend/persistence foundation -> relevant contracts implemented/stabilized -> frontend begins consuming relevant contracts -> capability-oriented workstream loop -> incremental vertical integration -> focused verification -> repeat -> Golden Path assembled -> systematic full-stack integration/hardening -> local Golden-Path E2E -> Feature Freeze -> release/deployment decision -> local final runtime or deployment -> chosen-runtime E2E -> P0/P1 corrections -> final README reconciliation -> independent final review -> required final corrections -> whole-project reconstruction/judge readiness -> Demo Freeze -> Git/source checkpoint -> official freeze.
-When deployment is officially required, necessary for the demo, or reliable and valuable within remaining time, treat deployment as a bounded engineering workstream, verify the deployed backend, frontend, database, migrations, CORS, production API URL, and golden path, and do not treat local success as deployment success. When deployment is not required or not a good tradeoff, reliable local demonstration with local E2E/final verification remains a valid release path. Local runtime is browser -> frontend development server -> local backend -> local database. Deployed runtime is browser -> hosted frontend -> hosted backend -> hosted database. Do not add containers, queues, cloud infrastructure, or deployment complexity unless the selected provider or approved problem requires it.
-Before the final demo, perform a whole-project engineering reconstruction sufficient for the human to explain the problem, requirements, architecture, data model, API, services, business or decision logic, persistence, frontend, dynamic updates, deployment, verification, limitations, and tradeoffs. Under strict hackathon timing, keep learning focused on major decisions, critical flows, and judge readiness rather than exhaustive theory.
+Near Solution Freeze, submission, or an applicable Demo Freeze, do not add speculative scope.
+Keep documentation concise enough that it does not delay required behavior, integration, verification, evidence, or delivery readiness.
+Solution Freeze is universal. Demo Freeze is conditional on a live demo or presentation requirement; official Code Freeze or submission deadlines take precedence.
+The intended lifecycle is: official rules/challenge -> requirements extraction -> problem.md -> Challenge Profile -> Minimum Winning Scope -> Critical Proof Path, Proof Package, and Realization Boundary -> Master System Design -> plan.md -> initialize execute.md -> bounded workstream loop -> applicable rendezvous and integration -> focused verification and evidence -> repeat -> systematic proof/hardening -> Solution Freeze -> delivery/submission decision -> final verification -> review -> reconstruction/judge readiness -> optional Demo Freeze -> Git/source checkpoint -> official freeze.
+
+When Product Build applies, use its concrete extension: MVP and Golden Path -> relevant API/data contracts and stable backend/frontend boundaries -> incremental full-stack integration -> Golden-Path E2E where the selected runtime requires it -> Feature Freeze, the Product Build specialization of Solution Freeze -> local or deployed release verification. Deployment is conditional on event rules, the evaluation contract, and the selected delivery strategy. Do not add containers, queues, cloud infrastructure, or deployment complexity unless approved requirements or the chosen provider require them.
+
+Before final delivery, reconstruct enough for the human to explain the problem, requirements, architecture, artifact or runtime, important interfaces, logic, state where applicable, verification, limitations, and tradeoffs. For Product Build, this may additionally cover data model, API, services, frontend, dynamic updates, and deployment. Under strict hackathon timing, keep learning focused on major decisions, critical flows, and judge readiness rather than exhaustive theory.
 README lifecycle:
-1. Early challenge transition - after problem.md is approved, plan.md is approved, and execute.md is initialized, README.md should transition from generic-starter documentation into a challenge-specific project README. It may include project/challenge name, concise problem summary, approved MVP, Golden Path, architecture overview, tech stack, frontend/backend/persistence structure, local setup/run instructions, environment variables, migration commands, test commands, and current implementation status. Do not claim planned but unimplemented features as completed.
-2. Final README reconciliation - once Golden Path implementation is stable, reconcile README.md against actual verified code, migrations, tests, and runtime behavior. Update implemented features, architecture, API overview where useful, setup, migrations, tests, demo flow, deployment if used, known limitations, and explicit deferrals. Remove stale generic-starter wording and inaccurate claims.
+1. Early challenge transition - after problem.md is approved, plan.md is approved, and execute.md is initialized, README.md should transition from generic-starter orientation into a challenge-specific project README. It may include the challenge summary, approved scope, selected artifact or runtime, verification, delivery path, and current implementation status. Add Product Build architecture, setup, API, migrations, and frontend details only when selected. Do not claim planned but unimplemented behavior as completed.
+2. Final README reconciliation - once the Critical Proof Path is stable, reconcile README.md against actual verified evidence. Update implemented behavior, selected architecture, setup where used, tests, delivery evidence, limitations, and deferrals. For Product Build, also reconcile Golden Path, API, migrations, runtime, and deployment where used. Remove stale generic-starter wording and inaccurate claims.
 21. Final Role Rule
 The objective of any Builder, Reviewer, or supporting agent is not to generate the most code.
 The objective is to produce the smallest correct, verified, understandable, demonstrable solution consistent with official event rules, the official challenge/problem statement, approved problem.md, and approved plan.md.
@@ -301,8 +334,8 @@ For normal implementation work:
 - One human running multiple concurrent mutable tasks uses separate branches and separate worktrees.
 - Different humans normally use separate clones.
 - Agents must inspect the current repository and approved scope before modifying files.
-- Agents must stop and escalate before silently changing architecture, public API, shared schema, invariants, major dependencies, MVP, Golden Path, another owner's scope, or approved contract.
+- Agents must stop and escalate before silently changing architecture, shared Interface / Assumption Contracts, invariants, major dependencies, Minimum Winning Scope, Critical Proof Path, another owner's scope, or approved design. Public API, shared schema, MVP, and Golden Path are Product Build examples where applicable.
 
-Merge changes shared source. It does not prove integration. After a dependency merges, affected owners must synchronize, retest, remove temporary mocks when the real dependency is available, and arrange required frontend/backend or cross-owner rendezvous and QA. CI is configured automated checking; PR Review is scope, architecture, contract, and code judgment; QA is behavioral/risk verification; E2E proves a real assembled user journey.
+Merge changes shared source. It does not prove integration. After a dependency merges, affected owners must synchronize, retest, remove temporary substitutes when the real dependency is available, and arrange required cross-owner rendezvous and QA. Frontend/API/backend integration is a Product Build example. CI is configured automated checking; PR Review is scope, architecture, contract, and code judgment; QA is behavioral/risk verification; E2E or equivalent evidence proves the required assembled claim.
 
 No destructive Git operation, history rewrite, force push, branch deletion, worktree deletion, commit, push, merge, or PR action occurs without explicit human approval.
