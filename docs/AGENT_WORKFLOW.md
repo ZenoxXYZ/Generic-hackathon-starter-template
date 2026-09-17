@@ -49,6 +49,11 @@ A workstream represents one bounded engineering objective that creates or streng
 - Specialized verification when justified
 - Release or deployment work
 
+They may also concern a model or data pipeline, benchmark harness, security
+repair, physical interface, simulation, CAD/design artifact, or hybrid
+boundary. This is not a challenge-type catalog; select only what the approved
+Challenge Profile requires.
+
 Group tightly related subtasks when they belong to one coherent engineering objective. Multiple small tasks may form one workstream and should normally receive one reconstruction. Do not make every file edit its own workstream.
 
 A vertical slice is a meaningful capability implemented and verified through every layer required for that capability. Not every slice requires every layer. A decision engine workstream may have frontend N/A. A frontend UX workstream may have backend N/A.
@@ -88,8 +93,17 @@ Before proposing a plan:
 - Inspect related tests and migrations.
 - Derive requirements from problem.md.
 - Identify relevant design decisions.
-- Identify the Golden Path relationship. Golden Path means the most important successful user journey that demonstrates the core value of the MVP.
-- Identify involved layers, dependencies, and API/data contracts affected by the capability.
+- Confirm the active workstream has enough approved design stability: Challenge
+  Profile, Minimum Winning Scope, Critical Proof Path relevance, relevant
+  Interface / Assumption Contracts, dependencies, required evidence, and exit
+  criteria. Do not require every challenge-wide detail to be finalized before a
+  bounded workstream can start.
+- Identify applicable artifacts, layers, boundaries, dependencies, and
+  contracts or assumptions affected by the capability.
+
+When Product Build applies, also identify the MVP and Golden-Path relationship,
+relevant API/data contracts, frontend/backend boundaries, and persistence
+assumptions.
 
 The plan must contain the following sections:
 Verified Current State
@@ -104,35 +118,29 @@ Which choices are ours?
 Scope
 What this workstream will implement.
 
-Golden-Path Relationship
-Whether this workstream creates, strengthens, verifies, or does not affect the MVP Golden Path.
+Critical-Proof-Path Relationship
+Whether this workstream creates, strengthens, verifies, or does not affect the Critical Proof Path.
 
 Explicit Deferrals
 What it will not implement.
 
-Entity/Data Changes
-Models, fields, and relationships affected.
-
-API Changes
-Endpoints, contracts, and status behavior.
-
 Contract Impact
-Relevant API/data contracts from plan.md, whether they are implementation-ready, and whether any material change requires propagation to backend/frontend consumers.
+Relevant Interface / Assumption Contracts, whether they are implementation-ready, and whether any material change requires approval, propagation, and updated verification.
 
 Service/Business/Decision Logic
 Computation or workflow introduced.
 
-Persistence/Migration Changes
-Database impact.
+Artifact / State / Data Impact
+Relevant model, dataset, physical, simulation, benchmark, persistence, or other artifact impact.
 
-Validation
-Required, optional, nullable, omitted, and boundary behavior.
-
-Request/Data Flow
-How the feature flows through the system.
+Integration / Rendezvous
+Applicable independently developed boundary, or N/A with rationale.
 
 Failure Behavior
 Important invalid, missing, and error cases.
+
+Product Build Extension
+When Product Build applies, record MVP and Golden-Path relevance, entity/data changes, API and schema changes, persistence/migration changes, validation semantics, request/data/UI flow, and frontend/backend contract impact.
 
 Implementation Sequence
 Meaningful engineering subtasks.
@@ -209,7 +217,7 @@ Backend-only, frontend-only, persistence-only, deployment, or verification works
 Do not add unrelated functionality.
 
 9. Execution Tracker
-Maintain execute.md as a live capability/workstream tracker derived from approved plan.md. It should answer what capability exists, which workstream is active, what blocks the Golden Path, which layer tasks remain, whether integration occurred, what evidence proves completion, what happens next, and what was deferred.
+Maintain execute.md as a live capability/workstream tracker derived from approved plan.md. It should answer what capability exists, which workstream is active, what blocks the Critical Proof Path, which applicable tasks remain, whether integration occurred, what evidence proves completion, what happens next, and what was deferred. Add Golden-Path and layer detail only when Product Build applies.
 
 Use:
 - [ ] Pending
@@ -274,19 +282,22 @@ After implementation, run relevant checks such as:
 5. API smoke tests
 6. Compile or static sanity checks
 7. Dependency consistency check
-8. Local frontend/backend integration test, where applicable
-9. Local E2E verification, when using the local release path
-10. Deployed end-to-end verification, when using the deployed release path
+8. Applicable integration or rendezvous verification
+9. Evaluation-contract-appropriate end-to-end, checker, benchmark, measurement, simulation, inspection, or equivalent proof
+10. Deployed verification when deployment is selected
 11. git diff --check
 12. git status
 
 For integration, distinguish:
-1. Contract integration - frontend expectations and backend design agree.
-2. Feature / slice integration - a real frontend capability communicates with the real corresponding backend capability.
-3. Systematic full-stack integration - the assembled Golden Path is checked and hardened across boundaries.
-4. E2E verification - a real user journey proves the system works through required layers and produces the intended outcome.
+1. Contract integration - relevant independently developed interfaces or assumptions agree.
+2. Feature / artifact integration - real dependent components, artifacts, or boundaries are exercised together.
+3. Systematic integration - the assembled Critical Proof Path is checked and hardened across applicable boundaries.
+4. End-to-end or equivalent proof - the selected runtime, checker, benchmark, measurement, simulation, inspection, or other evidence proves the required claim.
 
-Focused slice verification proves one capability. Systematic integration proves assembled boundaries cooperate. Golden-Path E2E proves the complete critical journey.
+For Product Build, these may be frontend/backend contract integration, real
+full-stack slices, systematic Golden-Path hardening, and browser E2E where the
+selected runtime requires it. Focused verification, systematic integration,
+and final proof remain distinct.
 
 Only run checks relevant to the repository. Do not claim unperformed verification. Clearly classify results as:
 - VERIFIED
@@ -294,8 +305,8 @@ Only run checks relevant to the repository. Do not claim unperformed verificatio
 - NOT VERIFIED
 - DEFERRED
 
-13. Full-Stack Verification
-When a frontend exists, verify the primary user journey:
+13. Product Build Full-Stack Verification
+When Product Build applies and a frontend exists, verify the selected primary user journey:
 
 ```text
 User
@@ -317,10 +328,21 @@ Test at minimum:
 - Major state-changing operation
 - Backend/frontend schema compatibility
 
-Systematic full-stack integration is a later hardening/reconciliation pass, not the first time frontend and backend meet. It should inspect endpoint/path mismatch, HTTP method mismatch, request-field mismatch, response-field mismatch, status/error handling, frontend API base URL, CORS, environment configuration, loading state, empty state, error state, success state, mutation/refetch behavior, stale frontend state, backend validation, persistent state, refresh/reload correctness, cross-page continuity, and Golden-Path continuity.
+Systematic full-stack integration is a later Product Build hardening/reconciliation pass, not the first time frontend and backend meet. It should inspect endpoint/path mismatch, HTTP method mismatch, request-field mismatch, response-field mismatch, status/error handling, frontend API base URL, CORS, environment configuration, loading state, empty state, error state, success state, mutation/refetch behavior, stale frontend state, backend validation, persistent state, refresh/reload correctness, cross-page continuity, and Golden-Path continuity.
 
-14. Deployment Workstream
-Deployment is a first-class Builder workstream when official rules require it, the demo needs it, or it is reliable and valuable within remaining time. Public deployment is not universally mandatory. Local integration is not deployed verification.
+14. Delivery And Deployment Workstream
+Select deployment only when event rules, the evaluation contract, or the
+selected delivery strategy require it. Public server deployment, browser
+runtime, hosted API, and production environment are not universal HADF
+requirements. A delivery workstream may instead package a checker submission,
+benchmark result, model, physical artifact, simulation, design, patch, or other
+required evidence.
+
+When Product Build deployment applies, public deployment is a first-class
+Builder workstream when official rules require it, the demo needs it, or it is
+a reliable and valuable use of remaining time. Feature Freeze is the Product
+Build specialization of universal Solution Freeze. Local integration is not
+deployed verification.
 
 The release lifecycle is:
 
@@ -343,7 +365,7 @@ local Golden-Path E2E
 -> deployed E2E
 ```
 
-Deployment workstream inputs:
+Product Build deployment workstream inputs:
 - Locally verified backend
 - Locally verified frontend, if present
 - Migrations
@@ -351,14 +373,14 @@ Deployment workstream inputs:
 - Environment requirements
 - Approved deployment design
 
-Deployment workstream outputs:
+Product Build deployment workstream outputs:
 - Public backend URL
 - Public frontend URL, if applicable
 - Hosted database
 - Applied migrations
 - Verified golden path
 
-Completion criteria:
+Product Build completion criteria:
 - Backend starts in production-like mode.
 - Health endpoint works publicly.
 - Frontend loads publicly, if present.
@@ -372,7 +394,7 @@ Completion criteria:
 
 Do not add Docker, containers, queues, cloud infrastructure, or deployment complexity unless official rules, the selected provider, the approved problem, or an approved foundation decision requires it. An approved local database Compose service is a host-run development dependency; it does not require containerizing the application or selecting a deployment architecture. Deploy the smallest architecture that reliably demonstrates the critical path.
 
-If deployment is not required or not a good tradeoff, use the local release path:
+If Product Build deployment is not required or is not a good tradeoff, use the local release path:
 
 ```text
 local Golden-Path E2E
@@ -619,7 +641,9 @@ A fresh Builder chat/session is normally responsible for one meaningful workstre
 The next meaningful workstream should normally begin in a fresh Builder context. The repository carries engineering memory across chats.
 
 26. Whole-Project Engineering Reconstruction
-After final independent review and required critical corrections, reconstruct the full project so the human can explain:
+After final independent review and required critical corrections, reconstruct the full project so the human can explain the approved challenge, Minimum Winning Scope, Critical Proof Path, Proof Package, realization boundary, workstreams, governing contracts or assumptions, artifact/runtime, verification, delivery requirements, limitations, and tradeoffs.
+
+When Product Build applies, additionally reconstruct:
 
 ```text
 problem
@@ -645,26 +669,28 @@ The goal is not memorizing every line. The goal is to understand what happens, w
 27. Hackathon Time Compression
 Under strict time limits, prioritize:
 1. Problem understanding and event-rule constraints
-2. MVP and Golden Path
-3. Master design and important contracts
-4. Backend foundation and first stable capability
-5. Frontend begins where relevant
-6. Incremental vertical integration
-7. Golden Path completion
-8. Systematic integration, selected release-path readiness, verification, and demo readiness
+2. Challenge Profile, Minimum Winning Scope, and Critical Proof Path
+3. Master design and relevant Interface / Assumption Contracts
+4. First credible artifact and required evidence
+5. Risk-driven integration or rendezvous
+6. Systematic proof, selected delivery-path readiness, verification, and demo readiness where required
 
-Compress workstreams when useful. Do not allow process documentation or long lectures to consume time needed for a working MVP. Prioritize working MVP, correctness, integration, verification, and demo readiness before documentation depth. Use the strict documentation and reconstruction modes above when appropriate.
+When Product Build applies, MVP, Golden Path, backend foundation, frontend work,
+and incremental full-stack integration are concrete ways to carry out those
+priorities.
+
+Compress workstreams when useful. Do not allow process documentation or long lectures to consume time needed for the smallest credible proof, correctness, integration, verification, and delivery readiness. Use the strict documentation and reconstruction modes above when appropriate.
 
 Near Solution Freeze or an optional Demo Freeze:
 - Stop speculative feature development.
-- Fix only issues threatening startup, primary flow, correctness, persistence, integration, selected release path, official submission requirements, or critical validation.
+- Fix only issues threatening the Critical Proof Path, required artifact, correctness, governing assumptions, integration, selected delivery path, official submission requirements, or critical validation. For Product Build, this includes startup, Golden Path, persistence, and selected runtime.
 
 28. Final Principle
 The Builder's job is not to maximize code volume.
 
-It is to convert approved requirements and design decisions into the smallest correct, verified, understandable, demonstrable MVP while leaving enough repository evidence for another fresh agent to continue safely.
+It is to convert approved requirements and design decisions into the smallest correct, verified, understandable, demonstrable solution that proves the Minimum Winning Scope while leaving enough repository evidence for another fresh agent to continue safely.
 
 29. HADF Operating References
-Use docs/core/ for project truth, decision authority, Golden Path, workstreams, contracts, and completion gates. Use docs/git/ for branch, worktree, PR, post-merge sync, conflict, and cleanup rules. Use docs/runbooks/ for workstream start, Builder launch, rendezvous, QA, E2E, and release checkpoints. Use docs/prompts/ only as reusable handoffs, not as authority over repository evidence.
+Use docs/core/ for project truth, decision authority, classification, proof, workstreams, contracts, and completion gates. Use docs/git/ for branch, worktree, PR, post-merge sync, conflict, and cleanup rules. Use docs/runbooks/ for workstream start, Builder launch, rendezvous, QA, timebox, and delivery checkpoints. When Product Build applies, also use its playbook and detailed Golden Path, API/full-stack, E2E, Feature Freeze, and deployment guidance. Use docs/prompts/ only as reusable handoffs, not as authority over repository evidence.
 
-One bounded implementation change uses one branch. One concurrent Builder uses one mutable workspace. The Builder must confirm whether the normal branch is sufficient or whether the same human's concurrent mutable work requires a dedicated worktree. Before an implementation PR is considered closed, follow the documented PR lifecycle and record post-merge synchronization, real-dependency/mock status, rendezvous, and applicable QA/E2E evidence.
+One bounded implementation change uses one branch. One concurrent Builder uses one mutable workspace. The Builder must confirm whether the normal branch is sufficient or whether the same human's concurrent mutable work requires a dedicated worktree. Before an implementation PR is considered closed, follow the documented PR lifecycle and record post-merge synchronization, real-dependency/substitute status, rendezvous, and applicable QA/evaluation evidence. For Product Build, this may include browser E2E.
