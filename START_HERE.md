@@ -14,6 +14,7 @@ Use this short route before choosing a stack, architecture, or workflow.
 
 - [Challenge Intake](docs/runbooks/CHALLENGE_INTAKE.md) for an operational intake.
 - [HADF Overview](docs/core/HADF_OVERVIEW.md) for the universal workflow.
+- [Product Build](docs/playbooks/product-build.md) when the Challenge Profile and evaluation contract indicate a user-facing product or service.
 - [README](README.md) for the included software starter and its local setup.
 
 Do not select technology or assume a product shape before the challenge profile and proof needs are understood.

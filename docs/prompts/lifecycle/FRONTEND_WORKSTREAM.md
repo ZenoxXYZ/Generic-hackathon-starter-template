@@ -1,5 +1,7 @@
 # Frontend Workstream Prompt
 
+> **Product Build specialization.** Use after the [Product Build playbook](../../playbooks/product-build.md) applies.
+
 ## Use
 
 After UI requirements and relevant backend/API contracts are approved and stable enough.

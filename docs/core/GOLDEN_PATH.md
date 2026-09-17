@@ -1,5 +1,10 @@
 # Golden Path
 
+> **Product Build specialization.** Use this guide for a user-facing product
+> or service. MVP is the Product Build application of [Minimum Winning
+> Scope](PROOF_MODEL.md); Golden Path is the Product Build application of
+> [Critical Proof Path](PROOF_MODEL.md). See the [Product Build playbook](../playbooks/product-build.md).
+
 The Golden Path is the most important successful user journey that demonstrates the core value of the MVP.
 
 Identify it during challenge intake and Master System Design. It drives MVP boundaries, workstream priority, architecture, API/data contracts, frontend views, integration order, E2E verification, demo preparation, and deferral decisions.

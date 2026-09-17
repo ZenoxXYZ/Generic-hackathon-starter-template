@@ -13,6 +13,10 @@ Before choosing a stack or assuming a product shape, begin with
 proof needs; the included FastAPI/PostgreSQL foundation remains an optional
 software-starter path, not a universal requirement.
 
+When the Challenge Profile and evaluation contract indicate a user-facing
+product or service, use the [Product Build playbook](docs/playbooks/product-build.md).
+HTTP endpoints alone do not select that specialization.
+
 ## This repository contains two things
 
 ### Included software foundation

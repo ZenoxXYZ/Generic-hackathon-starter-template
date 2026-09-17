@@ -23,7 +23,7 @@ The repository holds durable engineering memory after a chat ends: requirements,
 
 **Understand → Classify → Choose → Bound → Build → Integrate → Prove → Freeze → Submit**
 
-The classification and proof terms in this lifecycle are defined only in the canonical core guides below. Product Build work may additionally use the specialized [Golden Path](GOLDEN_PATH.md), [API Contracts](API_CONTRACTS.md), and [Full-Stack Flow](FULL_STACK_FLOW.md) guidance when those concepts apply.
+The classification and proof terms in this lifecycle are defined only in the canonical core guides below. Product Build is the first concrete specialization; use the [Product Build playbook](../playbooks/product-build.md) when the Challenge Profile and evaluation contract support it.
 
 ## Canonical Guides
 

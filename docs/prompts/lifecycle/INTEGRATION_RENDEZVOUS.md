@@ -1,5 +1,7 @@
 # Integration Rendezvous Prompt
 
+> **Product Build specialization.** See the [Product Build playbook](../../playbooks/product-build.md) for selection and routing.
+
 ## Use
 
 For Product Build frontend/backend slices after the universal rendezvous has been identified as applicable.

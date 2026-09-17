@@ -1,5 +1,8 @@
 # End-To-End Verification
 
+> **Product Build specialization.** Browser E2E is a Product Build verification
+> mechanism, not universal HADF verification. See the [Product Build playbook](../playbooks/product-build.md).
+
 Run E2E after the required capabilities assemble into the Golden Path. Use the real selected runtime path and prove the intended user outcome across required layers.
 
 ```text

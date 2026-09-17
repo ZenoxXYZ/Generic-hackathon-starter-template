@@ -1,5 +1,8 @@
 # Deployment Readiness
 
+> **Product Build specialization.** Deployment remains conditional on official
+> rules, demo needs, and time; see the [Product Build playbook](../playbooks/product-build.md).
+
 Deployment is conditional: select it only when official rules require it, the demo needs it, or it is a reliable use of remaining time. A local E2E release path is valid when those conditions do not apply.
 
 After Golden-Path assembly, systematic hardening, local E2E, and Feature Freeze, choose one path:
