@@ -23,13 +23,17 @@ challenge-specific models, tables, seed records, APIs, or frontend behavior.
 - `python -m pip check` passed.
 - Isolated SQLite migration upgrade and downgrade passed; the version table
   recorded `0001_foundation_baseline` before downgrade.
-- `docker-compose config` validated the Compose file. Local PostgreSQL cannot
-  start because this host's Docker daemon is unavailable; `docker compose` v2
-  is also unavailable here.
+- Supervisor-verified local PostgreSQL execution passed using an alternate
+  host port because native Windows PostgreSQL occupied `5432`: container
+  startup/health, host connectivity, Alembic upgrade/current, version
+  tracking, and all 6 pytest tests against PostgreSQL passed.
+- `docker-compose config` validated the Compose file. This agent environment
+  cannot access the Docker daemon, so it did not independently repeat that
+  successful local PostgreSQL run.
 
 ## Explicit Deferrals
 
-- PostgreSQL migration execution, CI execution, and real-model Alembic
-  autogeneration remain unverified at this checkpoint.
+- GitHub Actions execution, real-model Alembic autogeneration, non-trivial
+  schema migrations, and a seed-data workflow remain unverified.
 - No seed convention, domain models, product migrations, Dockerfiles,
   lockfiles, or application containers were introduced.

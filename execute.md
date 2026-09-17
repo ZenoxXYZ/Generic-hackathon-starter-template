@@ -14,7 +14,8 @@ Completion is refined as:
 
 - [x] Generic runtime foundation exists and has recorded verification evidence.
 - [x] Generic PostgreSQL Compose, Alembic-baseline, and PostgreSQL CI artifacts exist without product-domain schema.
-- [~] Local PostgreSQL migration verification awaits a host with a running Docker daemon; this host also lacks the preferred `docker compose` v2 command.
+- [x] Supervisor-verified local PostgreSQL startup, connectivity, migration upgrade/version tracking, and PostgreSQL-backed pytest passed using an alternate host port because native PostgreSQL occupied `5432`.
+- [~] GitHub Actions PostgreSQL-path execution awaits draft-PR CI evidence.
 - [?] Product-specific work requires approved `problem.md` and `plan.md`.
 
 ## Workstream Summary

@@ -247,7 +247,7 @@ Create a repository from this template when official rules allow reusable starte
 
 The application and tests run on the host. Docker Compose runs only PostgreSQL.
 
-1. Copy [.env.example](.env.example) to `.env`. Keep the supplied local values aligned, or change both the PostgreSQL variables and `DATABASE_URL` together.
+1. Copy [.env.example](.env.example) to `.env`. `POSTGRES_PORT` defaults to `5432` and is overridable; when it changes, update the port in `DATABASE_URL` to match.
 2. Start PostgreSQL and wait until its health status is healthy.
 
    ```powershell

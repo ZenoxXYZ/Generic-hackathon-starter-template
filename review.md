@@ -8,6 +8,7 @@
 - [x] Alembic is wired to SQLAlchemy metadata and requires `DATABASE_URL` before migration execution.
 - [x] The infrastructure-only Alembic baseline runs against an isolated SQLite URL and creates no product schema.
 - [x] The configured SQLAlchemy engine connectivity check passes with the SQLite fallback.
+- [x] Supervisor-verified local PostgreSQL startup, connectivity, Alembic upgrade/current, version tracking, and six pytest tests passed through an alternate host port; `POSTGRES_PORT` and `DATABASE_URL` remain intentionally aligned and overridable.
 - [x] The frontend remains an intentional placeholder.
 
 ## Quality-State Rules
@@ -25,6 +26,6 @@ Use severity `P0`, `P1`, or `P2`, and verdict `PASS`, `PASS WITH NON-BLOCKING FI
 ## Current Risks And Not Verified
 
 - Product behavior, integration, and E2E are intentionally not verified because no authoritative challenge or approved product design exists.
-- Local PostgreSQL Compose execution, PostgreSQL migration execution, and remote CI execution are not verified on this host because its Docker daemon is unavailable; the preferred `docker compose` v2 command is also unavailable.
-- This foundation does not yet verify real-model Alembic autogeneration; no mapped product models exist by design.
+- GitHub Actions execution is pending draft-PR evidence.
+- This foundation does not yet verify real-model Alembic autogeneration, non-trivial schema migrations, or a seed-data workflow; no mapped product models exist by design.
 - Future review must reconcile claims against code, tests, migrations, Git evidence, and safe runtime verification.
