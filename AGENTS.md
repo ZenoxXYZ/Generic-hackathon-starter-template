@@ -327,6 +327,8 @@ This workflow supports AI-assisted engineering when official rules permit it. Ac
 22. HADF Git and Workspace Isolation
 The repository-held HADF model is documented in docs/core/, docs/git/, docs/modes/, docs/runbooks/, and docs/prompts/. These documents complement this stable policy; they do not replace official rules, approved requirements, approved design, code, tests, migrations, or Git evidence.
 
+For an instantiated member-aware session, use the [Team Execution runbook](docs/runbooks/TEAM_EXECUTION.md) and [Member-Aware Builder prompt](docs/prompts/TEAM_BUILDER.md). `Member N` activates assignment reconstruction and planning only; it never grants implementation authority. `execute.md` remains canonical live execution state if it conflicts with a member-routing file.
+
 For normal implementation work:
 - One bounded change uses one feature branch and one PR.
 - One concurrent implementation agent uses one mutable workspace.

@@ -2,7 +2,9 @@
 
 ## Use
 
-After a meaningful workstream is implemented and verified.
+After a meaningful workstream is implemented and verified. In member-aware
+execution, this is the Feature Reconstruction: one workstream's implemented
+reality. It is distinct from final whole-project reconstruction.
 
 ```text
 Do not modify files, configuration, dependencies, migrations, tests, project-state files, commit, or push. Read AGENTS.md, the Builder workflow, approved state files, phase/review records, code, tests, migrations, configuration, and Git evidence. Teach [WORKSTREAM NAME] from actual repository evidence.

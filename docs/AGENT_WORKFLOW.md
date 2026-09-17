@@ -28,6 +28,22 @@ Do not trust execute.md or other documentation blindly. Cross-check important co
 
 If repository evidence conflicts with project-state files, do not silently choose either side. Verify the repository evidence, report the inconsistency, and correct stale documentation only after the actual state is understood. Stop before starting a new workstream when the inconsistency affects its prerequisites or scope.
 
+### Member-Aware Launch
+
+When an actual challenge repository instantiates `docs/team/MEMBER_N.md`, follow
+the [Team Execution](runbooks/TEAM_EXECUTION.md) runbook and
+[Member-Aware Builder prompt](prompts/TEAM_BUILDER.md). `Member N` activates
+assignment reconstruction, task orientation, and a Task Plan; it never permits
+editing. Read the selected routing file after the canonical project-state files.
+If it conflicts with `execute.md`, report routing drift and use `execute.md`.
+
+Reconstruct at context boundaries, not every message. After explicit Task Plan
+approval, prepare a separate Implementation Plan; after explicit implementation
+approval, work only within approved scope. The human may explicitly authorize a
+combined plan only for a genuinely tiny, low-risk task. Use Feature
+Reconstruction after the implementation report to explain one workstream's
+verified reality; it is not whole-project reconstruction.
+
 3. Determine the Next Engineering Workstream
 Use the repository sources for their distinct purposes:
 - Official event rules and organizer clarifications - competition constraints, including starter, AI, deployment, and submission/code-freeze policy
