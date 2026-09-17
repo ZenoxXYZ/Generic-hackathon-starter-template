@@ -20,29 +20,34 @@ Completion is refined as:
 
 ## Workstream Summary
 
-| ID | Objective | Status | Golden Path | Primary owner | Branch / worktree | Local / PR / CI / review | Merge / sync / QA | Next |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| WS-XX | TBD from approved plan | PLANNED | TBD | TBD | TBD | TBD | TBD | TBD |
+| ID | Objective | Status | Critical Proof Path | Primary owner | Dependencies | Verification / evidence | Next |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| WS-XX | TBD from approved plan | PLANNED | TBD | TBD | TBD | TBD | TBD |
 
 ## Workstream Card
 
 ### WS-XX — Name
 
 - **Objective:**
-- **Golden-Path relevance:**
-- **Primary owner / Backend owner / Frontend owner / QA owner / Integration owner:**
+- **Critical-Proof-Path relevance:**
+- **Primary owner:**
+- **Contributors / optional specialist owners:**
 - **Dependencies:**
-- **Approved contract:**
+- **Governing interfaces / assumptions:**
 - **Risk level:**
-- **Backend / Frontend / Persistence / Integration / Infrastructure:**
+- **Implementation / construction state:**
+- **Integration state:**
+- **Verification state:**
+- **Required evidence:**
+- **Current evidence:**
 - **Branch / worktree:**
 - **Builder / Builder status:**
 - **Local status:**
 - **PR / CI / Reviewer / Review verdict:**
-- **Merge status / Post-merge sync / Rendezvous / QA status:**
-- **Evidence:**
-- **Verification checklist:** focused tests; API/contract check; real frontend/backend request where applicable; persistence check where applicable; slice integration; Golden-Path E2E where applicable; `git diff --check`; `git status`.
+- **Merge status / synchronization / rendezvous where applicable:**
+- **Exit criteria:**
 - **Blockers:**
+- **Decision needed:**
 - **Next action:**
 - **Deferrals:**
 - **Overall status:**

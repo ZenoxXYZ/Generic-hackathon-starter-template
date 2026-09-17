@@ -1,6 +1,6 @@
 # HADF Overview
 
-HADF, the Hackathon Agentic Development Framework, is a lightweight operating model for turning an approved challenge into a small, correct, explainable MVP with humans and agents working from repository evidence.
+HADF, the Hackathon Agentic Development Framework, is a lightweight operating model for turning an approved challenge into a bounded, correct, explainable submission with humans and agents working from repository evidence.
 
 It is not a product architecture, a domain template, an AI product, or enterprise process overhead. Official event rules and the approved challenge always override this generic framework.
 
@@ -8,24 +8,31 @@ The repository holds durable engineering memory after a chat ends: requirements,
 
 ## Governing Principles
 
+- Understand official sources before selecting a solution shape.
+- Classify the challenge and evaluation contract before selecting technology or a specialized flow.
+- Bound work around required claims, interfaces, assumptions, and evidence.
 - Parallelize implementation, not architecture.
 - One bounded change uses one branch.
 - One concurrent implementation agent uses one mutable workspace.
 - Inspect before modifying; generated code is not completed work.
-- Do not silently change architecture, public API, shared schema, invariants, major dependencies, MVP, Golden Path, or another owner's scope.
-- Frontend work waits for contract clarity, not total backend completion.
+- Do not silently change material architecture, interfaces, assumptions, invariants, major dependencies, or another owner's scope.
 - Merge changes shared source; integration proves dependent components cooperate.
-- CI, PR review, QA, and E2E are distinct forms of evidence.
+- CI, PR review, QA, and E2E are distinct forms of evidence; proof is the claim-specific evidence that the selected evaluation contract requires.
+
+## Universal Lifecycle
+
+**Understand → Classify → Choose → Bound → Build → Integrate → Prove → Freeze → Submit**
+
+The classification and proof terms in this lifecycle are defined only in the canonical core guides below. Product Build work may additionally use the specialized [Golden Path](GOLDEN_PATH.md), [API Contracts](API_CONTRACTS.md), and [Full-Stack Flow](FULL_STACK_FLOW.md) guidance when those concepts apply.
 
 ## Canonical Guides
 
 - [Project truth and authority](PROJECT_TRUTH_MODEL.md)
 - [Decision authority](DECISION_AUTHORITY.md)
-- [Golden Path](GOLDEN_PATH.md)
+- [Challenge classification](CHALLENGE_CLASSIFICATION.md)
+- [Proof model](PROOF_MODEL.md)
 - [Workstreams](WORKSTREAMS.md)
-- [API contracts](API_CONTRACTS.md)
 - [Definition of Done](DEFINITION_OF_DONE.md)
 - [Git operating model](../git/GIT_MENTAL_MODEL.md)
 - [Operational runbooks](../runbooks/CHALLENGE_INTAKE.md)
-- [Full-stack flow](FULL_STACK_FLOW.md)
 - [Time-compressed operation](../runbooks/TIME_COMPRESSION.md)

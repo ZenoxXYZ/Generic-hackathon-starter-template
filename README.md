@@ -6,6 +6,13 @@ It gives a team a safe starting point before the challenge is known: technical s
 
 The repository remains challenge-neutral until the official challenge is understood and its requirements and design are approved. It is not a product or a preselected domain; it is the controlled engineering system used to build one.
 
+## Start with challenge classification
+
+Before choosing a stack or assuming a product shape, begin with
+[START_HERE.md](START_HERE.md). HADF first records the challenge profile and
+proof needs; the included FastAPI/PostgreSQL foundation remains an optional
+software-starter path, not a universal requirement.
+
 ## This repository contains two things
 
 ### Included software foundation
