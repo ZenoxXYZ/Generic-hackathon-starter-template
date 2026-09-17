@@ -62,7 +62,12 @@ is universal.
 
 Solution Freeze is the point after which new scope is normally rejected and
 effort shifts to verification, integration, evidence, submission, and critical
-fixes. Official Code Freeze and submission rules take precedence.
+fixes. Its approximate zone is selected from the approved timebox strategy;
+official Code Freeze, deadlines, and submission rules take precedence.
 
 Feature Freeze remains the Product Build specialization of Solution Freeze;
 see the [Feature Freeze runbook](../runbooks/FEATURE_FREEZE.md).
+
+Demo Freeze is optional and applies only where a live demo or presentation is
+required. It is a presentation-state freeze, not a replacement for universal
+Solution Freeze or required submission packaging.

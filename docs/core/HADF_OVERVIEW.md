@@ -23,6 +23,9 @@ The repository holds durable engineering memory after a chat ends: requirements,
 
 **Understand → Classify → Choose → Bound → Build → Integrate → Prove → Freeze → Submit**
 
+These are lifecycle functions, not fixed clock blocks. Select timing from the
+challenge and event constraints using [Timebox And Lifecycle Guidance](../runbooks/TIME_COMPRESSION.md).
+
 The classification and proof terms in this lifecycle are defined only in the canonical core guides below. Product Build is the first concrete specialization; use the [Product Build playbook](../playbooks/product-build.md) when the Challenge Profile and evaluation contract support it.
 
 ## Canonical Guides
@@ -35,4 +38,4 @@ The classification and proof terms in this lifecycle are defined only in the can
 - [Definition of Done](DEFINITION_OF_DONE.md)
 - [Git operating model](../git/GIT_MENTAL_MODEL.md)
 - [Operational runbooks](../runbooks/CHALLENGE_INTAKE.md)
-- [Time-compressed operation](../runbooks/TIME_COMPRESSION.md)
+- [Timebox and lifecycle guidance](../runbooks/TIME_COMPRESSION.md)

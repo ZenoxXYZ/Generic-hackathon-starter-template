@@ -620,14 +620,17 @@ Design-stable contracts → branches/worktrees → Builder planning → human ap
 ↓
 Parallel implementation → local verification → commit + push → PR → CI + review
 ↓
-Merge → post-merge synchronization → frontend/backend rendezvous → integrated QA
+Merge → post-merge synchronization → applicable rendezvous → integrated QA
 ↓
-Regression → Golden-Path E2E → Feature Freeze → P0/P1 corrections
+Evaluation-contract proof → Solution Freeze → P0/P1 corrections
 ↓
 Deployment decision → final independent review → README reconciliation
 ↓
-Project reconstruction → demo rehearsal → Demo Freeze → submission
+Project reconstruction → submission packaging → demo rehearsal / Demo Freeze where required → submission
 ```
+
+For Product Build work, Golden-Path E2E and Feature Freeze remain the
+specialized application of this universal sequence.
 
 Each stage creates the evidence needed for the next. A merge changes shared source; it does not by itself prove that dependent components now work together.
 
@@ -666,12 +669,12 @@ Challenge Intake
 → real setup, environment, and features
 → Integration
 → actual full-stack behavior
-→ Feature Freeze
+→ Solution Freeze / Feature Freeze for Product Build
 → supported features and limitations
 → Final Review
 → reconcile README with runtime evidence
-→ Demo Freeze
-→ lock setup and demo instructions
+→ submission packaging and optional Demo Freeze
+→ lock supported delivery instructions
 ```
 
 **README describes the system that actually exists, not the system the team originally intended to build.** See the [README lifecycle runbook](docs/runbooks/README_LIFECYCLE.md).
