@@ -33,6 +33,8 @@ separate evidence-backed gates.
 - **Critical-Proof-Path relevance:**
 - **Primary owner:**
 - **Contributors / optional specialist owners:**
+- **Integration Owner (optional):**
+- **Verification Owner (optional):**
 - **Dependencies:**
 - **Governing Interface / Assumption Contracts:** `APPROVED CONTRACT` or `PROVISIONAL ASSUMPTION` where useful.
 - **Risk level:**

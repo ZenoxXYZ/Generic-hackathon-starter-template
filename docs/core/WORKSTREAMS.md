@@ -12,6 +12,25 @@ blocker tracking, contract adherence, evidence, exit criteria, and driving
 completion. This does not mean exclusive implementation. Contributors and
 specialist owners are optional where the approved challenge needs them.
 
+## Role Allocation
+
+Choose allocation from the Challenge Profile, Minimum Winning Scope,
+workstreams, dependencies, risk, and available humans—not from team size or
+fixed software titles. The universal model is:
+
+```text
+one capability / workstream
+-> one accountable Primary Owner
+-> multiple possible contributors / specialist owners
+-> one integrated completion state
+```
+
+Optional specialist labels describe work that the challenge actually needs;
+they are not mandatory universal roles. An Integration Owner or Verification
+Owner may be named when that responsibility needs clear coordination, without
+changing the Primary Owner's accountability or creating a separate completion
+state.
+
 ## Required Workstream Record
 
 Record the objective, Critical-Proof-Path relevance, Primary Owner,
