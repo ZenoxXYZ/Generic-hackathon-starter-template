@@ -15,3 +15,7 @@ branches and worktrees only for one human's multiple simultaneous mutable
 tasks or agents; worktrees are not mandatory. Different humans normally use
 separate clones. Keep one integration owner: the human. Use short rendezvous
 checkpoints after contract or dependency merges.
+
+Member routing is optional in Solo Mode. Instantiate a routing file only when
+it materially improves fresh-session recovery or mutable-work isolation; use
+the [Team Execution](../runbooks/TEAM_EXECUTION.md) runbook when it does.
