@@ -1,7 +1,19 @@
 # Team Of Three
 
-These are Product Build allocation examples. Adapt specialist roles to the
-Challenge Profile; each workstream retains one accountable Primary Owner.
+## Coordination Pattern
+
+Adapt responsibilities to the Challenge Profile, workstreams, dependencies,
+risk, and available humans. A typical three-person pattern is lead/integration,
+capability A, and capability B plus verification. Each bounded workstream has
+one accountable Primary Owner; contributors and specialist roles remain
+optional.
+
+The lead protects shared contracts and schedules synchronization and
+rendezvous. Different humans normally use separate clones. Worktrees are only
+for one human's multiple simultaneous mutable tasks or agents; worktrees are
+not mandatory and are not a team-size practice.
+
+## Product Build Example
 
 Typical allocation: Member A leads architecture, integration, and selected backend work; Member B owns backend/data/core logic; Member C owns frontend and QA. Ownership is accountability, not a rigid wall.
 

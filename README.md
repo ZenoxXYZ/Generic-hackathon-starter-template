@@ -433,10 +433,14 @@ QA verifies persistence
 
 | Mode | Concise allocation | Detailed guide |
 | --- | --- | --- |
-| Solo | Human owns architecture, integration, and release; agents provide bounded support | [Solo](docs/modes/SOLO.md) |
-| 2-member | A leads architecture/backend/integration; B leads frontend/UX/QA/E2E | [Team of 2](docs/modes/TEAM_2.md) |
-| 3-member | A leads architecture/integration; B owns backend/data; C owns frontend/QA | [Team of 3](docs/modes/TEAM_3.md) |
-| 4-member | A integrates; B owns backend/data; C owns frontend; D owns QA/reliability | [Team of 4](docs/modes/TEAM_4.md) |
+| Solo | Human remains accountable; separate Builder, review, and verification passes where practical | [Solo](docs/modes/SOLO.md) |
+| 2-member | Lead/integration + capabilities and verification, selected by challenge needs | [Team of 2](docs/modes/TEAM_2.md) |
+| 3-member | Lead/integration + capability A + capability B/verification | [Team of 3](docs/modes/TEAM_3.md) |
+| 4-member | Lead/integration + capability A + capability B + verification/quality | [Team of 4](docs/modes/TEAM_4.md) |
+
+These are coordination patterns, not fixed software-role templates. Each guide
+retains a concrete Product Build backend/frontend/data/QA allocation as an
+example when that specialization applies.
 
 ## How the agentic workflow works
 

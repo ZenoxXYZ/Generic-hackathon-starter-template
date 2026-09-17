@@ -1,7 +1,19 @@
 # Team Of Four
 
-These are Product Build allocation examples. Adapt specialist roles to the
-Challenge Profile; each workstream retains one accountable Primary Owner.
+## Coordination Pattern
+
+Adapt responsibilities to the Challenge Profile, workstreams, dependencies,
+risk, and available humans. A typical four-person pattern is lead/integration,
+capability A, capability B, and verification/quality. Each bounded workstream
+has one accountable Primary Owner; contributors and specialist roles remain
+optional.
+
+The integrator coordinates shared boundaries and dependency order. Different
+humans normally use separate clones. Worktrees are only for one human's
+multiple simultaneous mutable tasks or agents; worktrees are not mandatory
+and are not a team-size practice.
+
+## Product Build Example
 
 Typical allocation: Member A is technical lead/integrator; B owns backend/data/core logic; C owns frontend/UX/client integration; D owns QA/reliability. All remain responsible for reviewing shared decisions.
 
