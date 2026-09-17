@@ -30,10 +30,12 @@ challenge-specific models, tables, seed records, APIs, or frontend behavior.
 - `docker-compose config` validated the Compose file. This agent environment
   cannot access the Docker daemon, so it did not independently repeat that
   successful local PostgreSQL run.
+- Draft PR #3 CI passed its PostgreSQL readiness, Alembic upgrade, and pytest
+  job.
 
 ## Explicit Deferrals
 
-- GitHub Actions execution, real-model Alembic autogeneration, non-trivial
-  schema migrations, and a seed-data workflow remain unverified.
+- Real-model Alembic autogeneration, non-trivial schema migrations, and a
+  seed-data workflow remain unverified.
 - No seed convention, domain models, product migrations, Dockerfiles,
   lockfiles, or application containers were introduced.
