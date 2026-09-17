@@ -13,6 +13,9 @@ Completion is refined as:
 ## Current Foundation State
 
 - [x] Generic runtime foundation exists and has recorded verification evidence.
+- [x] Generic PostgreSQL Compose, Alembic-baseline, and PostgreSQL CI artifacts exist without product-domain schema.
+- [x] Supervisor-verified local PostgreSQL startup, connectivity, migration upgrade/version tracking, and PostgreSQL-backed pytest passed using an alternate host port because native PostgreSQL occupied `5432`.
+- [x] Draft PR #3 CI passed its PostgreSQL readiness, migration-upgrade, and pytest path.
 - [?] Product-specific work requires approved `problem.md` and `plan.md`.
 
 ## Workstream Summary

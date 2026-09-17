@@ -370,7 +370,7 @@ Completion criteria:
 - State persists in the hosted database.
 - Golden demo flow passes end to end.
 
-Do not add Docker, containers, queues, cloud infrastructure, or deployment complexity unless official rules, the selected provider, or the approved problem requires it. Deploy the smallest architecture that reliably demonstrates the critical path.
+Do not add Docker, containers, queues, cloud infrastructure, or deployment complexity unless official rules, the selected provider, the approved problem, or an approved foundation decision requires it. An approved local database Compose service is a host-run development dependency; it does not require containerizing the application or selecting a deployment architecture. Deploy the smallest architecture that reliably demonstrates the critical path.
 
 If deployment is not required or not a good tradeoff, use the local release path:
 

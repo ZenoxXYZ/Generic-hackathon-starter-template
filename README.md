@@ -128,7 +128,7 @@ This repository is useful for:
 - solo hackathon developers;
 - small hackathon teams;
 - students learning backend and project workflow;
-- developers using Codex or other coding agents;
+- developers using coding agents;
 - teams that want AI assistance without losing architecture and control; and
 - engineers who want a reusable project-control template.
 
@@ -139,7 +139,7 @@ This repository is useful for:
 | Backend | FastAPI |
 | Validation | Pydantic |
 | ORM | SQLAlchemy |
-| Database | SQLite fallback / PostgreSQL-ready |
+| Database | SQLite fallback / local PostgreSQL development path |
 | Migrations | Alembic |
 | Testing | pytest + httpx |
 | CI | GitHub Actions |
@@ -156,11 +156,11 @@ This repository is useful for:
 | API framework | FastAPI with `GET /` health endpoint |
 | Configuration | Environment-driven `DATABASE_URL` with a safe fallback |
 | Database access | SQLAlchemy engine, session factory, base, and dependency helper |
-| Migration system | Alembic environment under `migrations/` |
+| Migration system | Alembic environment with an infrastructure-only baseline |
 | Default development DB | In-memory SQLite fallback |
-| Production-ready DB direction | PostgreSQL through `psycopg` and `DATABASE_URL` |
-| Testing | pytest + httpx application/configuration tests |
-| CI | `.github/workflows/ci.yml` runs the test suite on Python 3.12 |
+| PostgreSQL development | Optional host-run PostgreSQL through Compose and `DATABASE_URL` |
+| Testing | pytest + httpx application/configuration/database-connectivity tests |
+| CI | Python 3.12 runs PostgreSQL readiness, migration upgrade, then tests |
 | Frontend | Placeholder only; no framework or UI selected |
 
 The starter intentionally contains no product-specific routers, services, entities, domain tables, authentication, business rules, or real frontend behavior. Those are introduced only after the challenge is understood and the design is approved.
@@ -207,7 +207,7 @@ A **route** receives an HTTP request, a **schema** validates/serializes the requ
 
 Create a repository from this template when official rules allow reusable starter code, then clone it.
 
-1. Create and activate a virtual environment. It isolates this project’s Python packages.
+1. Use Python 3.12, then create and activate a virtual environment. It isolates this project’s Python packages.
 
    **Windows PowerShell**
 
@@ -229,7 +229,7 @@ Create a repository from this template when official rules allow reusable starte
    python -m pip install -r requirements.txt
    ```
 
-3. Run the automated foundation tests.
+3. Run the automated foundation tests. Without `DATABASE_URL`, the database-connectivity check uses the in-memory SQLite fallback.
 
    ```powershell
    python -m pytest
@@ -243,7 +243,30 @@ Create a repository from this template when official rules allow reusable starte
 
 5. Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/). The health endpoint should return `{"status":"ok"}`.
 
-`DATABASE_URL` is optional for this health-only foundation. Use the placeholders in [.env.example](.env.example) only when approved persistence work requires a real database. Alembic migrations require `DATABASE_URL`; never run them against a real database without explicit approval.
+### Optional local PostgreSQL foundation
+
+The application and tests run on the host. Docker Compose runs only PostgreSQL.
+
+1. Copy [.env.example](.env.example) to `.env`. `POSTGRES_PORT` defaults to `5432` and is overridable; when it changes, update the port in `DATABASE_URL` to match.
+2. Start PostgreSQL and wait until its health status is healthy.
+
+   ```powershell
+   docker compose up -d
+   docker compose ps
+   ```
+
+3. Set the same URL in the host shell before running Alembic, pytest, or FastAPI.
+
+   ```powershell
+   $env:DATABASE_URL = "postgresql+psycopg://hadf:hadf_local_password@127.0.0.1:5432/hadf_dev"
+   python -m alembic upgrade head
+   python -m pytest
+   uvicorn backend.main:app --reload
+   ```
+
+The initial Alembic revision is infrastructure-only: it creates no product tables and is immutable after merge. It proves migration execution on a fresh database, not real-model autogeneration. Future challenge-specific models must be registered in `backend.models` and added through new revisions. `DATABASE_URL` remains optional for the health-only SQLite fallback. Never run migrations against a real database without explicit approval.
+
+When several clones or worktrees share one Docker host, optionally set a distinct `COMPOSE_PROJECT_NAME`, `POSTGRES_DB`, and `POSTGRES_PORT` in each local `.env`. Separate developers on separate machines can use the identical defaults.
 
 ## What do I do after cloning?
 

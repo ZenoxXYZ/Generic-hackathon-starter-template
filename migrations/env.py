@@ -6,6 +6,7 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import create_engine, pool
 
+import backend.models  # Registers future mapped models before metadata inspection.
 from backend.database import Base
 
 config = context.config
