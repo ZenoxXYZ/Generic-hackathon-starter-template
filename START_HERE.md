@@ -1,0 +1,19 @@
+# Start Here
+
+Use this short route before choosing a stack, architecture, or workflow.
+
+## In 10 Minutes
+
+1. Gather the official rules, challenge statement, supplied assets, and deadline.
+2. Answer: What exists already? What must change or be proved? What artifact is central? How will it be evaluated?
+3. Record what must be real, what is simulated or unavailable, and the shortest credible proof of the central claim.
+4. Write the resulting [Challenge Profile](docs/core/CHALLENGE_CLASSIFICATION.md), Minimum Winning Scope, Critical Proof Path, Proof Package, and Realization Boundary in [problem.md](problem.md), using the [Proof Model](docs/core/PROOF_MODEL.md).
+5. Continue into [plan.md](plan.md), then [execute.md](execute.md) and [review.md](review.md).
+
+## Read More Only When Needed
+
+- [Challenge Intake](docs/runbooks/CHALLENGE_INTAKE.md) for an operational intake.
+- [HADF Overview](docs/core/HADF_OVERVIEW.md) for the universal workflow.
+- [README](README.md) for the included software starter and its local setup.
+
+Do not select technology or assume a product shape before the challenge profile and proof needs are understood.

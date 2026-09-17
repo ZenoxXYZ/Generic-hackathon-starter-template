@@ -18,6 +18,8 @@ Record verified findings only. Use one classification per finding: `BUG`, `DESIG
 
 Use severity `P0`, `P1`, or `P2`, and verdict `PASS`, `PASS WITH NON-BLOCKING FINDINGS`, or `BLOCKED`.
 
+Assess each required claim against its evidence, supported scope, and stated limitations. Use the [Proof Model](docs/core/PROOF_MODEL.md); do not duplicate the complete Proof Package registry here.
+
 ## Finding Record
 
 | ID | Classification | Severity | Component | Evidence | Root cause | Fix / retest / regression | Status |
