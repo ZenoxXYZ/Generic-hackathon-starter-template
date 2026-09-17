@@ -1,5 +1,12 @@
 # Final War Room
 
-Before demo or submission, verify startup, Golden Path, core correctness, persistence/state, contracts, selected release path, critical failure behavior, evidence, known limitations, source checkpoint readiness, and official event constraints. Reconcile the README and explain the architecture, data flow, contracts, verification, tradeoffs, and fallback demo path from repository evidence.
+Before delivery, confirm the approved artifact, [Critical Proof Path](../core/PROOF_MODEL.md),
+[Proof Package](../core/PROOF_MODEL.md), [Realization Boundary](../core/PROOF_MODEL.md),
+governing contracts or assumptions, required evidence, known limitations, source
+checkpoint, and official submission rules. Use the canonical [Workstreams](../core/WORKSTREAMS.md)
+and [Definition Of Done](../core/DEFINITION_OF_DONE.md); do not add scope after
+Solution Freeze except critical fixes.
 
-Run the final independent review where practical, complete required critical corrections, reconstruct the system for human explanation, and approve internal Demo Freeze. Do not add speculative features.
+For Product Build work, additionally verify the selected runtime, Golden Path,
+and applicable E2E. Run independent review where practical, complete required
+critical corrections, and reconstruct the system for human explanation.

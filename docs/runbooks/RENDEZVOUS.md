@@ -1,17 +1,22 @@
 # Rendezvous
 
-A rendezvous is an explicit cross-owner integration checkpoint after dependent work becomes available. It is not satisfied by a merge alone.
+Use the canonical [rendezvous definition](../core/WORKSTREAMS.md). A rendezvous
+is not satisfied by a merge alone.
 
-Confirm the real contract, endpoint/path/method, request and response shapes, error behavior, configuration, state updates, persistence where relevant, and mock removal. Record whether the result is contract agreement, a real slice integration, systematic hardening, or E2E evidence.
+For an applicable rendezvous:
 
-Use this checklist where relevant:
+- [ ] Identify the independently developed boundary and accountable owners.
+- [ ] Confirm governing Interface / Assumption Contracts and any provisional assumptions.
+- [ ] Exercise the real artifact, interface, physical boundary, dataset, model, protocol, or dependency together.
+- [ ] Record the observed result, evidence, limitations, and required retest or follow-up.
 
-- [ ] Endpoint path and HTTP method agree.
-- [ ] Request fields, types, validation, and error format agree.
-- [ ] Response structure and status handling agree.
-- [ ] Client API base URL and CORS configuration are correct.
-- [ ] Loading, success, empty, validation, and server-error states are visible.
-- [ ] Mutation/refetch and stale-state behavior are correct.
-- [ ] Refresh/reload preserves required persistent state.
-- [ ] Temporary mocks are removed when the real dependency is available.
-- [ ] Browser Network evidence confirms the real request and response when a browser exists.
+Record `N/A` only when no independently developed boundary exists, with a short
+rationale in `execute.md`.
+
+## Product Build Extension
+
+For frontend-to-API work, also confirm endpoint path and HTTP method, request
+and response shapes, validation and error behavior, client configuration,
+visible loading/success/empty/error states, mutation or refresh behavior, mock
+removal, and Browser Network evidence where a browser exists. Use the
+[Full-Stack Flow](../core/FULL_STACK_FLOW.md) and [API And Data Contracts](../core/API_CONTRACTS.md) guides.

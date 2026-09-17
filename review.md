@@ -20,6 +20,11 @@ Use severity `P0`, `P1`, or `P2`, and verdict `PASS`, `PASS WITH NON-BLOCKING FI
 
 Assess each required claim against its evidence, supported scope, and stated limitations. Use the [Proof Model](docs/core/PROOF_MODEL.md); do not duplicate the complete Proof Package registry here.
 
+Review independently assesses the artifact, governing interfaces or assumptions,
+risks, verification, evidence, regressions, and exit criteria. It does not by
+itself set workstream completion; use the canonical [Workstreams](docs/core/WORKSTREAMS.md)
+and [Definition Of Done](docs/core/DEFINITION_OF_DONE.md).
+
 ## Finding Record
 
 | ID | Classification | Severity | Component | Evidence | Root cause | Fix / retest / regression | Status |

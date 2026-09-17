@@ -2,10 +2,10 @@
 
 ## Use
 
-When preparing final demonstration or delivery.
+When preparing final demonstration or delivery after Solution Freeze.
 
 ```text
-Enter STRICT HACKATHON / TIME-CONSTRAINED MODE. Read the governing documentation, official rules when supplied, approved requirements/design, project-state files, code, tests, migrations, configuration, release/deployment records, and Git evidence. Identify the Golden demo path and freeze optional feature development.
+Enter STRICT HACKATHON / TIME-CONSTRAINED MODE. Read the governing documentation, official rules when supplied, approved requirements/design, project-state files, artifact evidence, release records, and Git evidence. Confirm the selected Solution Freeze, required artifact, Critical Proof Path, Proof Package, Realization Boundary, known limitations, source checkpoint, official submission requirements, and P0/P1 blockers.
 
-Verify startup, required data/migrations, backend/frontend behavior, local integration and local E2E or deployed URLs/CORS/migrations/E2E as selected, README reconciliation, fallback demo, known limitations, Git/source checkpoint, official submission requirements, and critical validation/error behavior. Identify P0/P1 blockers. Demo Freeze is internal; official deadlines take precedence. Do not add speculative features, commit, or push. Stop for human approval.
+For Product Build work, additionally identify the Golden demo path and verify startup, data/migrations, backend/frontend behavior, local integration, and selected local or deployed E2E. Demo Freeze is internal; official deadlines take precedence. Do not add speculative features, commit, or push. Stop for human approval.
 ```

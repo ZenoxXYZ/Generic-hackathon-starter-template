@@ -2,13 +2,14 @@
 
 ## Status Model
 
-`PLANNED -> READY -> IN PROGRESS -> VERIFYING -> COMPLETE -> CLOSED`
+Use the canonical [Workstream statuses and completion gates](docs/core/DEFINITION_OF_DONE.md).
 
-Completion is refined as:
+`TODO -> IN PROGRESS -> VERIFYING -> VERIFIED`
 
-- **LOCAL COMPLETE** — approved implementation is locally finished and verified.
-- **MERGE READY** — PR, configured CI, and required review conditions are satisfied.
-- **WORKSTREAM COMPLETE** — merged, synchronized, integrated, QA-verified, and evidenced.
+`BLOCKED` and `NEEDS CLARIFICATION` may replace an active status when they
+accurately describe the current condition. Record Local Complete, Merge Ready
+where the repository workflow uses branches/PRs, and Workstream Complete as
+separate evidence-backed gates.
 
 ## Current Foundation State
 
@@ -22,7 +23,7 @@ Completion is refined as:
 
 | ID | Objective | Status | Critical Proof Path | Primary owner | Dependencies | Verification / evidence | Next |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| WS-XX | TBD from approved plan | PLANNED | TBD | TBD | TBD | TBD | TBD |
+| WS-XX | TBD from approved plan | TODO | TBD | TBD | TBD | TBD | TBD |
 
 ## Workstream Card
 
@@ -33,10 +34,10 @@ Completion is refined as:
 - **Primary owner:**
 - **Contributors / optional specialist owners:**
 - **Dependencies:**
-- **Governing interfaces / assumptions:**
+- **Governing Interface / Assumption Contracts:** `APPROVED CONTRACT` or `PROVISIONAL ASSUMPTION` where useful.
 - **Risk level:**
 - **Implementation / construction state:**
-- **Integration state:**
+- **Integration applicability / state:** Use `N/A` only with a short rationale when no independently developed boundary exists.
 - **Verification state:**
 - **Required evidence:**
 - **Current evidence:**
