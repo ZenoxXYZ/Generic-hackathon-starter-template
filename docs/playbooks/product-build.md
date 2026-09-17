@@ -37,3 +37,10 @@ the Product Build application of Critical Proof Path.
 
 The included FastAPI/PostgreSQL foundation is an optional Product Build starter
 path. It is not a universal HADF requirement.
+
+## Optional Software Starter
+
+When the approved Product Build design fits the included stack, use the
+[FastAPI/PostgreSQL starter guide](../starters/software-fastapi-postgres.md).
+The starter is a convenience, not a methodology requirement or an automatic
+choice for every Product Build challenge.

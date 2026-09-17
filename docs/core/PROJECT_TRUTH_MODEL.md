@@ -22,6 +22,16 @@ For implemented state, use code, tests, migrations, Git state/history, and safe 
 
 If sources conflict, inspect the implementation evidence, report the inconsistency, and correct summaries only after the actual state is understood.
 
+## Active Truth And Historical Evidence
+
+Root project records, code, tests, migrations, runtime checks, and Git state
+are active project truth or active implementation evidence. They are not
+historical merely because the repository began as a starter.
+
+`docs/phases/` and `docs/reviews/` are historical implementation and review
+evidence. They provide context and learning history, but do not replace active
+root records or current repository evidence for onboarding or decisions.
+
 ## Four States
 
 1. **Design state** — `problem.md`, `plan.md`, and approved contracts.
