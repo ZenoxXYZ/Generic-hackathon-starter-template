@@ -26,6 +26,20 @@ file does not exist, stop and report that member routing has not been
 instantiated. If routing conflicts with `execute.md`, `execute.md` wins:
 report routing drift and do not guess or silently reconcile it.
 
+## Optional Relay and Dedicated QA
+
+Teams may use the optional [Supervisor–Builder Relay](SUPERVISOR_BUILDER_RELAY.md)
+when a separate Supervisor Agent prepares and reconciles a Builder handoff. It
+does not change `Member N`, planning or approval gates, `execute.md` authority,
+or the canonical completion model. A Builder still independently inspects
+repository and Git reality before final branch or workspace actions.
+
+For independent PR discovery, review, QA-queue reconstruction, or post-merge
+integration requests, use the [Dedicated QA Reviewer prompt](../prompts/QA_REVIEWER.md)
+with the canonical Reviewer workflow. A QA/review responsibility may be
+cross-cutting; member reassignment still updates `execute.md` and routing before
+a fresh `Member N` reconstruction.
+
 ## Activation and Context
 
 On activation, read:

@@ -44,6 +44,12 @@ combined plan only for a genuinely tiny, low-risk task. Use Feature
 Reconstruction after the implementation report to explain one workstream's
 verified reality; it is not whole-project reconstruction.
 
+Teams that choose a separate Supervisor Agent may use the optional
+[Supervisor–Builder Relay](runbooks/SUPERVISOR_BUILDER_RELAY.md). It adds
+handoff and reconciliation mechanics without changing the Builder's independent
+repository inspection, human approval gates, `execute.md` authority, or the
+canonical completion model.
+
 3. Determine the Next Engineering Workstream
 Use the repository sources for their distinct purposes:
 - Official event rules and organizer clarifications - competition constraints, including starter, AI, deployment, and submission/code-freeze policy
