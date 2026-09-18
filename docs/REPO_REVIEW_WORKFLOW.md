@@ -48,6 +48,14 @@ Apply the two-axis model in AGENTS.md: use official event rules/clarifications, 
 
 Reconstruct state from evidence. Do not assume project-state files are accurate.
 
+### Dedicated QA Session Entry Point
+
+A dedicated Reviewer / QA Agent / Integration Lead session may use the
+[Dedicated QA Reviewer prompt](prompts/QA_REVIEWER.md) to activate PR discovery,
+QA-queue reconstruction, PR-ready handoffs, or applicable post-merge review.
+That prompt routes work here: this workflow remains canonical for independent,
+read-only-first review behavior, findings, severity, and review status.
+
 4. Identify Review Scope
 Determine the most recently completed meaningful workstream from:
 - Git history

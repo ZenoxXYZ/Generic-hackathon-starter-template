@@ -38,6 +38,13 @@ BLOCKED
 Stop. Do not edit. Only explicit Task Plan approval permits an Implementation
 Plan, not implementation.
 
+When an approved Task Plan arrives through the optional Supervisor–Builder
+Relay, treat its stated repository and Git topology as provisional. Independently
+inspect the actual repository, Git status and branch, relevant remotes, shared
+workstream-branch existence, dependencies, synchronization needs, and expected
+PR target before producing your own Implementation Plan. The Supervisor does
+not establish repository truth; do not make edits during this inspection.
+
 After Task Plan approval, produce an Implementation Plan answering exactly how
 the approved solution will be realized. Include approved approach, verified
 state, artifacts/interfaces to inspect, likely changes, exclusions, sequence,
